@@ -427,7 +427,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = YM9SVS2V7Q;
+				DEVELOPMENT_TEAM = K8WJKQA676;
 				INFOPLIST_FILE = Inspectron2.0/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "it.domenicocaliendo.Inspectron2-0";
@@ -442,7 +442,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = YM9SVS2V7Q;
+				DEVELOPMENT_TEAM = K8WJKQA676;
 				INFOPLIST_FILE = Inspectron2.0/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "it.domenicocaliendo.Inspectron2-0";
