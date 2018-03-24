@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" systemVersion="17A277" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -9,16 +13,60 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Inspectron2_0" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NWn-Lx-CCE">
+                                <rect key="frame" x="0.0" y="64" width="375" height="543"/>
+                            </imageView>
+                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CR4-WT-FcK">
+                                <rect key="frame" x="0.0" y="607" width="375" height="60"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="c2y-xy-aR4"/>
+                                </constraints>
+                                <items>
+                                    <tabBarItem title="Automatic" id="Mej-kB-kTi"/>
+                                    <tabBarItem title="Resistor" id="paH-xa-abp"/>
+                                    <tabBarItem title="SMD" id="peg-vo-BKg"/>
+                                    <tabBarItem title="Settings" id="7WR-Q7-Vs2"/>
+                                </items>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tabBar>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WB7-ZK-jnU">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <items>
+                                    <navigationItem title="Inspectron 2.0" id="gHh-rV-3F3">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="wOM-wE-5de"/>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="CR4-WT-FcK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="0W8-Gj-I2Y"/>
+                            <constraint firstItem="WB7-ZK-jnU" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="6bm-g2-8Vv"/>
+                            <constraint firstItem="CR4-WT-FcK" firstAttribute="top" secondItem="NWn-Lx-CCE" secondAttribute="bottom" id="CF3-eF-5Gd"/>
+                            <constraint firstItem="NWn-Lx-CCE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="JGS-7w-rES"/>
+                            <constraint firstItem="WB7-ZK-jnU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="O8z-wj-LZj"/>
+                            <constraint firstItem="NWn-Lx-CCE" firstAttribute="top" secondItem="WB7-ZK-jnU" secondAttribute="bottom" id="Yhx-Jw-UDC"/>
+                            <constraint firstItem="NWn-Lx-CCE" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="ZgK-vC-vFi"/>
+                            <constraint firstItem="WB7-ZK-jnU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ghf-xL-v57"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="CR4-WT-FcK" secondAttribute="bottom" id="h2J-bV-pd4"/>
+                            <constraint firstItem="CR4-WT-FcK" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="vUd-gD-tjz"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <connections>
+                        <outlet property="Camera" destination="NWn-Lx-CCE" id="GnL-uL-x5F"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="32.799999999999997" y="33.733133433283363"/>
         </scene>
     </scenes>
 </document>
