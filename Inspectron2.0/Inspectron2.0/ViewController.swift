@@ -14,15 +14,11 @@ import AVFoundation // Framework, cercare uso.
 
 class ViewController: UIViewController {
 
-    var captureSession: AVCaptureSession? //Avvia sessione fotocamera con tutti i dispositivi I/O Audio Video
+    var captureSession: AVCaptureSession? //avvia sessione fotocamera con tutti i dispositivi I/O Audio Video
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?  //inizializzo due variabili da poter riutilizzare nel codice. Aiuta a renderizzare il cameraViewFinder nella View Controller
     var inputCamera: AVCaptureInput?
     
-    
-@IBOutlet weak var Camera: UIImageView! // Collegato a UIImageView
-        
-        
-    
+@IBOutlet weak var Camera: UIImageView! //collegato a UIImageView
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,11 +27,10 @@ class ViewController: UIViewController {
         do{
         inputCamera = try AVCaptureDeviceInput(device: captureDevice!)
         }catch{
-            print(error)
+            print("Can't connect to the camera: \(error)")
         }
         
-        
-        captureSession = AVCaptureSession() // Inizializza la variabile di CaptureSession (Coordina stream di coordinate e dati di immagine
+        captureSession = AVCaptureSession() //inizializza la variabile di CaptureSession (Coordina stream di coordinate e dati di immagine
         captureSession?.addInput(inputCamera!)
         
         videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession!)
@@ -43,7 +38,7 @@ class ViewController: UIViewController {
         
         //videoPreviewLayer?.frame = self.Camera!.layer.bounds
         self.Camera?.layer.addSublayer(self.videoPreviewLayer!)
-        self.videoPreviewLayer?.frame = UIScreen.main.bounds // quello che ci ha salvato la vita con la dimensione della fotocamera
+        self.videoPreviewLayer?.frame = UIScreen.main.bounds //quello che ci ha salvato la vita con la dimensione della fotocamera
         
         captureSession?.startRunning()
         
