@@ -66,6 +66,7 @@
                     </view>
                     <connections>
                         <outlet property="Camera" destination="NWn-Lx-CCE" id="GnL-uL-x5F"/>
+                        <outlet property="zoom" destination="NWn-Lx-CCE" id="Gt0-4B-l3B"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

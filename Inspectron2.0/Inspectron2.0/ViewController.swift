@@ -45,10 +45,34 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-
+    @IBOutlet weak var zoom: UIImageView!
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let screenSize = Camera.bounds.size //dimensioni cornice
+        
+        if let tounchPoint = touches.first {
+            let x = tounchPoint.location(in: Camera).x / screenSize.width
+            let y = 1.0 - tounchPoint.location(in: Camera).y / screenSize.height
+            let focusPoint = CGPoint (x: x, y: y)
+            
+            let captureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) //Imposta il device di acquisizione
+            if let device = captureDevice {
+                do{
+                    try device.lockForConfiguration()
+                    device.focusPointOfInterest = focusPoint
+                    device.focusMode = .autoFocus
+                    device.exposurePointOfInterest = focusPoint
+                    device.exposureMode = AVCaptureDevice.ExposureMode.continuousAutoExposure
+                    device.unlockForConfiguration()
+                } catch { /*nothing*/ }
+                
+            }
+        }
     }
     
    
