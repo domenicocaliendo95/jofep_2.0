@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Automatic Recognition-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Inspectron2_0" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Automatic Recognition" id="BYZ-38-t0r" customClass="ViewController" customModule="Inspectron2_0" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -21,6 +21,9 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NWn-Lx-CCE">
                                 <rect key="frame" x="0.0" y="64" width="375" height="543"/>
                                 <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="Tcl-Ov-ZlA" appends="YES" id="SPo-RO-vTe"/>
+                                </connections>
                             </imageView>
                             <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CR4-WT-FcK">
                                 <rect key="frame" x="0.0" y="607" width="375" height="60"/>
@@ -67,6 +70,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <pinchGestureRecognizer id="Tcl-Ov-ZlA">
+                    <connections>
+                        <action selector="pinchToZoom:" destination="BYZ-38-t0r" id="pRz-zn-rQW"/>
+                    </connections>
+                </pinchGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="32.799999999999997" y="33.733133433283363"/>
         </scene>

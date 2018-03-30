@@ -51,8 +51,10 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         viewWillAppear(true)//animated true
         viewDidAppear(true)//animated true
+        Camera.isUserInteractionEnabled=true  // Grazie a максимальний комп'ютер
         
     }//fine viewDidLoad
     
@@ -61,7 +63,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         // Dispose of any resources that can be recreated.
     }
     
-    /*
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let screenSize = Camera.bounds.size //dimensioni cornice
         
@@ -71,24 +73,26 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             let focusPoint = CGPoint (x: x, y: y)
             
             //let captureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) //Imposta il device di acquisizione
-            if let device = captureDevice {
+           
                 do{
-                    try device.lockForConfiguration()
-                    device.focusPointOfInterest = focusPoint
-                    device.focusMode = .autoFocus
-                    device.exposurePointOfInterest = focusPoint
-                    device.exposureMode = AVCaptureDevice.ExposureMode.continuousAutoExposure
-                    device.unlockForConfiguration()
+                    try captureDevice.lockForConfiguration()
+                    captureDevice.focusPointOfInterest = focusPoint
+                    captureDevice.focusMode = .autoFocus
+                    captureDevice.exposurePointOfInterest = focusPoint
+                    captureDevice.exposureMode = AVCaptureDevice.ExposureMode.continuousAutoExposure
+                    captureDevice.unlockForConfiguration()
                 } catch { /*nothing*/ }
                 
-            }
+            
         }
     }
  
     
-    @IBAction func pinchZoom(_ sender: UIPinchGestureRecognizer) {
+
  
- 
+    @IBAction func pinchToZoom(_ sender: UIPinchGestureRecognizer) {
+       
+    
         do{
             try captureDevice.lockForConfiguration()//richiede l'accesso alla camera, restituisce un valore true se il lock è stato acquisito
             switch sender.state {
@@ -136,11 +140,13 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             }
         }
         
- */
+ 
 
 }//fine class ViewController
 
     
-    
+
+
+//тупий, хто читає
     
 
