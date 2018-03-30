@@ -2,47 +2,57 @@
 //  ViewController.swift
 //  Inspectron2.0
 //
-//  Created by Caliendo Domenico on 24/03/18.
-//  Copyright © 2018 Caliendo Domenico. All rights reserved.
+//  Created by Caliendo Domenico & Gemito Gennaro on 24/03/18.
+//  Copyright © 2018 Caliendo Domenico & Gemito Gennaro. All rights reserved.
 //
 
 import UIKit
-import AVFoundation // Framework, cercare uso.
+import AVFoundation //Framework, cercare uso.
 import Vision
 import CoreImage
 
-
 class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
 
-    var captureSession: AVCaptureSession?//avvia sessione fotocamera con tutti i dispositivi I/O Audio Video
-    var videoPreviewLayer: AVCaptureVideoPreviewLayer?//inizializzo due variabili da poter riutilizzare nel codice. Aiuta a renderizzare il cameraViewFinder nella View Controller
-    var inputCamera: AVCaptureInput?
-    private var captureDevice: AVCaptureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)!//Imposta il device di acquisizione
-    var pivotPinchScale: CGFloat!
+@IBOutlet weak var Camera: UIImageView!//collegamento a UIImageView
+    
+    var videoPreviewLayer: AVCaptureVideoPreviewLayer?//vedo l'acquisizione della fotocamera nel mio ViewController
+    var captureSession: AVCaptureSession!//avvia la fotocamera, cattura le immagini
+    var inputCamera: AVCaptureDeviceInput!
+    var pivotPinchScale: CGFloat!//fattore di zoom
+    var captureDevice: AVCaptureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)!//Imposta il device di acquisizione
 
     
-@IBOutlet weak var Camera: UIImageView! //collegato a UIImageView
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         do{
-        inputCamera = try AVCaptureDeviceInput(device: captureDevice)
+            inputCamera = try AVCaptureDeviceInput(device: captureDevice)
         }catch{
-            print("Can't connect to the camera: \(error)")
+            print(error)
         }
         
-        captureSession = AVCaptureSession() //inizializza la variabile di CaptureSession (Coordina stream di coordinate e dati di immagine
+        captureSession = AVCaptureSession()//inizializza la variabile di CaptureSession
         captureSession?.addInput(inputCamera!)
         
         videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession!)
         videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
         
-        //videoPreviewLayer?.frame = self.Camera!.layer.bounds
         self.Camera?.layer.addSublayer(self.videoPreviewLayer!)
-        self.videoPreviewLayer?.frame = UIScreen.main.bounds //quello che ci ha salvato la vita con la dimensione della fotocamera
-        
         captureSession?.startRunning()
+        
+    }//fine viewWillAppear
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        videoPreviewLayer!.frame = UIScreen.main.bounds
+    }//fine viewDidAppear
+ 
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        viewWillAppear(true)//animated true
+        viewDidAppear(true)//animated true
         
     }//fine viewDidLoad
     
@@ -74,11 +84,11 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             }
         }
     }
- */
+ 
     
     @IBAction func pinchZoom(_ sender: UIPinchGestureRecognizer) {
-        
-        /*
+ 
+ 
         do{
             try captureDevice.lockForConfiguration()//richiede l'accesso alla camera, restituisce un valore true se il lock è stato acquisito
             switch sender.state {
@@ -92,7 +102,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                 self.pivotPinchScale = captureDevice.videoZoomFactor
             }
             captureDevice.unlockForConfiguration()
-        } catch { /*lo ignora*/ }*/
+        } catch { /*lo ignora*/ }
         
         let minimumZoom: CGFloat = 1.0
         let maximumZoom: CGFloat = 3.0
@@ -126,8 +136,9 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             }
         }
         
- 
-    }
+ */
+
+}//fine class ViewController
 
     
     
