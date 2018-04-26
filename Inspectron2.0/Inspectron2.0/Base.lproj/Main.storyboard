@@ -23,6 +23,8 @@
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="Tcl-Ov-ZlA" appends="YES" id="SPo-RO-vTe"/>
+                                    <outletCollection property="gestureRecognizers" destination="Kcy-MB-stp" appends="YES" id="Wrt-He-UHW"/>
+                                    <outletCollection property="gestureRecognizers" destination="SuX-dt-cKn" appends="YES" id="HJO-wV-ILP"/>
                                 </connections>
                             </imageView>
                             <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CR4-WT-FcK">
@@ -48,6 +50,17 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xfT-Ya-0qY">
+                                <rect key="frame" x="299" y="70" width="70" height="43"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="FLASH">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                                <connections>
+                                    <action selector="flashButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Wm4-hr-qGl"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
@@ -75,6 +88,16 @@
                         <action selector="pinchToZoom:" destination="BYZ-38-t0r" id="pRz-zn-rQW"/>
                     </connections>
                 </pinchGestureRecognizer>
+                <swipeGestureRecognizer direction="right" id="Kcy-MB-stp">
+                    <connections>
+                        <action selector="flashON:" destination="BYZ-38-t0r" id="g4h-EF-2Y0"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="left" id="SuX-dt-cKn">
+                    <connections>
+                        <action selector="flashOFF:" destination="BYZ-38-t0r" id="S4a-OA-9pc"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="32.799999999999997" y="33.733133433283363"/>
         </scene>

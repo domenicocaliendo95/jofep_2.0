@@ -20,6 +20,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     var inputCamera: AVCaptureDeviceInput!
     var pivotPinchScale: CGFloat!//fattore di zoom
     var captureDevice: AVCaptureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)!//Imposta il device di acquisizione
+//    var torch: Bool
 
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,7 +65,8 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     }
     
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+/*override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    print("Tap")
         let screenSize = Camera.bounds.size //dimensioni cornice
         
         if let tounchPoint = touches.first {
@@ -85,62 +87,106 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                 
             
         }
-    }
+    } */
  
     
 
  
     @IBAction func pinchToZoom(_ sender: UIPinchGestureRecognizer) {
-       
-    
-        do{
-            try captureDevice.lockForConfiguration()//richiede l'accesso alla camera, restituisce un valore true se il lock è stato acquisito
+         print("Pinch to Zoom")
+        do {
+            try captureDevice.lockForConfiguration()
             switch sender.state {
             case .began:
                 self.pivotPinchScale = captureDevice.videoZoomFactor
             case .changed:
-                var factor = self.pivotPinchScale * sender.scale
-                factor = max(1.0, min(factor, captureDevice.activeFormat.videoMaxZoomFactor))
+                var factor = self.pivotPinchScale * (sender.scale * 1.001)
+                factor = max(1, min(factor, captureDevice.activeFormat.videoMaxZoomFactor))
                 captureDevice.videoZoomFactor = factor
             default:
-                self.pivotPinchScale = captureDevice.videoZoomFactor
+                break
             }
             captureDevice.unlockForConfiguration()
-        } catch { /*lo ignora*/ }
-        
-        let minimumZoom: CGFloat = 1.0
-        let maximumZoom: CGFloat = 3.0
-        var lastZoomFactor: CGFloat = 1.0
-        
-            
-            // Return zoom value between the minimum and maximum zoom values
-            func minMaxZoom(_ factor: CGFloat) -> CGFloat {
-                return min(min(max(factor, minimumZoom), maximumZoom), captureDevice.activeFormat.videoMaxZoomFactor)
-            }
-            
-            func update(scale factor: CGFloat) {
-                do {
-                    try captureDevice.lockForConfiguration()
-                    defer { captureDevice.unlockForConfiguration() }
-                    captureDevice.videoZoomFactor = factor
-                } catch {
-                    print("\(error.localizedDescription)")
-                }
-            }
-            
-            let newScaleFactor = minMaxZoom(sender.scale * lastZoomFactor)
-            
-            switch sender.state {
-            case .began: fallthrough
-            case .changed: update(scale: newScaleFactor)
-            case .ended:
-                lastZoomFactor = minMaxZoom(newScaleFactor)
-                update(scale: lastZoomFactor)
-            default: break
-            }
+        } catch {
+            print(error)
         }
         
- 
+    }
+    
+
+    @IBAction func flashButton(_ sender: UIButton) {
+        print("Marmitta")
+        do{
+            try captureDevice.lockForConfiguration()
+        if(captureDevice.torchMode == .on){
+            captureDevice.torchMode = .off
+        }else{
+            captureDevice.torchMode = .on
+        }
+        
+        captureDevice.unlockForConfiguration()
+        }
+        catch{
+            print(error)
+        }
+        
+    }
+    
+
+ //gesture flashON -> swipe verso destra
+    @IBAction func flashON(_ sender: UISwipeGestureRecognizer) {
+        
+        if (captureDevice.hasTorch) {
+            do {
+                try captureDevice.lockForConfiguration()
+                switch sender.direction
+                {
+                case UISwipeGestureRecognizerDirection.right:
+                    print("Swipe right")
+                    captureDevice.torchMode = .on
+                    //torch = true
+                    //torchButton.setBackgroundImage(UIImage(named: "flash-on"), for: UIControlState.normal)
+                    //try captureDevice.setTorchModeOn(level: 1.0)
+                    break
+                
+                default: break
+                }
+                captureDevice.unlockForConfiguration()
+            }
+            catch {
+                print(error)
+            }
+            
+        }//fine if hasTorch
+    }//fine flashON
+    
+
+//gesture flashOFF -> swipe verso sinistra
+    @IBAction func flashOFF(_ sender: UISwipeGestureRecognizer) {
+        if (captureDevice.hasTorch) {
+            do {
+                try captureDevice.lockForConfiguration()
+                switch sender.direction
+                {
+                case UISwipeGestureRecognizerDirection.left:
+                    print("Swipe left")
+                    captureDevice.torchMode = .off
+                    //torch = false
+                    //torchButton.setBackgroundImage(UIImage(named: "flash-off"), for: UIControlState.normal)
+                    break
+                    
+                default: break
+                }
+                captureDevice.unlockForConfiguration()
+            }
+            catch {
+                print(error)
+            }
+            
+        }//fine if hasTorch
+    }//fine flashOFF
+    
+    
 
 }//fine class ViewController
 
