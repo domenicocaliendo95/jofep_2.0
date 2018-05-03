@@ -25,6 +25,33 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+         /*
+        do{
+            inputCamera = try AVCaptureDeviceInput(device: captureDevice)
+        }catch{
+            print(error)
+        }
+        
+        captureSession = AVCaptureSession()//inizializza la variabile di CaptureSession
+        captureSession?.addInput(inputCamera!)
+        
+        videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession!)
+        videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        
+        self.Camera?.layer.addSublayer(self.videoPreviewLayer!)
+        captureSession?.startRunning()
+        */
+    }//fine viewWillAppear
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        videoPreviewLayer!.frame = UIScreen.main.bounds
+    }//fine viewDidAppear
+ 
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
         do{
             inputCamera = try AVCaptureDeviceInput(device: captureDevice)
@@ -41,21 +68,11 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         self.Camera?.layer.addSublayer(self.videoPreviewLayer!)
         captureSession?.startRunning()
         
-    }//fine viewWillAppear
-    
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        videoPreviewLayer!.frame = UIScreen.main.bounds
-    }//fine viewDidAppear
- 
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
         viewWillAppear(true)//animated true
         viewDidAppear(true)//animated true
         Camera.isUserInteractionEnabled=true  // Grazie a максимальний комп'ютер
+        
+        
         
     }//fine viewDidLoad
     

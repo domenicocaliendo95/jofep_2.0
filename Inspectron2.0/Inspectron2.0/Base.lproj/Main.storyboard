@@ -10,11 +10,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Item-->
+        <!--SMD-->
         <scene sceneID="XrP-V7-2yC">
             <objects>
                 <navigationController id="bZF-Hq-sGh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="J4E-o0-bw7"/>
+                    <tabBarItem key="tabBarItem" title="SMD" id="J4E-o0-bw7"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ecz-EN-gpr">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -25,13 +25,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j5Q-xh-rsq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-815" y="276"/>
+            <point key="canvasLocation" x="-735" y="392"/>
         </scene>
-        <!--Item-->
+        <!--Info-->
         <scene sceneID="UFb-cr-w6t">
             <objects>
                 <navigationController id="RbP-ST-70T" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Zei-MJ-9G2"/>
+                    <tabBarItem key="tabBarItem" title="Info" id="Zei-MJ-9G2"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="LrK-gl-jv5">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -42,7 +42,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XZs-Pm-HCL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1903" y="684"/>
+            <point key="canvasLocation" x="-2798" y="392"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Bqi-CL-oB1">
@@ -58,13 +58,13 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k6J-Eq-kk9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1934" y="1403"/>
+            <point key="canvasLocation" x="-2799" y="1149"/>
         </scene>
-        <!--Item-->
+        <!--Resistor-->
         <scene sceneID="XoJ-ad-Mfm">
             <objects>
-                <navigationController id="mEv-LD-cWK" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="XSj-lY-Fri"/>
+                <navigationController title="Resistor" id="mEv-LD-cWK" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Resistor" id="XSj-lY-Fri"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="tP8-Dy-06Z">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -75,7 +75,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PLs-CK-Vlx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-858" y="1077"/>
+            <point key="canvasLocation" x="-1770" y="392"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="r6h-Y2-LFZ">
@@ -91,7 +91,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WCu-VH-q7X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="102" y="1076"/>
+            <point key="canvasLocation" x="-1770" y="1150"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="2j4-bo-Zj0">
@@ -107,7 +107,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MXw-Sn-VwY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="71" y="333"/>
+            <point key="canvasLocation" x="-735" y="1149"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="9Zy-Ja-fDY">
@@ -127,7 +127,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QvR-T6-t3G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1770" y="-99"/>
+            <point key="canvasLocation" x="-1770" y="-476"/>
         </scene>
         <!--Automatic Recognition-->
         <scene sceneID="tne-QT-ifu">
@@ -138,7 +138,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NWn-Lx-CCE">
-                                <rect key="frame" x="0.0" y="108" width="375" height="450"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="Tcl-Ov-ZlA" appends="YES" id="SPo-RO-vTe"/>
@@ -146,32 +146,8 @@
                                     <outletCollection property="gestureRecognizers" destination="SuX-dt-cKn" appends="YES" id="HJO-wV-ILP"/>
                                 </connections>
                             </imageView>
-                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CR4-WT-FcK">
-                                <rect key="frame" x="0.0" y="558" width="375" height="60"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="c2y-xy-aR4"/>
-                                </constraints>
-                                <items>
-                                    <tabBarItem title="Automatic" id="Mej-kB-kTi"/>
-                                    <tabBarItem title="Resistor" id="paH-xa-abp"/>
-                                    <tabBarItem title="SMD" id="peg-vo-BKg"/>
-                                    <tabBarItem title="Settings" id="7WR-Q7-Vs2"/>
-                                </items>
-                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </tabBar>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WB7-ZK-jnU">
-                                <rect key="frame" x="0.0" y="64" width="375" height="44"/>
-                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <items>
-                                    <navigationItem title="Inspectron 2.0" id="gHh-rV-3F3">
-                                        <barButtonItem key="rightBarButtonItem" systemItem="search" id="wOM-wE-5de"/>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xfT-Ya-0qY">
-                                <rect key="frame" x="299" y="70" width="70" height="43"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xfT-Ya-0qY">
+                                <rect key="frame" x="303" y="74" width="62" height="36"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="FLASH">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -184,20 +160,16 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="CR4-WT-FcK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="0W8-Gj-I2Y"/>
-                            <constraint firstItem="WB7-ZK-jnU" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="6bm-g2-8Vv"/>
-                            <constraint firstItem="CR4-WT-FcK" firstAttribute="top" secondItem="NWn-Lx-CCE" secondAttribute="bottom" id="CF3-eF-5Gd"/>
-                            <constraint firstItem="NWn-Lx-CCE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="JGS-7w-rES"/>
-                            <constraint firstItem="WB7-ZK-jnU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="O8z-wj-LZj"/>
-                            <constraint firstItem="NWn-Lx-CCE" firstAttribute="top" secondItem="WB7-ZK-jnU" secondAttribute="bottom" id="Yhx-Jw-UDC"/>
-                            <constraint firstItem="NWn-Lx-CCE" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="ZgK-vC-vFi"/>
-                            <constraint firstItem="WB7-ZK-jnU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="ghf-xL-v57"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="CR4-WT-FcK" secondAttribute="bottom" id="h2J-bV-pd4"/>
-                            <constraint firstItem="CR4-WT-FcK" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="vUd-gD-tjz"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="NWn-Lx-CCE" secondAttribute="bottom" id="3Xs-8S-44l"/>
+                            <constraint firstItem="xfT-Ya-0qY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="FzL-uS-BcQ"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xfT-Ya-0qY" secondAttribute="trailing" constant="10" id="MxD-E5-D3z"/>
+                            <constraint firstItem="NWn-Lx-CCE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="O06-Uz-FWP"/>
+                            <constraint firstItem="NWn-Lx-CCE" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="hy4-Up-0Ae"/>
+                            <constraint firstItem="NWn-Lx-CCE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="nef-ea-i2s"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
-                    <navigationItem key="navigationItem" id="arz-XJ-4R1"/>
+                    <navigationItem key="navigationItem" title="Inspectron 2.0" id="arz-XJ-4R1"/>
                     <connections>
                         <outlet property="Camera" destination="NWn-Lx-CCE" id="GnL-uL-x5F"/>
                     </connections>
@@ -219,13 +191,13 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="103" y="-430"/>
+            <point key="canvasLocation" x="70" y="-476"/>
         </scene>
-        <!--Item-->
+        <!--Automatic-->
         <scene sceneID="lXd-kV-o4j">
             <objects>
                 <navigationController id="zsx-oF-dF0" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="Gu7-6r-219"/>
+                    <tabBarItem key="tabBarItem" title="Automatic" id="Gu7-6r-219"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="vng-4e-o1W">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
