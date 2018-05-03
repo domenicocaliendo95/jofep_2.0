@@ -44,7 +44,7 @@
             </objects>
             <point key="canvasLocation" x="-2798" y="392"/>
         </scene>
-        <!--View Controller-->
+        <!--Info-->
         <scene sceneID="Bqi-CL-oB1">
             <objects>
                 <viewController id="1ql-3Q-k3X" sceneMemberID="viewController">
@@ -54,7 +54,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="UBb-3w-3op"/>
                     </view>
-                    <navigationItem key="navigationItem" id="gCe-Hv-IHe"/>
+                    <navigationItem key="navigationItem" title="Info" id="gCe-Hv-IHe"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k6J-Eq-kk9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -77,23 +77,74 @@
             </objects>
             <point key="canvasLocation" x="-1770" y="392"/>
         </scene>
-        <!--View Controller-->
+        <!--Resistor-->
         <scene sceneID="r6h-Y2-LFZ">
             <objects>
-                <viewController id="bJh-T3-dx0" sceneMemberID="viewController">
+                <viewController id="bJh-T3-dx0" customClass="Resistor" customModule="Inspectron2_0" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="40E-bA-3MP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Resistor's Colors" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ccA-wO-nZq">
+                                <rect key="frame" x="0.0" y="125" width="375" height="21"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <color key="textColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="highlightedColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </label>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bLx-5I-E6S">
+                                <rect key="frame" x="17" y="498" width="50" height="75"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EMO-Bb-f8m">
+                                <rect key="frame" x="75" y="498" width="50" height="75"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C05-uA-A8J">
+                                <rect key="frame" x="133" y="498" width="50" height="75"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gNM-77-TZ9">
+                                <rect key="frame" x="191" y="498" width="50" height="75"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xmG-68-dPz">
+                                <rect key="frame" x="249" y="498" width="50" height="75"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SwH-OJ-0k8">
+                                <rect key="frame" x="307" y="498" width="50" height="75"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="m73-zh-Lpk">
+                                <rect key="frame" x="140" y="216" width="94" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </stepper>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ccA-wO-nZq" firstAttribute="top" secondItem="p2Y-Z2-irD" secondAttribute="top" constant="61" id="ZwD-rf-RH4"/>
+                            <constraint firstItem="ccA-wO-nZq" firstAttribute="trailing" secondItem="p2Y-Z2-irD" secondAttribute="trailing" id="hlW-By-J7g"/>
+                            <constraint firstItem="ccA-wO-nZq" firstAttribute="leading" secondItem="p2Y-Z2-irD" secondAttribute="leading" id="v8l-zh-ihR"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="p2Y-Z2-irD"/>
                     </view>
-                    <navigationItem key="navigationItem" id="v4b-YQ-Qgf"/>
+                    <navigationItem key="navigationItem" title="Resistor" id="v4b-YQ-Qgf">
+                        <barButtonItem key="backBarButtonItem" title="Indietro" id="5Sz-f0-Dpl"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="picker1" destination="bLx-5I-E6S" id="ucN-x3-vmb"/>
+                        <outlet property="picker2" destination="EMO-Bb-f8m" id="Cic-6N-AF5"/>
+                        <outlet property="picker3" destination="C05-uA-A8J" id="etO-86-Irg"/>
+                        <outlet property="picker4" destination="gNM-77-TZ9" id="Aqv-oJ-tyP"/>
+                        <outlet property="picker5" destination="xmG-68-dPz" id="uF0-Kv-U0V"/>
+                        <outlet property="picker6" destination="SwH-OJ-0k8" id="Lfa-r9-grn"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WCu-VH-q7X" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1770" y="1150"/>
+            <point key="canvasLocation" x="-1770.4000000000001" y="1149.1754122938532"/>
         </scene>
-        <!--View Controller-->
+        <!--SMD-->
         <scene sceneID="2j4-bo-Zj0">
             <objects>
                 <viewController id="aFD-b0-hAm" sceneMemberID="viewController">
@@ -103,7 +154,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="VCc-ke-0r2"/>
                     </view>
-                    <navigationItem key="navigationItem" id="IM5-Gv-4wj"/>
+                    <navigationItem key="navigationItem" title="SMD" id="IM5-Gv-4wj"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MXw-Sn-VwY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -156,6 +207,14 @@
                                     <action selector="flashButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Wm4-hr-qGl"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iq0-fH-Ovg">
+                                <rect key="frame" x="62.5" y="283.5" width="250" height="100"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="7Tb-5y-VN4"/>
+                                    <constraint firstAttribute="width" constant="250" id="Vhc-vj-kWd"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
@@ -164,6 +223,8 @@
                             <constraint firstItem="xfT-Ya-0qY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="FzL-uS-BcQ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xfT-Ya-0qY" secondAttribute="trailing" constant="10" id="MxD-E5-D3z"/>
                             <constraint firstItem="NWn-Lx-CCE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="O06-Uz-FWP"/>
+                            <constraint firstItem="iq0-fH-Ovg" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="XXh-KP-VhB"/>
+                            <constraint firstItem="iq0-fH-Ovg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gGS-51-4PK"/>
                             <constraint firstItem="NWn-Lx-CCE" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="hy4-Up-0Ae"/>
                             <constraint firstItem="NWn-Lx-CCE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="nef-ea-i2s"/>
                         </constraints>
@@ -172,6 +233,7 @@
                     <navigationItem key="navigationItem" title="Inspectron 2.0" id="arz-XJ-4R1"/>
                     <connections>
                         <outlet property="Camera" destination="NWn-Lx-CCE" id="GnL-uL-x5F"/>
+                        <outlet property="rect" destination="iq0-fH-Ovg" id="peA-WO-lHa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

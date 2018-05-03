@@ -15,6 +15,16 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
 
 @IBOutlet weak var Camera: UIImageView!//collegamento a UIImageView
     
+    @IBOutlet var rect: UIView!{
+        didSet{
+            self.rect.layer.cornerRadius = 10
+            self.rect.layer.backgroundColor = nil
+            self.rect.layer.borderColor = #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
+            self.rect.layer.borderWidth = 2
+            }
+    }
+    
+    
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?//vedo l'acquisizione della fotocamera nel mio ViewController
     var captureSession: AVCaptureSession!//avvia la fotocamera, cattura le immagini
     var inputCamera: AVCaptureDeviceInput!
@@ -82,7 +92,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     }
     
     
-/*override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     print("Tap")
         let screenSize = Camera.bounds.size //dimensioni cornice
         
@@ -104,7 +114,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                 
             
         }
-    } */
+    }
  
     
 
