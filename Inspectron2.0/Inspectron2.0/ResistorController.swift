@@ -13,6 +13,13 @@ class Resistor: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     
     
+
+    @IBAction func addRemoveBand(_ sender: UIStepper) {
+        bandsNumber.text = String(Int(sender.value))+" bands"
+        disablePickers(bands: Int(sender.value))
+    }
+    @IBOutlet var outputValue: UILabel!
+    @IBOutlet var bandsNumber: UILabel!
     @IBOutlet var picker1: UIPickerView!
     @IBOutlet var picker2: UIPickerView!
     @IBOutlet var picker3: UIPickerView!
@@ -42,6 +49,9 @@ class Resistor: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+
         
         let brown = #colorLiteral(red: 0.5616386027, green: 0.4023959335, blue: 0.2233105485, alpha: 1)
         let black = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -124,6 +134,7 @@ class Resistor: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
         
         
     }
+
     
     func valueBandFromColor (color: String) -> Int //1,2 BAND
     {
@@ -271,22 +282,29 @@ class Resistor: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
         {
             
         case "Picker1": selectedPicker1 = pickerData[row].name
+                    calculateValue()
                     print(selectedPicker1)
             self.digit1.text = valueBandFromColorString(color: selectedPicker1)
+            
         case "Picker2": selectedPicker2 = pickerData[row].name
                     print(selectedPicker2)
+                    calculateValue()
 //            self.digit1.text = valueBandFromColorString(color: selectedPicker1)
         case "Picker3": selectedPicker3 = pickerData[row].name
                     print(selectedPicker3)
+                    calculateValue()
 //            self.digit1.text = selectedPicker3
         case "Picker4": selectedPicker4 = pickerDataMultiplier[row].name
                     print(selectedPicker4)
+                    calculateValue()
 //            self.digit1.text = selectedPicker4
         case "Picker5": selectedPicker5 = pickerDataTolerance[row].name
                     print(selectedPicker5)
+                    calculateValue()
 //            self.digit1.text = selectedPicker5
         case "Picker6": selectedPicker6 = pickerDataTCR[row].name
                     print(selectedPicker6)
+                    calculateValue()
 //            self.digit1.text = selectedPicker6
         default:
             //            print("error")
@@ -299,19 +317,7 @@ class Resistor: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
         let myTitle = NSAttributedString(string: titleData, attributes: [NSAttributedStringKey.font:UIFont(name: "Georgia", size: 26.0)!,NSAttributedStringKey.foregroundColor:UIColor.blue])
         return myTitle
     }
-    /* less conservative memory version
-     func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
-     let pickerLabel = UILabel()
-     let titleData = pickerData[row]
-     let myTitle = NSAttributedString(string: titleData, attributes: [NSFontAttributeName:UIFont(name: "Georgia", size: 26.0)!,NSForegroundColorAttributeName:UIColor.blackColor()])
-     pickerLabel.attributedText = myTitle
-     //color  and center the label's background
-     let hue = CGFloat(row)/CGFloat(pickerData.count)
-     pickerLabel.backgroundColor = UIColor(hue: hue, saturation: 1.0, brightness:1.0, alpha: 1.0)
-     pickerLabel.textAlignment = .Center
-     return pickerLabel
-     }
-     */
+
     
     /* better memory management version */
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
@@ -347,7 +353,79 @@ class Resistor: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
         return 200
     }
+    
+    
+    func disablePickers(bands: Int){
+        if(bands == 6){
+            picker6.isHidden = false
+            picker3.isHidden = false
+            picker5.isHidden = false
+            resetPickers()
+        }
+        if(bands == 5){
+            picker6.isHidden = true
+            picker3.isHidden = false
+            picker5.isHidden = false
+            resetPickers()
 
+        }
+        if(bands == 4){
+            picker6.isHidden = true
+            picker3.isHidden = true
+            picker5.isHidden = false
+            resetPickers()
+        }
+        if(bands == 3){
+            picker6.isHidden = true
+            picker3.isHidden = true
+            picker5.isHidden = true
+            resetPickers()
+        }
+    }
+    
+    func resetPickers(){
+        selectedPicker1.removeAll()
+        picker1.selectRow(0, inComponent: 0, animated: true)
+        selectedPicker2.removeAll()
+        picker2.selectRow(0, inComponent: 0, animated: true)
+        selectedPicker3.removeAll()
+        picker3.selectRow(0, inComponent: 0, animated: true)
+        selectedPicker4.removeAll()
+        picker4.selectRow(0, inComponent: 0, animated: true)
+        selectedPicker5.removeAll()
+        picker5.selectRow(0, inComponent: 0, animated: true)
+        selectedPicker6.removeAll()
+        picker6.selectRow(0, inComponent: 0, animated: true)
+        calculateValue()
+    }
+    
+    func calculateValue(){
+        let band1 = valueBandFromColor(color: selectedPicker1)
+        let band2 = valueBandFromColor(color: selectedPicker2)
+        let band3 = valueBandFromColor(color: selectedPicker3)
+        let band4 = valueMultiplierFromColor(color: selectedPicker4)
+        let band5 = valueToleranceFromColor(color: selectedPicker5)
+        let band6 = valueTCRFromColor(color: selectedPicker6)
+        
+                let n = Double ("\(band1)\(band2)\(band3)")!
+                let finalVal = n*band4
+        if (finalVal < 1000)
+        {
+            outputValue.text = String (format: "%g", finalVal) + " Ω \(band5)"
+        }
+        else
+            if (finalVal >= 1000) && (finalVal < 1000000)
+            {
+                outputValue.text = String (format: "%g", finalVal/1000) + " KΩ \(band5)"
+            }
+            else
+                if (finalVal >= 1000000)
+                {
+                    outputValue.text = String (format: "%g", finalVal/1000000) + " MΩ \(band5)"
+        }
+    }
+
+    
 
 
 }

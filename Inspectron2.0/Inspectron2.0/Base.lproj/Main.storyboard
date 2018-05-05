@@ -169,9 +169,11 @@
                                     </pickerView>
                                 </subviews>
                             </stackView>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="m73-zh-Lpk">
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="6" minimumValue="3" maximumValue="6" translatesAutoresizingMaskIntoConstraints="NO" id="m73-zh-Lpk">
                                 <rect key="frame" x="140" y="216" width="94" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="addRemoveBand:" destination="bJh-T3-dx0" eventType="valueChanged" id="unY-SW-rQe"/>
+                                </connections>
                             </stepper>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="D1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nio-TC-OwN">
                                 <rect key="frame" x="26" y="473" width="50" height="25"/>
@@ -245,22 +247,44 @@
                                     <color key="highlightedColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </variation>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 Ω, 0%, 0ppm/C° " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KSx-ws-IAS">
+                                <rect key="frame" x="97" y="322" width="180" height="26.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6 bands" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QJ1-MG-cv8">
+                                <rect key="frame" x="166" y="178.5" width="42" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="nio-TC-OwN" firstAttribute="leading" secondItem="40E-bA-3MP" secondAttribute="leadingMargin" constant="10" id="5DN-aP-2uq"/>
+                            <constraint firstItem="m73-zh-Lpk" firstAttribute="centerX" secondItem="QJ1-MG-cv8" secondAttribute="centerX" id="5Rg-Ov-p3R"/>
+                            <constraint firstItem="m73-zh-Lpk" firstAttribute="top" secondItem="QJ1-MG-cv8" secondAttribute="bottom" constant="17" id="Bex-fL-ZH6"/>
+                            <constraint firstItem="m73-zh-Lpk" firstAttribute="top" secondItem="40E-bA-3MP" secondAttribute="top" constant="216" id="CP2-SA-1Y3"/>
+                            <constraint firstItem="KSx-ws-IAS" firstAttribute="top" secondItem="m73-zh-Lpk" secondAttribute="bottom" constant="77" id="JkM-26-tzw"/>
                             <constraint firstItem="JFd-GJ-Oro" firstAttribute="leading" secondItem="1tX-LH-kvi" secondAttribute="trailing" constant="5" id="NZW-Zg-lRp"/>
                             <constraint firstItem="hmH-H9-qNf" firstAttribute="leading" secondItem="JFd-GJ-Oro" secondAttribute="trailing" constant="5" id="Ord-AO-3dG"/>
+                            <constraint firstItem="QJ1-MG-cv8" firstAttribute="leading" secondItem="p2Y-Z2-irD" secondAttribute="leading" constant="166" id="Uuv-RB-d4t"/>
                             <constraint firstItem="1tX-LH-kvi" firstAttribute="leading" secondItem="7L4-Sd-47w" secondAttribute="trailing" constant="5" id="X0V-4B-Zcm"/>
                             <constraint firstItem="GCl-jY-VuI" firstAttribute="leading" secondItem="hmH-H9-qNf" secondAttribute="trailing" constant="5" id="XJ4-cX-3SE"/>
                             <constraint firstItem="9Bd-3j-A9M" firstAttribute="centerX" secondItem="40E-bA-3MP" secondAttribute="centerX" id="Ys4-2R-HFf"/>
                             <constraint firstItem="ccA-wO-nZq" firstAttribute="top" secondItem="p2Y-Z2-irD" secondAttribute="top" constant="20" id="ZwD-rf-RH4"/>
                             <constraint firstItem="p2Y-Z2-irD" firstAttribute="bottom" secondItem="9Bd-3j-A9M" secondAttribute="bottom" constant="45" id="bBo-Be-k4M"/>
+                            <constraint firstItem="p2Y-Z2-irD" firstAttribute="trailing" secondItem="KSx-ws-IAS" secondAttribute="trailing" constant="98" id="e6q-zz-Oi2"/>
                             <constraint firstItem="ccA-wO-nZq" firstAttribute="trailing" secondItem="p2Y-Z2-irD" secondAttribute="trailing" id="hlW-By-J7g"/>
+                            <constraint firstItem="KSx-ws-IAS" firstAttribute="leading" secondItem="p2Y-Z2-irD" secondAttribute="leading" constant="97" id="nVz-Es-Dmm"/>
+                            <constraint firstItem="KSx-ws-IAS" firstAttribute="top" secondItem="m73-zh-Lpk" secondAttribute="bottom" constant="77" id="oCH-bB-fDy"/>
                             <constraint firstItem="hmH-H9-qNf" firstAttribute="leading" secondItem="JFd-GJ-Oro" secondAttribute="trailing" constant="5" id="q1v-7G-ykK"/>
                             <constraint firstItem="JFd-GJ-Oro" firstAttribute="leading" secondItem="1tX-LH-kvi" secondAttribute="trailing" constant="5" id="uCD-SL-15Z"/>
                             <constraint firstItem="ccA-wO-nZq" firstAttribute="leading" secondItem="p2Y-Z2-irD" secondAttribute="leading" id="v8l-zh-ihR"/>
                             <constraint firstItem="GCl-jY-VuI" firstAttribute="leading" secondItem="hmH-H9-qNf" secondAttribute="trailing" constant="5" id="x2J-hn-fG7"/>
+                            <constraint firstItem="p2Y-Z2-irD" firstAttribute="trailing" secondItem="QJ1-MG-cv8" secondAttribute="trailing" constant="167" id="y1r-cz-eVw"/>
+                            <constraint firstItem="m73-zh-Lpk" firstAttribute="top" secondItem="QJ1-MG-cv8" secondAttribute="bottom" constant="17" id="zDH-T3-5po"/>
                             <constraint firstItem="7L4-Sd-47w" firstAttribute="leading" secondItem="nio-TC-OwN" secondAttribute="trailing" constant="5" id="zhg-kg-69Y"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="p2Y-Z2-irD"/>
@@ -269,7 +293,9 @@
                         <barButtonItem key="backBarButtonItem" title="Indietro" id="5Sz-f0-Dpl"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="bandsNumber" destination="QJ1-MG-cv8" id="Uvr-RJ-wf6"/>
                         <outlet property="digit1" destination="hSV-5s-3Eq" id="tbf-m7-Ow1"/>
+                        <outlet property="outputValue" destination="KSx-ws-IAS" id="n9z-J8-lw0"/>
                         <outlet property="picker1" destination="bLx-5I-E6S" id="ucN-x3-vmb"/>
                         <outlet property="picker2" destination="EMO-Bb-f8m" id="Cic-6N-AF5"/>
                         <outlet property="picker3" destination="C05-uA-A8J" id="etO-86-Irg"/>
