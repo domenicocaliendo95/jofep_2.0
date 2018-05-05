@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -86,107 +87,148 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Resistor's Colors" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ccA-wO-nZq">
-                                <rect key="frame" x="0.0" y="125" width="375" height="21"/>
+                                <rect key="frame" x="0.0" y="84" width="375" height="20.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <color key="textColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="highlightedColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </label>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bLx-5I-E6S">
-                                <rect key="frame" x="17" y="498" width="50" height="75"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <accessibility key="accessibilityConfiguration" identifier="Picker1"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="bJh-T3-dx0" id="5gO-BN-jmB"/>
-                                    <outlet property="delegate" destination="bJh-T3-dx0" id="B04-yU-xjB"/>
-                                </connections>
-                            </pickerView>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EMO-Bb-f8m">
-                                <rect key="frame" x="75" y="498" width="50" height="75"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <accessibility key="accessibilityConfiguration" identifier="Picker2"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="bJh-T3-dx0" id="MHD-VQ-fwb"/>
-                                    <outlet property="delegate" destination="bJh-T3-dx0" id="5D7-Eb-GZP"/>
-                                </connections>
-                            </pickerView>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C05-uA-A8J">
-                                <rect key="frame" x="133" y="498" width="50" height="75"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <accessibility key="accessibilityConfiguration" identifier="Picker3"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="bJh-T3-dx0" id="QwW-E7-EPC"/>
-                                    <outlet property="delegate" destination="bJh-T3-dx0" id="NrN-V6-Bzk"/>
-                                </connections>
-                            </pickerView>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gNM-77-TZ9">
-                                <rect key="frame" x="191" y="498" width="50" height="75"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <accessibility key="accessibilityConfiguration" identifier="Picker4"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="bJh-T3-dx0" id="laC-Aq-t6z"/>
-                                    <outlet property="delegate" destination="bJh-T3-dx0" id="Ks8-0r-2Mv"/>
-                                </connections>
-                            </pickerView>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xmG-68-dPz">
-                                <rect key="frame" x="249" y="498" width="50" height="75"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <accessibility key="accessibilityConfiguration" identifier="Picker5"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="bJh-T3-dx0" id="3Kv-YV-VHg"/>
-                                    <outlet property="delegate" destination="bJh-T3-dx0" id="E3f-ay-UrN"/>
-                                </connections>
-                            </pickerView>
-                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SwH-OJ-0k8">
-                                <rect key="frame" x="307" y="498" width="50" height="75"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <accessibility key="accessibilityConfiguration" identifier="Picker6"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="bJh-T3-dx0" id="fno-Ss-W2f"/>
-                                    <outlet property="delegate" destination="bJh-T3-dx0" id="93x-ei-MVx"/>
-                                </connections>
-                            </pickerView>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="9Bd-3j-A9M" userLabel="Stack View ColorPicker">
+                                <rect key="frame" x="20" y="498" width="335" height="75"/>
+                                <subviews>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bLx-5I-E6S">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="75"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="Picker1"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="75" id="GIg-P6-YvX"/>
+                                            <constraint firstAttribute="width" constant="50" id="H7j-G0-5Qf"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="dataSource" destination="bJh-T3-dx0" id="5gO-BN-jmB"/>
+                                            <outlet property="delegate" destination="bJh-T3-dx0" id="B04-yU-xjB"/>
+                                        </connections>
+                                    </pickerView>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EMO-Bb-f8m">
+                                        <rect key="frame" x="57" y="0.0" width="50" height="75"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="Picker2"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="75" id="9O1-r7-FT5"/>
+                                            <constraint firstAttribute="width" constant="50" id="Ks9-yS-n1o"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="dataSource" destination="bJh-T3-dx0" id="MHD-VQ-fwb"/>
+                                            <outlet property="delegate" destination="bJh-T3-dx0" id="5D7-Eb-GZP"/>
+                                        </connections>
+                                    </pickerView>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C05-uA-A8J">
+                                        <rect key="frame" x="114" y="0.0" width="50" height="75"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="Picker3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="75" id="gBM-wk-6iC"/>
+                                            <constraint firstAttribute="width" constant="50" id="xn9-Oc-RkD"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="dataSource" destination="bJh-T3-dx0" id="QwW-E7-EPC"/>
+                                            <outlet property="delegate" destination="bJh-T3-dx0" id="NrN-V6-Bzk"/>
+                                        </connections>
+                                    </pickerView>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gNM-77-TZ9">
+                                        <rect key="frame" x="171" y="0.0" width="50" height="75"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="Picker4"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="k3D-uB-P5f"/>
+                                            <constraint firstAttribute="height" constant="75" id="txC-Gf-SLy"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="dataSource" destination="bJh-T3-dx0" id="laC-Aq-t6z"/>
+                                            <outlet property="delegate" destination="bJh-T3-dx0" id="Ks8-0r-2Mv"/>
+                                        </connections>
+                                    </pickerView>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xmG-68-dPz">
+                                        <rect key="frame" x="228" y="0.0" width="50" height="75"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="Picker5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="75" id="FYT-7T-33d"/>
+                                            <constraint firstAttribute="width" constant="50" id="HGk-g3-gEi"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="dataSource" destination="bJh-T3-dx0" id="3Kv-YV-VHg"/>
+                                            <outlet property="delegate" destination="bJh-T3-dx0" id="E3f-ay-UrN"/>
+                                        </connections>
+                                    </pickerView>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SwH-OJ-0k8">
+                                        <rect key="frame" x="285" y="0.0" width="50" height="75"/>
+                                        <accessibility key="accessibilityConfiguration" identifier="Picker6"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="aMd-dD-9yn"/>
+                                            <constraint firstAttribute="height" constant="75" id="waV-PW-8gm"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="dataSource" destination="bJh-T3-dx0" id="fno-Ss-W2f"/>
+                                            <outlet property="delegate" destination="bJh-T3-dx0" id="93x-ei-MVx"/>
+                                        </connections>
+                                    </pickerView>
+                                </subviews>
+                            </stackView>
                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="m73-zh-Lpk">
                                 <rect key="frame" x="140" y="216" width="94" height="29"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </stepper>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="D1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nio-TC-OwN">
-                                <rect key="frame" x="32" y="470" width="20" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="D1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nio-TC-OwN">
+                                <rect key="frame" x="26" y="473" width="50" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="MJ6-RL-aTZ"/>
+                                    <constraint firstAttribute="width" constant="50" id="hSp-eV-EzP"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="D2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7L4-Sd-47w">
-                                <rect key="frame" x="89" y="470" width="22" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="D2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7L4-Sd-47w">
+                                <rect key="frame" x="81" y="473" width="50" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="9Yp-bc-xea"/>
+                                    <constraint firstAttribute="width" constant="50" id="Goa-Pc-eon"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="D3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1tX-LH-kvi">
-                                <rect key="frame" x="147" y="470" width="23" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="D3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1tX-LH-kvi">
+                                <rect key="frame" x="136" y="473" width="50" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="UQk-Lu-BKD"/>
+                                    <constraint firstAttribute="height" constant="25" id="atp-eC-Ez2"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="10^X" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JFd-GJ-Oro">
-                                <rect key="frame" x="181" y="470" width="71" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="10^X" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JFd-GJ-Oro">
+                                <rect key="frame" x="191" y="473" width="50" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="Ri1-95-q5t"/>
+                                    <constraint firstAttribute="width" constant="50" id="wg4-KG-ODC"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hmH-H9-qNf">
-                                <rect key="frame" x="237" y="469" width="75" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hmH-H9-qNf">
+                                <rect key="frame" x="246" y="473" width="50" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="00f-A6-kzn"/>
+                                    <constraint firstAttribute="height" constant="25" id="YFI-Y8-qP4"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="TCR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GCl-jY-VuI">
-                                <rect key="frame" x="316" y="469" width="33" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="TCR" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GCl-jY-VuI">
+                                <rect key="frame" x="301" y="473" width="50" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="IPF-c4-mHF"/>
+                                    <constraint firstAttribute="width" constant="50" id="yeW-ln-yBo"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -206,9 +248,20 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="ccA-wO-nZq" firstAttribute="top" secondItem="p2Y-Z2-irD" secondAttribute="top" constant="61" id="ZwD-rf-RH4"/>
+                            <constraint firstItem="nio-TC-OwN" firstAttribute="leading" secondItem="40E-bA-3MP" secondAttribute="leadingMargin" constant="10" id="5DN-aP-2uq"/>
+                            <constraint firstItem="JFd-GJ-Oro" firstAttribute="leading" secondItem="1tX-LH-kvi" secondAttribute="trailing" constant="5" id="NZW-Zg-lRp"/>
+                            <constraint firstItem="hmH-H9-qNf" firstAttribute="leading" secondItem="JFd-GJ-Oro" secondAttribute="trailing" constant="5" id="Ord-AO-3dG"/>
+                            <constraint firstItem="1tX-LH-kvi" firstAttribute="leading" secondItem="7L4-Sd-47w" secondAttribute="trailing" constant="5" id="X0V-4B-Zcm"/>
+                            <constraint firstItem="GCl-jY-VuI" firstAttribute="leading" secondItem="hmH-H9-qNf" secondAttribute="trailing" constant="5" id="XJ4-cX-3SE"/>
+                            <constraint firstItem="9Bd-3j-A9M" firstAttribute="centerX" secondItem="40E-bA-3MP" secondAttribute="centerX" id="Ys4-2R-HFf"/>
+                            <constraint firstItem="ccA-wO-nZq" firstAttribute="top" secondItem="p2Y-Z2-irD" secondAttribute="top" constant="20" id="ZwD-rf-RH4"/>
+                            <constraint firstItem="p2Y-Z2-irD" firstAttribute="bottom" secondItem="9Bd-3j-A9M" secondAttribute="bottom" constant="45" id="bBo-Be-k4M"/>
                             <constraint firstItem="ccA-wO-nZq" firstAttribute="trailing" secondItem="p2Y-Z2-irD" secondAttribute="trailing" id="hlW-By-J7g"/>
+                            <constraint firstItem="hmH-H9-qNf" firstAttribute="leading" secondItem="JFd-GJ-Oro" secondAttribute="trailing" constant="5" id="q1v-7G-ykK"/>
+                            <constraint firstItem="JFd-GJ-Oro" firstAttribute="leading" secondItem="1tX-LH-kvi" secondAttribute="trailing" constant="5" id="uCD-SL-15Z"/>
                             <constraint firstItem="ccA-wO-nZq" firstAttribute="leading" secondItem="p2Y-Z2-irD" secondAttribute="leading" id="v8l-zh-ihR"/>
+                            <constraint firstItem="GCl-jY-VuI" firstAttribute="leading" secondItem="hmH-H9-qNf" secondAttribute="trailing" constant="5" id="x2J-hn-fG7"/>
+                            <constraint firstItem="7L4-Sd-47w" firstAttribute="leading" secondItem="nio-TC-OwN" secondAttribute="trailing" constant="5" id="zhg-kg-69Y"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="p2Y-Z2-irD"/>
                     </view>
