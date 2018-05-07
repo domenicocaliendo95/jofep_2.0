@@ -506,42 +506,54 @@ class Resistor: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     func disablePickers(bands: Int){
         
-            //if solo per outputTCR
-        //
-        //
-        //
+            //controllo outputTCR e outputTolerance
             if(bands == 6){
-                
                     self.outputTCR.alpha = 0
                     self.outputTCR.isHidden = false
                     
-                    UIView.animate(withDuration: 0.3, animations: {
+                    UIView.animate(withDuration: 0.5, animations: {
                         self.outputTCR.alpha = 1
                     }, completion: {
                         finished in
                         self.outputTCR.isHidden = false
                     })
-            }//fine if 6 effetto dissolvenza
+            }//fine if 6 bande
             
             if(bands == 5){
-                
                 self.outputTCR.alpha = 1
                 
-                UIView.animate(withDuration: 0.3, animations: {
+                UIView.animate(withDuration: 0.25, animations: {
                     self.outputTCR.alpha = 0
                 }, completion: {
                     finished in
                     self.outputTCR.isHidden = true
                 })
-            }//fine band 5 effetto dissolvenza
+            }//fine if 5 bande
+            
+            if(bands == 4){
+                self.outputTCR.isHidden = true
+                self.outputTolerance.isHidden = false
+                //self.outputTolerance.alpha = 0
+
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.outputTolerance.alpha = 1
+                }, completion: {
+                    finished in
+                    self.outputTolerance.isHidden = false
+                })
+            }//fine if 4 bande
             
             if(bands == 3){
-            self.outputTCR.isHidden = true
-            }
-            
-            if(bands == 3){
-            self.outputTCR.isHidden = true
-            }
+                self.outputTCR.isHidden = true
+                self.outputTolerance.alpha = 1
+                
+                UIView.animate(withDuration: 0.25, animations: {
+                    self.outputTolerance.alpha = 0
+                }, completion: {
+                    finished in
+                    self.outputTolerance.isHidden = true
+                })
+            }//fine if 3 bande
         
         //if per tutte le label ed etichette
         if(bands == 6){
