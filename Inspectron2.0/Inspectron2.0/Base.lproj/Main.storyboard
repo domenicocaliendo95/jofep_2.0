@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -85,7 +86,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Resistor's Colors" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ccA-wO-nZq">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Colors" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ccA-wO-nZq">
                                 <rect key="frame" x="0.0" y="84" width="375" height="24"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                                 <color key="textColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -355,9 +356,19 @@
                                     </label>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scroll through the colors to select different values and tap the middle button to change the number of colored bands." textAlignment="center" lineBreakMode="clip" numberOfLines="3" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ycO-Vu-hOo">
+                                <rect key="frame" x="5" y="113" width="365" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="AOl-HG-fHO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="ycO-Vu-hOo" firstAttribute="centerX" secondItem="40E-bA-3MP" secondAttribute="centerX" id="0s8-ea-qJ2"/>
                             <constraint firstItem="m73-zh-Lpk" firstAttribute="top" secondItem="QJ1-MG-cv8" secondAttribute="bottom" constant="15" id="1JE-rF-p4s"/>
                             <constraint firstItem="QJ1-MG-cv8" firstAttribute="centerX" secondItem="40E-bA-3MP" secondAttribute="centerX" id="5E0-9s-Tpi"/>
                             <constraint firstItem="m73-zh-Lpk" firstAttribute="centerX" secondItem="QJ1-MG-cv8" secondAttribute="centerX" id="5Rg-Ov-p3R"/>
@@ -373,8 +384,11 @@
                             <constraint firstItem="ccA-wO-nZq" firstAttribute="top" secondItem="p2Y-Z2-irD" secondAttribute="top" constant="20" id="ZwD-rf-RH4"/>
                             <constraint firstItem="p2Y-Z2-irD" firstAttribute="bottom" secondItem="9Bd-3j-A9M" secondAttribute="bottom" constant="75" id="bBo-Be-k4M"/>
                             <constraint firstItem="xdC-sw-05x" firstAttribute="centerX" secondItem="40E-bA-3MP" secondAttribute="centerX" id="c2W-BN-Dma"/>
+                            <constraint firstItem="ycO-Vu-hOo" firstAttribute="top" secondItem="ccA-wO-nZq" secondAttribute="bottom" constant="5" id="eK3-vc-Tcs"/>
                             <constraint firstItem="9Bd-3j-A9M" firstAttribute="top" secondItem="SHs-8C-JLt" secondAttribute="bottom" id="gFW-1v-bl5"/>
                             <constraint firstItem="ccA-wO-nZq" firstAttribute="trailing" secondItem="p2Y-Z2-irD" secondAttribute="trailing" id="hlW-By-J7g"/>
+                            <constraint firstItem="ycO-Vu-hOo" firstAttribute="leading" secondItem="40E-bA-3MP" secondAttribute="leading" constant="5" id="ixg-eo-8ka"/>
+                            <constraint firstAttribute="trailing" secondItem="ycO-Vu-hOo" secondAttribute="trailing" constant="5" id="mii-aM-GZB"/>
                             <constraint firstItem="ccA-wO-nZq" firstAttribute="leading" secondItem="p2Y-Z2-irD" secondAttribute="leading" id="v8l-zh-ihR"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="p2Y-Z2-irD"/>
@@ -405,6 +419,7 @@
                         <outlet property="picker4" destination="gNM-77-TZ9" id="Aqv-oJ-tyP"/>
                         <outlet property="picker5" destination="xmG-68-dPz" id="uF0-Kv-U0V"/>
                         <outlet property="picker6" destination="SwH-OJ-0k8" id="Lfa-r9-grn"/>
+                        <outlet property="upperText" destination="ycO-Vu-hOo" id="ysh-YA-EVI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WCu-VH-q7X" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -414,18 +429,73 @@
         <!--SMD-->
         <scene sceneID="2j4-bo-Zj0">
             <objects>
-                <viewController id="aFD-b0-hAm" sceneMemberID="viewController">
+                <viewController id="aFD-b0-hAm" customClass="SMD" customModule="Inspectron2_0" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="msx-kr-5pZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select Code" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="haI-QA-ZyK">
+                                <rect key="frame" x="16" y="84" width="343" height="24"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                <color key="textColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="highlightedColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="tGw-UG-kyJ" userLabel="Stack View Picker">
+                                <rect key="frame" x="27" y="468" width="321" height="75"/>
+                                <subviews>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="15W-j4-k3h" userLabel="Picker 1">
+                                        <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="75" id="VbE-F0-U7M"/>
+                                            <constraint firstAttribute="height" constant="75" id="dzr-RF-k92"/>
+                                        </constraints>
+                                    </pickerView>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mhl-Ti-1sF" userLabel="Picker 2">
+                                        <rect key="frame" x="82" y="0.0" width="75" height="75"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="75" id="SAS-j0-pjJ"/>
+                                            <constraint firstAttribute="height" constant="75" id="XUU-bV-dTj"/>
+                                        </constraints>
+                                    </pickerView>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vub-4U-fMm" userLabel="Picker 3">
+                                        <rect key="frame" x="164" y="0.0" width="75" height="75"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="75" id="LCF-u2-Ps3"/>
+                                            <constraint firstAttribute="width" constant="75" id="ybw-KR-nFi"/>
+                                        </constraints>
+                                    </pickerView>
+                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MoO-WY-HqQ" userLabel="Picker 4">
+                                        <rect key="frame" x="246" y="0.0" width="75" height="75"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="75" id="Hko-bc-TM6"/>
+                                            <constraint firstAttribute="width" constant="75" id="Xb1-Yx-98o"/>
+                                        </constraints>
+                                    </pickerView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="haI-QA-ZyK" secondAttribute="trailing" id="1be-ZU-g87"/>
+                            <constraint firstItem="VCc-ke-0r2" firstAttribute="bottom" secondItem="tGw-UG-kyJ" secondAttribute="bottom" constant="75" id="77q-xA-GCV"/>
+                            <constraint firstItem="tGw-UG-kyJ" firstAttribute="centerX" secondItem="msx-kr-5pZ" secondAttribute="centerX" id="7qd-xZ-tqH"/>
+                            <constraint firstItem="haI-QA-ZyK" firstAttribute="top" secondItem="VCc-ke-0r2" secondAttribute="top" constant="20" id="BBk-5k-5u3"/>
+                            <constraint firstItem="haI-QA-ZyK" firstAttribute="leading" secondItem="msx-kr-5pZ" secondAttribute="leadingMargin" id="TuP-To-a9j"/>
+                            <constraint firstItem="haI-QA-ZyK" firstAttribute="centerX" secondItem="msx-kr-5pZ" secondAttribute="centerX" id="Z9h-ZB-vg8"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="VCc-ke-0r2"/>
                     </view>
                     <navigationItem key="navigationItem" title="SMD" id="IM5-Gv-4wj"/>
+                    <connections>
+                        <outlet property="picker1" destination="15W-j4-k3h" id="0u9-tT-X5p"/>
+                        <outlet property="picker2" destination="Mhl-Ti-1sF" id="wjW-02-gdv"/>
+                        <outlet property="picker3" destination="Vub-4U-fMm" id="urT-4n-Zn4"/>
+                        <outlet property="picker4" destination="MoO-WY-HqQ" id="p2N-qr-aa2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MXw-Sn-VwY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-735" y="1149"/>
+            <point key="canvasLocation" x="-735.20000000000005" y="1148.2758620689656"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="9Zy-Ja-fDY">
@@ -435,6 +505,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                <color key="value" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="unselectedTintColor">
+                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </tabBar>
                     <connections>
                         <segue destination="zsx-oF-dF0" kind="relationship" relationship="viewControllers" id="KqL-XN-o7w"/>
@@ -540,4 +618,5 @@
             <point key="canvasLocation" x="-735" y="-476"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

@@ -11,6 +11,7 @@ import UIKit
 
 class Resistor: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
+
     //seleziona numero di bande premendo +/-
     @IBAction func addRemoveBand(_ sender: UIStepper) {
         
@@ -35,6 +36,9 @@ class Resistor: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     @IBOutlet var outputValue: UILabel!
     @IBOutlet var bandsNumber: UILabel!
     @IBOutlet var outputTCR: UILabel!
+    @IBOutlet var upperText: UILabel!
+    
+    
     
     //picker
     @IBOutlet var picker1: UIPickerView!
@@ -114,7 +118,6 @@ class Resistor: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
         self.labelTCR.layer.borderColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)//labelTCR bordo arancione
         self.labelTCR.layer.borderWidth = 1//labelTCR spessore bordo
         
-
         //colori
         let brown =  #colorLiteral(red: 0.5616386027, green: 0.4023959335, blue: 0.2233105485, alpha: 1)
         let black =  #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -130,6 +133,11 @@ class Resistor: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
         let red =    #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
 
         picker1.tintColor=UIColor.clear
+        picker2.tintColor=UIColor.clear
+        picker3.tintColor=UIColor.clear
+        picker4.tintColor=UIColor.clear
+        picker5.tintColor=UIColor.clear
+        picker6.tintColor=UIColor.clear
         
         //set color selected to default
         selectedPicker1 = "Black"
@@ -688,6 +696,5 @@ class Resistor: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
     
 
-
-}
+}//fine class resistor
 
