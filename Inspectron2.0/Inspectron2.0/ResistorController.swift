@@ -32,6 +32,7 @@ class Resistor: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
        
     }
     
+    @IBOutlet var addRemoveBand: UIStepper!
     @IBOutlet var outputTolerance: UILabel!
     @IBOutlet var outputValue: UILabel!
     @IBOutlet var bandsNumber: UILabel!
@@ -117,6 +118,10 @@ class Resistor: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
         self.labelTCR.layer.cornerRadius = 3//labelTCR arrotondata
         self.labelTCR.layer.borderColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)//labelTCR bordo arancione
         self.labelTCR.layer.borderWidth = 1//labelTCR spessore bordo
+        
+        self.addRemoveBand.layer.shadowRadius = 2
+        self.addRemoveBand.layer.shadowOpacity = 0.2
+        self.addRemoveBand.layer.shadowOffset = CGSize(width: 2, height: 2)
         
         //colori
         let brown =  #colorLiteral(red: 0.5616386027, green: 0.4023959335, blue: 0.2233105485, alpha: 1)
