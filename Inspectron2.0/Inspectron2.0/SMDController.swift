@@ -11,6 +11,10 @@ import UIKit
 
 class SMD: UIViewController, UITextFieldDelegate{
     
+    @IBOutlet var error_label: UILabel!
+    
+
+    
     @IBOutlet var field1: UITextField!
     @IBOutlet var field2: UITextField!
     @IBOutlet var field3: UITextField!
@@ -155,6 +159,71 @@ class SMD: UIViewController, UITextFieldDelegate{
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
         self.view.frame.origin.y = 0//reset keyboard height
+        
+        if(field1.text!.count > 1){
+            error_label.text = "Please insert only one letter or number!"
+         
+            field1.text?.removeAll()
+            field1.becomeFirstResponder()
+            
+        }
+        
+        if(field2.text!.count > 1){
+            let alert = UIAlertController(title: "Error", message: "Please insert only one letter or number in each text field.", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Got it!", style: .default, handler: { action in
+                switch action.style{
+                case .default: //caso standard, non eliminabile
+                    self.field2.text?.removeAll()
+                    self.field2.becomeFirstResponder()
+                case .cancel: // caso standard, non eliminabile
+                    self.field2.text?.removeAll()
+                    self.field2.becomeFirstResponder()
+                case .destructive: // caso standard, non eliminabile
+                    self.field2.text?.removeAll()
+                    self.field2.becomeFirstResponder()
+                }}))
+            self.present(alert, animated: true, completion: nil)
+            
+        }
+        
+        if(field3.text!.count > 1){
+            let alert = UIAlertController(title: "Error", message: "Please insert only one letter or number in each text field.", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Got it!", style: .default, handler: { action in
+                switch action.style{
+                case .default: //caso standard, non eliminabile
+                    self.field3.text?.removeAll()
+                    self.field3.becomeFirstResponder()
+                case .cancel: // caso standard, non eliminabile
+                    self.field3.text?.removeAll()
+                    self.field3.becomeFirstResponder()
+                case .destructive: // caso standard, non eliminabile
+                    self.field3.text?.removeAll()
+                    self.field3.becomeFirstResponder()
+                }}))
+            self.present(alert, animated: true, completion: nil)
+            
+        }
+        
+        if(field4.text!.count > 1){
+            let alert = UIAlertController(title: "Error", message: "Please insert only one letter or number in each text field.", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Got it!", style: .default, handler: { action in
+                switch action.style{
+                case .default: //caso standard, non eliminabile
+                    self.field4.text?.removeAll()
+                    self.field4.becomeFirstResponder()
+                case .cancel: // caso standard, non eliminabile
+                    self.field4.text?.removeAll()
+                    self.field4.becomeFirstResponder()
+                case .destructive: // caso standard, non eliminabile
+                    self.field4.text?.removeAll()
+                    self.field4.becomeFirstResponder()
+                }}))
+            self.present(alert, animated: true, completion: nil)
+            
+        }
+        
     }
+    
+
 }
 
