@@ -440,45 +440,70 @@
                                 <color key="textColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="highlightedColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="tGw-UG-kyJ" userLabel="Stack View Picker">
-                                <rect key="frame" x="27" y="468" width="321" height="75"/>
-                                <subviews>
-                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="15W-j4-k3h" userLabel="Picker 1">
-                                        <rect key="frame" x="0.0" y="0.0" width="75" height="75"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="75" id="VbE-F0-U7M"/>
-                                            <constraint firstAttribute="height" constant="75" id="dzr-RF-k92"/>
-                                        </constraints>
-                                    </pickerView>
-                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mhl-Ti-1sF" userLabel="Picker 2">
-                                        <rect key="frame" x="82" y="0.0" width="75" height="75"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="75" id="SAS-j0-pjJ"/>
-                                            <constraint firstAttribute="height" constant="75" id="XUU-bV-dTj"/>
-                                        </constraints>
-                                    </pickerView>
-                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vub-4U-fMm" userLabel="Picker 3">
-                                        <rect key="frame" x="164" y="0.0" width="75" height="75"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="75" id="LCF-u2-Ps3"/>
-                                            <constraint firstAttribute="width" constant="75" id="ybw-KR-nFi"/>
-                                        </constraints>
-                                    </pickerView>
-                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MoO-WY-HqQ" userLabel="Picker 4">
-                                        <rect key="frame" x="246" y="0.0" width="75" height="75"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="75" id="Hko-bc-TM6"/>
-                                            <constraint firstAttribute="width" constant="75" id="Xb1-Yx-98o"/>
-                                        </constraints>
-                                    </pickerView>
-                                </subviews>
-                            </stackView>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="av7-gC-JEU">
+                                <rect key="frame" x="183" y="348" width="133" height="118"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Picker2"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="aFD-b0-hAm" id="UYz-wH-Vrx"/>
+                                    <outlet property="delegate" destination="aFD-b0-hAm" id="NjS-y6-Ai0"/>
+                                </connections>
+                            </pickerView>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wkP-F6-bpv">
+                                <rect key="frame" x="70" y="468" width="107" height="106"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Picker3"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="aFD-b0-hAm" id="xlh-aB-Tlh"/>
+                                    <outlet property="delegate" destination="aFD-b0-hAm" id="RMc-7b-srM"/>
+                                </connections>
+                            </pickerView>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ewl-pI-4g4">
+                                <rect key="frame" x="192" y="468" width="115" height="113"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Picker4"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="aFD-b0-hAm" id="BeE-PL-fgW"/>
+                                    <outlet property="delegate" destination="aFD-b0-hAm" id="npm-AX-06F"/>
+                                </connections>
+                            </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l6g-QZ-eHB">
+                                <rect key="frame" x="43" y="154" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="four_digits_button:" destination="aFD-b0-hAm" eventType="touchUpInside" id="jCp-TO-knV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bw3-OK-NmX">
+                                <rect key="frame" x="116" y="154" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="three_digits_button:" destination="aFD-b0-hAm" eventType="touchUpInside" id="gMK-wk-UT0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GRX-nH-rq7">
+                                <rect key="frame" x="192" y="154" width="46" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="two_digits_button:" destination="aFD-b0-hAm" eventType="touchUpInside" id="kc6-Fu-jnB"/>
+                                </connections>
+                            </button>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cPH-Zf-ERb">
+                                <rect key="frame" x="70" y="356" width="92" height="110"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <accessibility key="accessibilityConfiguration" identifier="Picker1"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="aFD-b0-hAm" id="S3L-Er-9Vc"/>
+                                    <outlet property="delegate" destination="aFD-b0-hAm" id="mDi-jJ-VHj"/>
+                                </connections>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="haI-QA-ZyK" secondAttribute="trailing" id="1be-ZU-g87"/>
-                            <constraint firstItem="VCc-ke-0r2" firstAttribute="bottom" secondItem="tGw-UG-kyJ" secondAttribute="bottom" constant="75" id="77q-xA-GCV"/>
-                            <constraint firstItem="tGw-UG-kyJ" firstAttribute="centerX" secondItem="msx-kr-5pZ" secondAttribute="centerX" id="7qd-xZ-tqH"/>
                             <constraint firstItem="haI-QA-ZyK" firstAttribute="top" secondItem="VCc-ke-0r2" secondAttribute="top" constant="20" id="BBk-5k-5u3"/>
                             <constraint firstItem="haI-QA-ZyK" firstAttribute="leading" secondItem="msx-kr-5pZ" secondAttribute="leadingMargin" id="TuP-To-a9j"/>
                             <constraint firstItem="haI-QA-ZyK" firstAttribute="centerX" secondItem="msx-kr-5pZ" secondAttribute="centerX" id="Z9h-ZB-vg8"/>
@@ -487,10 +512,10 @@
                     </view>
                     <navigationItem key="navigationItem" title="SMD" id="IM5-Gv-4wj"/>
                     <connections>
-                        <outlet property="picker1" destination="15W-j4-k3h" id="0u9-tT-X5p"/>
-                        <outlet property="picker2" destination="Mhl-Ti-1sF" id="wjW-02-gdv"/>
-                        <outlet property="picker3" destination="Vub-4U-fMm" id="urT-4n-Zn4"/>
-                        <outlet property="picker4" destination="MoO-WY-HqQ" id="p2N-qr-aa2"/>
+                        <outlet property="picker1" destination="cPH-Zf-ERb" id="rKv-8t-0MW"/>
+                        <outlet property="picker2" destination="av7-gC-JEU" id="Sa9-rs-xpD"/>
+                        <outlet property="picker3" destination="wkP-F6-bpv" id="NMl-Hy-sn2"/>
+                        <outlet property="picker4" destination="ewl-pI-4g4" id="OhK-vc-wev"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MXw-Sn-VwY" userLabel="First Responder" sceneMemberID="firstResponder"/>

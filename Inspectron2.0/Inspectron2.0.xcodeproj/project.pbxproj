@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		000728EA209B3C3600B25593 /* ResistorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000728E9209B3C3600B25593 /* ResistorController.swift */; };
+		000728EC20A43E4500B25593 /* SMDController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000728EB20A43E4500B25593 /* SMDController.swift */; };
 		00F6ECCF20666A2C00368646 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F6ECCE20666A2C00368646 /* AppDelegate.swift */; };
 		00F6ECD120666A2C00368646 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F6ECD020666A2C00368646 /* ViewController.swift */; };
 		00F6ECD420666A2C00368646 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00F6ECD220666A2C00368646 /* Main.storyboard */; };
@@ -16,7 +17,6 @@
 		00F6ECE420666A2C00368646 /* Inspectron2_0Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F6ECE320666A2C00368646 /* Inspectron2_0Tests.swift */; };
 		00F6ECEF20666A2C00368646 /* Inspectron2_0UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F6ECEE20666A2C00368646 /* Inspectron2_0UITests.swift */; };
 		00F6ED372066C35E00368646 /* NoteFolli.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 00F6ED362066C35E00368646 /* NoteFolli.rtf */; };
-		FA482F9820A0E6AB00DE223C /* SMDController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA482F9720A0E6AB00DE223C /* SMDController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +38,7 @@
 
 /* Begin PBXFileReference section */
 		000728E9209B3C3600B25593 /* ResistorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResistorController.swift; sourceTree = "<group>"; };
+		000728EB20A43E4500B25593 /* SMDController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMDController.swift; sourceTree = "<group>"; };
 		00F6ECCB20666A2C00368646 /* Inspectron2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Inspectron2.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00F6ECCE20666A2C00368646 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		00F6ECD020666A2C00368646 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -52,7 +53,6 @@
 		00F6ECEE20666A2C00368646 /* Inspectron2_0UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Inspectron2_0UITests.swift; sourceTree = "<group>"; };
 		00F6ECF020666A2C00368646 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00F6ED362066C35E00368646 /* NoteFolli.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = NoteFolli.rtf; sourceTree = "<group>"; };
-		FA482F9720A0E6AB00DE223C /* SMDController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMDController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,7 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				000728E9209B3C3600B25593 /* ResistorController.swift */,
-				FA482F9720A0E6AB00DE223C /* SMDController.swift */,
+				000728EB20A43E4500B25593 /* SMDController.swift */,
 				00F6ECCE20666A2C00368646 /* AppDelegate.swift */,
 				00F6ECD020666A2C00368646 /* ViewController.swift */,
 				00F6ECD220666A2C00368646 /* Main.storyboard */,
@@ -271,7 +271,7 @@
 			files = (
 				00F6ECD120666A2C00368646 /* ViewController.swift in Sources */,
 				000728EA209B3C3600B25593 /* ResistorController.swift in Sources */,
-				FA482F9820A0E6AB00DE223C /* SMDController.swift in Sources */,
+				000728EC20A43E4500B25593 /* SMDController.swift in Sources */,
 				00F6ECCF20666A2C00368646 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

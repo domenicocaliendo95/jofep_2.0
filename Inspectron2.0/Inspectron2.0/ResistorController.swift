@@ -71,7 +71,7 @@ class Resistor: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
         var color: UIColor
         init(name : String, color : UIColor)
         {
-            self.name = name;
+            self.name = name
             self.color = color
         }
     }
@@ -201,7 +201,7 @@ class Resistor: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
         //Do any additional setup after loading the view, typically from a nib.
         
         
-    }
+    } // fine viewDidLoad
 
     //restituisce il valore del picker in INT in base al colore, valido per picker 1, 2 e 3!
     func valueBandFromColor (color: String) -> Int {
@@ -686,11 +686,18 @@ class Resistor: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
                 outputTCR.text = "\(band6)"
             }
             else
-                if (finalVal >= 1000000)
+                if (finalVal >= 1000000) && (finalVal < 1000000000)
                 {
                     outputValue.text = String (format: "%g", finalVal/1000000) + " MΩ"
                     outputTolerance.text = "\(band5)"
                     outputTCR.text = "\(band6)"
+        }
+                else
+                    if (finalVal >= 1000000000)
+                    {
+                        outputValue.text = String (format: "%g", finalVal/1000000000) + " GΩ"
+                        outputTolerance.text = "\(band5)"
+                        outputTCR.text = "\(band6)"
         }
     }
 
