@@ -24,6 +24,8 @@ class SMD: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBAction func four_digits_button(_ sender: UIButton) {
         curr_button = 4
+        print(curr_button)
+        eia = false
         self.picker1.isHidden = false
         self.picker2.isHidden = false
         self.picker3.isHidden = false
@@ -34,6 +36,8 @@ class SMD: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBAction func three_digits_button(_ sender: UIButton) {
         curr_button = 3
+        print(curr_button)
+        eia = false
         self.picker1.isHidden = false
         self.picker2.isHidden = false
         self.picker3.isHidden = false
@@ -43,6 +47,8 @@ class SMD: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     @IBAction func two_digits_button(_ sender: UIButton) {
         curr_button = 2
+        print(curr_button)
+        eia = false
         self.picker1.isHidden = false
         self.picker2.isHidden = false
         self.picker3.isHidden = true
@@ -65,13 +71,6 @@ class SMD: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     var pickerDigits: [NamedValue] = []
     var pickerLetters: [NamedValue] = []
     var pickerEIA: [NamedValue] = []
-    
-
-    
-    
-    
-    
-    
     
     
     //inizio viewDidLoad
@@ -116,34 +115,32 @@ class SMD: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
         let sZ = "Z"
         
         
-
-        
         pickerStandard = [
-            NamedValue(name: "0", value: s0),
-            NamedValue(name: "1", value: s1),
-            NamedValue(name: "2", value: s2),
-            NamedValue(name: "3", value: s3),
-            NamedValue(name: "4", value: s4),
-            NamedValue(name: "5", value: s5),
-            NamedValue(name: "6", value: s6),
-            NamedValue(name: "7", value: s7),
-            NamedValue(name: "8", value: s8),
-            NamedValue(name: "9", value: s9),
-            NamedValue(name: "R", value: sR),
-            NamedValue(name: "M", value: sM)
+            NamedValue(name: "     0", value: s0),//5 SPAZI INIZIALI
+            NamedValue(name: "     1", value: s1),
+            NamedValue(name: "     2", value: s2),
+            NamedValue(name: "     3", value: s3),
+            NamedValue(name: "     4", value: s4),
+            NamedValue(name: "     5", value: s5),
+            NamedValue(name: "     6", value: s6),
+            NamedValue(name: "     7", value: s7),
+            NamedValue(name: "     8", value: s8),
+            NamedValue(name: "     9", value: s9),
+            NamedValue(name: "     R", value: sR),
+            NamedValue(name: "     M", value: sM)
         ]
         
         pickerDigits = [
-            NamedValue(name: "0", value: s0),
-            NamedValue(name: "1", value: s1),
-            NamedValue(name: "2", value: s2),
-            NamedValue(name: "3", value: s3),
-            NamedValue(name: "4", value: s4),
-            NamedValue(name: "5", value: s5),
-            NamedValue(name: "6", value: s6),
-            NamedValue(name: "7", value: s7),
-            NamedValue(name: "8", value: s8),
-            NamedValue(name: "9", value: s9)
+            NamedValue(name: "     0", value: s0),
+            NamedValue(name: "     1", value: s1),
+            NamedValue(name: "     2", value: s2),
+            NamedValue(name: "     3", value: s3),
+            NamedValue(name: "     4", value: s4),
+            NamedValue(name: "     5", value: s5),
+            NamedValue(name: "     6", value: s6),
+            NamedValue(name: "     7", value: s7),
+            NamedValue(name: "     8", value: s8),
+            NamedValue(name: "     9", value: s9)
         ]
         
         pickerLetters = [
@@ -197,15 +194,14 @@ class SMD: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
         selectedPicker3 = "3333333333333333333"
         selectedPicker4 = "4444444444444444444" */
         
-            }//fine viewDidLoad
+        }//fine viewDidLoad
         
         override  func didReceiveMemoryWarning(){
             super.didReceiveMemoryWarning()
         }
         
         func numberOfComponents(in pickerView: UIPickerView) -> Int {
-            switch (curr_button) {
-            case 4:
+            if(curr_button == 4) {
                 if(pickerView.accessibilityIdentifier == "Picker1"){
                 return pickerStandard.count
                 }
@@ -215,20 +211,51 @@ class SMD: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
                 if(pickerView.accessibilityIdentifier == "Picker3"){
                     return pickerEIA.count
                 }
-                
-            default:
-                break
-            }
+                if(pickerView.accessibilityIdentifier == "Picker4"){
+                    return pickerEIA.count
+                }
+            }//fine curr_button == 4
+            
             return pickerStandard.count
         }
         
         func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent: Int) -> Int{
             // Aggiungere condizioni di selezione in base alla differenziazione del picker
+            
+            if(curr_button == 4) {
+                if(pickerView.accessibilityIdentifier == "Picker1"){
+                    return pickerStandard.count
+                }
+                if(pickerView.accessibilityIdentifier == "Picker2"){
+                    return pickerStandard.count
+                }
+                if(pickerView.accessibilityIdentifier == "Picker3"){
+                    return pickerEIA.count
+                }
+                if(pickerView.accessibilityIdentifier == "Picker4"){
+                    return pickerEIA.count
+                }
+            }//fine curr_button == 4
             return pickerStandard.count
         }
         
         func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?{
             // Aggiungere condizioni di selezione in base alla differenziazione del picker
+            
+            if(curr_button == 4) {
+                if(pickerView.accessibilityIdentifier == "Picker1"){
+                    return pickerStandard[row].name
+                }
+                if(pickerView.accessibilityIdentifier == "Picker2"){
+                    return pickerStandard[row].name
+                }
+                if(pickerView.accessibilityIdentifier == "Picker3"){
+                    return pickerEIA[row].name
+                }
+                if(pickerView.accessibilityIdentifier == "Picker4"){
+                    return pickerEIA[row].name
+                }
+            }//fine curr_button == 4
             return pickerStandard[row].name
         }
         
@@ -245,11 +272,11 @@ class SMD: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
             print(selectedPicker2)
                 
                 
-            case "Picker3": selectedPicker3 = pickerStandard[row].name
+            case "Picker3": selectedPicker3 = pickerEIA[row].name
             print(selectedPicker3)
                 
                 
-            case "Picker4": selectedPicker4 = pickerStandard[row].name
+            case "Picker4": selectedPicker4 = pickerEIA[row].name
             print(selectedPicker4)
                 
                 
@@ -258,12 +285,20 @@ class SMD: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
             }
         }
         
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
         
-        func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-            let titleData = pickerStandard[row].name
-            let myTitle = NSAttributedString(string: titleData, attributes: [NSAttributedStringKey.font:UIFont(name: "Georgia", size: 26.0)!,NSAttributedStringKey.foregroundColor:UIColor.blue])
-            return myTitle
-        }
+        let pickerLabel = UILabel()
+        selectedPicker1 = pickerStandard[row].name
+        let titleData = selectedPicker1
+        let myTitle = NSAttributedString(string: titleData!, attributes: [NSAttributedStringKey.font:UIFont(name: "Georgia", size: 25.0)!,NSAttributedStringKey.foregroundColor:UIColor.white])
+        pickerLabel.attributedText = myTitle
+        pickerLabel.backgroundColor = UIColor.black
+        pickerLabel.textAlignment = .justified
+        return pickerLabel
+        
+    }
+    
         
         func pickerView(_ pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
             return 36.0
