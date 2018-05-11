@@ -637,25 +637,34 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iq0-fH-Ovg">
-                                <rect key="frame" x="62.5" y="283.5" width="250" height="100"/>
+                                <rect key="frame" x="62" y="283" width="250" height="100"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="7Tb-5y-VN4"/>
                                     <constraint firstAttribute="width" constant="250" id="Vhc-vj-kWd"/>
                                 </constraints>
                             </view>
+                            <slider opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="N4V-Va-yh6">
+                                <rect key="frame" x="8" y="578" width="359" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="B9U-L2-LdB"/>
+                                </constraints>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="NWn-Lx-CCE" secondAttribute="bottom" id="3Xs-8S-44l"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="N4V-Va-yh6" secondAttribute="bottom" constant="10" id="DuP-tw-8ue"/>
                             <constraint firstItem="xfT-Ya-0qY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="FzL-uS-BcQ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xfT-Ya-0qY" secondAttribute="trailing" constant="10" id="MxD-E5-D3z"/>
                             <constraint firstItem="NWn-Lx-CCE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="O06-Uz-FWP"/>
+                            <constraint firstItem="N4V-Va-yh6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="UqZ-27-B3n"/>
                             <constraint firstItem="iq0-fH-Ovg" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="XXh-KP-VhB"/>
                             <constraint firstItem="iq0-fH-Ovg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gGS-51-4PK"/>
                             <constraint firstItem="NWn-Lx-CCE" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="hy4-Up-0Ae"/>
                             <constraint firstItem="NWn-Lx-CCE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="nef-ea-i2s"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="N4V-Va-yh6" secondAttribute="trailing" constant="10" id="y5r-2M-T6Z"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -682,7 +691,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="70" y="-476"/>
+            <point key="canvasLocation" x="69.599999999999994" y="-476.31184407796104"/>
         </scene>
         <!--Automatic-->
         <scene sceneID="lXd-kV-o4j">

@@ -13,7 +13,6 @@ class SMD: UIViewController, UITextFieldDelegate{
     
     @IBOutlet var error_label: UILabel!
     
-
     
     @IBOutlet var field1: UITextField!
     @IBOutlet var field2: UITextField!
@@ -38,6 +37,16 @@ class SMD: UIViewController, UITextFieldDelegate{
         eia_switch.setOn(false, animated: true)
         eia_label.isEnabled = false
 
+        //BOTTONE ANIMATO 4
+        UIView.animate(withDuration: 0.07,
+                       animations: {
+                        sender.transform = CGAffineTransform(scaleX: 0.98, y: 0.94)
+        },
+                       completion: { finish in
+                        UIView.animate(withDuration: 0.07, animations: {
+                            sender.transform = CGAffineTransform.identity
+                        })
+        })
     }
     
     @IBAction func three_button(_ sender: UIButton) {
@@ -49,6 +58,17 @@ class SMD: UIViewController, UITextFieldDelegate{
         two_button.isEnabled = true
         eia_switch.isEnabled = true
         eia_label.isEnabled = true
+        
+        //BOTTONE ANIMATO 3
+        UIView.animate(withDuration: 0.07,
+                       animations: {
+                        sender.transform = CGAffineTransform(scaleX: 0.98, y: 0.94)
+        },
+                       completion: { finish in
+                        UIView.animate(withDuration: 0.07, animations: {
+                            sender.transform = CGAffineTransform.identity
+                        })
+        })
     }
     
     
@@ -62,6 +82,17 @@ class SMD: UIViewController, UITextFieldDelegate{
         eia_switch.isEnabled = false
         eia_switch.setOn(false, animated: true)
         eia_label.isEnabled = false
+        
+        //BOTTONE ANIMATO 2
+        UIView.animate(withDuration: 0.07,
+                       animations: {
+                        sender.transform = CGAffineTransform(scaleX: 0.98, y: 0.94)
+        },
+                       completion: { finish in
+                        UIView.animate(withDuration: 0.07, animations: {
+                            sender.transform = CGAffineTransform.identity
+                        })
+        })
 
     }
     
@@ -121,14 +152,23 @@ class SMD: UIViewController, UITextFieldDelegate{
         self.four_button.layer.borderColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
         self.four_button.layer.borderWidth = 1
         self.four_button.layer.cornerRadius = 3
+        self.four_button.layer.shadowRadius = 3
+        self.four_button.layer.shadowOpacity = 0.3
+        self.four_button.layer.shadowOffset = CGSize(width: 3, height: 3)
         
         self.three_button.layer.borderColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
         self.three_button.layer.borderWidth = 1
         self.three_button.layer.cornerRadius = 3
+        self.three_button.layer.shadowRadius = 3
+        self.three_button.layer.shadowOpacity = 0.3
+        self.three_button.layer.shadowOffset = CGSize(width: 3, height: 3)
         
         self.two_button.layer.borderColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
         self.two_button.layer.borderWidth = 1
         self.two_button.layer.cornerRadius = 3
+        self.two_button.layer.shadowRadius = 3
+        self.two_button.layer.shadowOpacity = 0.3
+        self.two_button.layer.shadowOffset = CGSize(width: 3, height: 3)
         
         
     }
