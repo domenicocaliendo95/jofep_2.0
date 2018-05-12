@@ -10,11 +10,22 @@ import Foundation
 import UIKit
 
 class SMD: UIViewController, UITextFieldDelegate{
+    let limitLength = 1
+    var eia_option = false
+    var curr_button = 4
+    var i: Int = 0
+    var found_flag1 = 0
+    var found_flag2 = 0
+    var found_flag3 = 0
+    var found_flag4 = 0
+
+    
+    
     
     @IBOutlet var error_label: UILabel!
     
     
-    @IBOutlet var field1: UITextField!
+    @IBOutlet var field1: UITextField! 
     @IBOutlet var field2: UITextField!
     @IBOutlet var field3: UITextField!
     @IBOutlet var field4: UITextField!
@@ -23,8 +34,21 @@ class SMD: UIViewController, UITextFieldDelegate{
     @IBOutlet var three_button: UIButton!
     @IBOutlet var two_button: UIButton!
     @IBOutlet var eia_label: UILabel!
-    let limitLength = 1
-    
+    @IBAction func eia_switch_action(_ sender: UISwitch) {
+        if(eia_option == true){
+            eia_option = false
+        } else{
+            eia_option = true
+            
+        }
+        
+    }
+
+
+    @IBOutlet var label_field1: UILabel!
+    @IBOutlet var label_field2: UILabel!
+    @IBOutlet var label_field3: UILabel!
+    @IBOutlet var label_field4: UILabel!
     
     @IBAction func four_button(_ sender: UIButton) {
         
@@ -36,6 +60,12 @@ class SMD: UIViewController, UITextFieldDelegate{
         eia_switch.isEnabled = false
         eia_switch.setOn(false, animated: true)
         eia_label.isEnabled = false
+        field1.text?.removeAll()
+        field2.text?.removeAll()
+        field3.text?.removeAll()
+        field4.text?.removeAll()
+        eia_option = false
+        curr_button = 4
 
         //BOTTONE ANIMATO 4
         UIView.animate(withDuration: 0.07,
@@ -58,7 +88,13 @@ class SMD: UIViewController, UITextFieldDelegate{
         two_button.isEnabled = true
         eia_switch.isEnabled = true
         eia_label.isEnabled = true
-        
+        field1.text?.removeAll()
+        field2.text?.removeAll()
+        field3.text?.removeAll()
+        field4.text?.removeAll()
+        eia_option = false
+        curr_button = 3
+
         //BOTTONE ANIMATO 3
         UIView.animate(withDuration: 0.07,
                        animations: {
@@ -82,7 +118,12 @@ class SMD: UIViewController, UITextFieldDelegate{
         eia_switch.isEnabled = false
         eia_switch.setOn(false, animated: true)
         eia_label.isEnabled = false
-        
+        field1.text?.removeAll()
+        field2.text?.removeAll()
+        field3.text?.removeAll()
+        field4.text?.removeAll()
+        eia_option = false
+        curr_button = 2
         //BOTTONE ANIMATO 2
         UIView.animate(withDuration: 0.07,
                        animations: {
@@ -97,6 +138,11 @@ class SMD: UIViewController, UITextFieldDelegate{
     }
     
     
+    let pickerStandard = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "R", "M"]
+    let pickerDigits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    let pickerLetters = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+    let pickerEIA = ["Z", "Y", "R", "X", "S", "A", "B", "H", "C", "D", "E", "F"]
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,6 +153,7 @@ class SMD: UIViewController, UITextFieldDelegate{
         field4.delegate = self
         
         
+       
         //inizializzazione bottoni
         self.four_button.isEnabled = false
         self.three_button.isEnabled = true
@@ -206,63 +253,119 @@ class SMD: UIViewController, UITextFieldDelegate{
             field1.text?.removeAll()
             field1.becomeFirstResponder()
             
-        }
-        
-        if(field2.text!.count > 1){
-            let alert = UIAlertController(title: "Error", message: "Please insert only one letter or number in each text field.", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "Got it!", style: .default, handler: { action in
-                switch action.style{
-                case .default: //caso standard, non eliminabile
-                    self.field2.text?.removeAll()
-                    self.field2.becomeFirstResponder()
-                case .cancel: // caso standard, non eliminabile
-                    self.field2.text?.removeAll()
-                    self.field2.becomeFirstResponder()
-                case .destructive: // caso standard, non eliminabile
-                    self.field2.text?.removeAll()
-                    self.field2.becomeFirstResponder()
-                }}))
-            self.present(alert, animated: true, completion: nil)
+        }else if(field2.text!.count > 1){
+            error_label.text = "Please insert only one letter or number!"
+            
+            field2.text?.removeAll()
+            field2.becomeFirstResponder()
+            
+        } else if(field3.text!.count > 1){
+            error_label.text = "Please insert only one letter or number!"
+            
+            field3.text?.removeAll()
+            field3.becomeFirstResponder()
+            
+        } else if(field4.text!.count > 1){
+            error_label.text = "Please insert only one letter or number!"
+            
+            field4.text?.removeAll()
+            field4.becomeFirstResponder()
+            
+        } else if((field1.text!.count <= 1) && (field2.text!.count <= 1) && (field3.text!.count <= 1) && (field4.text!.count <= 1) ) {
+            error_label.text = "polpette"
             
         }
         
-        if(field3.text!.count > 1){
-            let alert = UIAlertController(title: "Error", message: "Please insert only one letter or number in each text field.", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "Got it!", style: .default, handler: { action in
-                switch action.style{
-                case .default: //caso standard, non eliminabile
-                    self.field3.text?.removeAll()
-                    self.field3.becomeFirstResponder()
-                case .cancel: // caso standard, non eliminabile
-                    self.field3.text?.removeAll()
-                    self.field3.becomeFirstResponder()
-                case .destructive: // caso standard, non eliminabile
-                    self.field3.text?.removeAll()
-                    self.field3.becomeFirstResponder()
-                }}))
-            self.present(alert, animated: true, completion: nil)
+        if(curr_button == 4){
             
-        }
-        
-        if(field4.text!.count > 1){
-            let alert = UIAlertController(title: "Error", message: "Please insert only one letter or number in each text field.", preferredStyle: UIAlertControllerStyle.alert)
-            alert.addAction(UIAlertAction(title: "Got it!", style: .default, handler: { action in
-                switch action.style{
-                case .default: //caso standard, non eliminabile
-                    self.field4.text?.removeAll()
-                    self.field4.becomeFirstResponder()
-                case .cancel: // caso standard, non eliminabile
-                    self.field4.text?.removeAll()
-                    self.field4.becomeFirstResponder()
-                case .destructive: // caso standard, non eliminabile
-                    self.field4.text?.removeAll()
-                    self.field4.becomeFirstResponder()
-                }}))
-            self.present(alert, animated: true, completion: nil)
+            for i in pickerStandard{
+                if(field1.text! == i){
+                    found_flag1 = 1
+                }
+            }
             
-        }
+            if (found_flag1 == 1){
+                
+                found_flag1 = 0
+                self.field1.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                self.field1.layer.borderWidth = 1
+            } else if ( field1.text! != "") {
+                
+                self.field1.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+                self.field1.layer.borderWidth = 2
+                field1.text?.removeAll()
+            }
+            // fine  field1
+            
+            
+            
+            
+            for i in pickerStandard{
+                if(field2.text! == i){
+                    found_flag2 = 1
+                }
+            }
+            
+            if (found_flag2 == 1){
+                found_flag2 = 0
+                self.field2.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                self.field2.layer.borderWidth = 1
+            } else if ( field2.text! != ""){
+
+                self.field2.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+                self.field2.layer.borderWidth = 2
+                field2.text?.removeAll()
+                
+            } // fine field 2
+            
+            for i in pickerStandard{
+                if(field3.text! == i){
+                    found_flag3 = 1
+                }
+            }
+            
+            if (found_flag3 == 1){
+                found_flag3 = 0
+                self.field3.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                self.field3.layer.borderWidth = 1
+            } else if ( field3.text! != ""){
+                
+                self.field3.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+                self.field3.layer.borderWidth = 2
+                field3.text?.removeAll()
+                
+            } // fine field 3
+            
+            for i in pickerStandard{
+                if(field4.text! == i){
+                    found_flag4 = 1
+                }
+            }
+            
+            if (found_flag4 == 1){
+                found_flag4 = 0
+                self.field4.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                self.field4.layer.borderWidth = 1
+            } else if ( field4.text! != ""){
+                
+                self.field4.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+                self.field4.layer.borderWidth = 2
+                field4.text?.removeAll()
+                
+            } // fine field 4
+            
+        } // fine if button == 4
         
-    }
+        
+
+        
+
+        
+    } // fine touchesBegan
+    
+    
+    
+
     
 
 }
