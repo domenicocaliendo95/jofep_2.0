@@ -88,6 +88,9 @@ class Resistor: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let img = UIImage(named: "navbar-background")
+        navigationController?.navigationBar.setBackgroundImage(img, for: .default)
+        
         self.etichettaD1.layer.cornerRadius = 3//etichetta D1 arrotondata
         self.etichettaD2.layer.cornerRadius = 3//etichetta D2 arrotondata
         self.etichettaD3.layer.cornerRadius = 3//etichetta D3 arrotondata

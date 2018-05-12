@@ -262,6 +262,9 @@ class SMD: UIViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         print(eia_option)
+        
+        let img = UIImage(named: "navbar-background")
+        navigationController?.navigationBar.setBackgroundImage(img, for: .default)
 
         field1.delegate = self
         field2.delegate = self

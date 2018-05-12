@@ -63,6 +63,9 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let img = UIImage(named: "navbar-background")
+        navigationController?.navigationBar.setBackgroundImage(img, for: .default)
+        
         do{
             inputCamera = try AVCaptureDeviceInput(device: captureDevice)
         }catch{
