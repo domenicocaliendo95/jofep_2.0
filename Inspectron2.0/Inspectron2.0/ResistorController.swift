@@ -15,7 +15,7 @@ class Resistor: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     //seleziona numero di bande premendo +/-
     @IBAction func addRemoveBand(_ sender: UIStepper) {
         
-        bandsNumber.text = String(Int(sender.value))+" Bands"
+        bandsNumber.text = String(Int(sender.value))+" Bands Resistor"
         disablePickers(bands: Int(sender.value))
         
         //BOTTONE ANIMATO

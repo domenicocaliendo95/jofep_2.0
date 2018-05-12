@@ -10,20 +10,25 @@ import Foundation
 import UIKit
 
 class SMD: UIViewController, UITextFieldDelegate{
+    
     let limitLength = 1
+    
     var eia_option = false
+
     var curr_button = 4
     var i: Int = 0
     var found_flag1 = 0
     var found_flag2 = 0
     var found_flag3 = 0
     var found_flag4 = 0
+    
+    let pickerStandard = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "R", "M"]
+    let pickerDigits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    let pickerLetters = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+    let pickerEIA = ["Z", "Y", "R", "X", "S", "A", "B", "H", "C", "D", "E", "F"]
+    
 
-    
-    
-    
     @IBOutlet var error_label: UILabel!
-    
     
     @IBOutlet var field1: UITextField! 
     @IBOutlet var field2: UITextField!
@@ -34,38 +39,104 @@ class SMD: UIViewController, UITextFieldDelegate{
     @IBOutlet var three_button: UIButton!
     @IBOutlet var two_button: UIButton!
     @IBOutlet var eia_label: UILabel!
+    
     @IBAction func eia_switch_action(_ sender: UISwitch) {
         if(eia_option == true){
             eia_option = false
+            print(eia_option)
+            self.i = 0
+            self.found_flag1 = 0
+            self.found_flag2 = 0
+            self.found_flag3 = 0
+            self.found_flag4 = 0
+            field1.text?.removeAll()
+            field2.text?.removeAll()
+            field3.text?.removeAll()
+            field4.text?.removeAll()
+            self.field1.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            self.field1.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            self.field1.layer.borderWidth = 1
+            self.field2.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            self.field2.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            self.field2.layer.borderWidth = 1
+            self.field3.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            self.field3.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            self.field3.layer.borderWidth = 1
+            self.field4.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            self.field4.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            self.field4.layer.borderWidth = 1
         } else{
             eia_option = true
-            
+            print(eia_option)
+            self.i = 0
+            self.found_flag1 = 0
+            self.found_flag2 = 0
+            self.found_flag3 = 0
+            self.found_flag4 = 0
+            field1.text?.removeAll()
+            field2.text?.removeAll()
+            field3.text?.removeAll()
+            field4.text?.removeAll()
+            self.field1.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            self.field1.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            self.field1.layer.borderWidth = 1
+            self.field2.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            self.field2.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            self.field2.layer.borderWidth = 1
+            self.field3.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            self.field3.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            self.field3.layer.borderWidth = 1
+            self.field4.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            self.field4.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            self.field4.layer.borderWidth = 1
         }
         
     }
-
-
+    
+    //etichette sopra i fieldtext
     @IBOutlet var label_field1: UILabel!
     @IBOutlet var label_field2: UILabel!
     @IBOutlet var label_field3: UILabel!
     @IBOutlet var label_field4: UILabel!
     
     @IBAction func four_button(_ sender: UIButton) {
-        
-        field3.isHidden = false
-        field4.isHidden = false
-        four_button.isEnabled = false
-        three_button.isEnabled = true
-        two_button.isEnabled = true
-        eia_switch.isEnabled = false
-        eia_switch.setOn(false, animated: true)
-        eia_label.isEnabled = false
-        field1.text?.removeAll()
-        field2.text?.removeAll()
-        field3.text?.removeAll()
-        field4.text?.removeAll()
-        eia_option = false
-        curr_button = 4
+        self.i = 0
+        self.found_flag1 = 0
+        self.found_flag2 = 0
+        self.found_flag3 = 0
+        self.found_flag4 = 0
+        self.field3.isHidden = false
+        self.field4.isHidden = false
+        self.four_button.isEnabled = false
+        self.three_button.isEnabled = true
+        self.two_button.isEnabled = true
+        self.eia_switch.isEnabled = false
+        self.eia_switch.setOn(false, animated: true)
+        self.eia_label.isEnabled = false
+        self.field1.text?.removeAll()
+        self.field2.text?.removeAll()
+        self.field3.text?.removeAll()
+        self.field4.text?.removeAll()
+        self.eia_option = false
+        print(eia_option)
+        self.curr_button = 4
+        self.label_field1.isHidden = false
+        self.label_field2.isHidden = false
+        self.label_field3.isHidden = false
+        self.label_field4.isHidden = false
+        self.field1.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.field1.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.field1.layer.borderWidth = 1
+        self.field2.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.field2.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.field2.layer.borderWidth = 1
+        self.field3.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.field3.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.field3.layer.borderWidth = 1
+        self.field4.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.field4.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.field4.layer.borderWidth = 1
+
 
         //BOTTONE ANIMATO 4
         UIView.animate(withDuration: 0.07,
@@ -81,19 +152,42 @@ class SMD: UIViewController, UITextFieldDelegate{
     
     @IBAction func three_button(_ sender: UIButton) {
         
-        field3.isHidden = false
-        field4.isHidden = true
-        three_button.isEnabled = false
-        four_button.isEnabled = true
-        two_button.isEnabled = true
-        eia_switch.isEnabled = true
-        eia_label.isEnabled = true
-        field1.text?.removeAll()
-        field2.text?.removeAll()
-        field3.text?.removeAll()
-        field4.text?.removeAll()
-        eia_option = false
-        curr_button = 3
+        self.eia_option = false
+        print(eia_option)
+        self.i = 0
+        self.found_flag1 = 0
+        self.found_flag2 = 0
+        self.found_flag3 = 0
+        self.found_flag4 = 0
+        self.field3.isHidden = false
+        self.field4.isHidden = true
+        self.three_button.isEnabled = false
+        self.four_button.isEnabled = true
+        self.two_button.isEnabled = true
+        self.eia_switch.isEnabled = true
+        self.eia_label.isEnabled = true
+        self.field1.text?.removeAll()
+        self.field2.text?.removeAll()
+        self.field3.text?.removeAll()
+        self.field4.text?.removeAll()
+        self.curr_button = 3
+        self.label_field1.isHidden = false
+        self.label_field2.isHidden = false
+        self.label_field3.isHidden = false
+        self.label_field4.isHidden = true
+    
+        self.field1.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.field1.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.field1.layer.borderWidth = 1
+        self.field2.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.field2.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.field2.layer.borderWidth = 1
+        self.field3.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.field3.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.field3.layer.borderWidth = 1
+        self.field4.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.field4.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.field4.layer.borderWidth = 1
 
         //BOTTONE ANIMATO 3
         UIView.animate(withDuration: 0.07,
@@ -110,20 +204,44 @@ class SMD: UIViewController, UITextFieldDelegate{
     
     @IBAction func two_button(_ sender: UIButton) {
         
-        field3.isHidden = true
-        field4.isHidden = true
-        two_button.isEnabled = false
-        four_button.isEnabled = true
-        three_button.isEnabled = true
-        eia_switch.isEnabled = false
-        eia_switch.setOn(false, animated: true)
-        eia_label.isEnabled = false
-        field1.text?.removeAll()
-        field2.text?.removeAll()
-        field3.text?.removeAll()
-        field4.text?.removeAll()
-        eia_option = false
-        curr_button = 2
+        self.i = 0
+        self.found_flag1 = 0
+        self.found_flag2 = 0
+        self.found_flag3 = 0
+        self.found_flag4 = 0
+        self.field3.isHidden = true
+        self.field4.isHidden = true
+        self.two_button.isEnabled = false
+        self.four_button.isEnabled = true
+        self.three_button.isEnabled = true
+        self.eia_switch.isEnabled = false
+        self.eia_switch.setOn(false, animated: true)
+        self.eia_label.isEnabled = false
+        self.field1.text?.removeAll()
+        self.field2.text?.removeAll()
+        self.field3.text?.removeAll()
+        self.field4.text?.removeAll()
+        self.eia_option = false
+        print(eia_option)
+        self.curr_button = 2
+        self.label_field1.isHidden = false
+        self.label_field2.isHidden = false
+        self.label_field3.isHidden = true
+        self.label_field4.isHidden = true
+        
+        self.field1.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.field1.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.field1.layer.borderWidth = 1
+        self.field2.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.field2.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.field2.layer.borderWidth = 1
+        self.field3.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.field3.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.field3.layer.borderWidth = 1
+        self.field4.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.field4.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.field4.layer.borderWidth = 1
+        
         //BOTTONE ANIMATO 2
         UIView.animate(withDuration: 0.07,
                        animations: {
@@ -138,20 +256,23 @@ class SMD: UIViewController, UITextFieldDelegate{
     }
     
     
-    let pickerStandard = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "R", "M"]
-    let pickerDigits = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
-    let pickerLetters = ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K", "L", "M", "N", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
-    let pickerEIA = ["Z", "Y", "R", "X", "S", "A", "B", "H", "C", "D", "E", "F"]
     
     
+    //######################### inizio viewDidLoad() #########################
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        print(eia_option)
+
         field1.delegate = self
         field2.delegate = self
         field3.delegate = self
         field4.delegate = self
         
+        //label con etichette
+        self.label_field1.layer.cornerRadius = 3//label symbol1 arrotondata
+        self.label_field2.layer.cornerRadius = 3//label symbol2 arrotondata
+        self.label_field3.layer.cornerRadius = 3//label symbol3 arrotondata
+        self.label_field4.layer.cornerRadius = 3//label symbol4 arrotondata
         
        
         //inizializzazione bottoni
@@ -162,6 +283,7 @@ class SMD: UIViewController, UITextFieldDelegate{
         self.eia_switch.setOn(false, animated: true)
         self.eia_label.isEnabled = false
 
+        
         
         self.field1.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         self.field1.layer.borderWidth = 1
@@ -218,9 +340,10 @@ class SMD: UIViewController, UITextFieldDelegate{
         self.two_button.layer.shadowOffset = CGSize(width: 3, height: 3)
         
         
-    }
+    }//######################### fine viewDidLoad() #########################
     
     override func viewWillAppear(_ animated: Bool) {
+        
         super.viewWillAppear(true)
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
@@ -272,10 +395,11 @@ class SMD: UIViewController, UITextFieldDelegate{
             field4.becomeFirstResponder()
             
         } else if((field1.text!.count <= 1) && (field2.text!.count <= 1) && (field3.text!.count <= 1) && (field4.text!.count <= 1) ) {
-            error_label.text = "polpette"
+            error_label.text = ""
             
         }
         
+        //verifica caratteri per 4 simboli
         if(curr_button == 4){
             
             for i in pickerStandard{
@@ -285,19 +409,18 @@ class SMD: UIViewController, UITextFieldDelegate{
             }
             
             if (found_flag1 == 1){
-                
                 found_flag1 = 0
+                i = 0
                 self.field1.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                self.field1.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 self.field1.layer.borderWidth = 1
             } else if ( field1.text! != "") {
-                
-                self.field1.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+                self.field1.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)//rosso
+                self.field1.layer.shadowColor = #colorLiteral(red: 0.8319607973, green: 0, blue: 0, alpha: 1)//rosso scuro -> mattone #C21212
                 self.field1.layer.borderWidth = 2
                 field1.text?.removeAll()
             }
             // fine  field1
-            
-            
             
             
             for i in pickerStandard{
@@ -308,11 +431,14 @@ class SMD: UIViewController, UITextFieldDelegate{
             
             if (found_flag2 == 1){
                 found_flag2 = 0
+                i = 0
                 self.field2.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                self.field2.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 self.field2.layer.borderWidth = 1
             } else if ( field2.text! != ""){
 
                 self.field2.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+                self.field2.layer.shadowColor = #colorLiteral(red: 0.8319607973, green: 0, blue: 0, alpha: 1)//rosso scuro -> mattone #C21212
                 self.field2.layer.borderWidth = 2
                 field2.text?.removeAll()
                 
@@ -326,15 +452,18 @@ class SMD: UIViewController, UITextFieldDelegate{
             
             if (found_flag3 == 1){
                 found_flag3 = 0
+                i = 0
                 self.field3.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                self.field3.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 self.field3.layer.borderWidth = 1
             } else if ( field3.text! != ""){
                 
                 self.field3.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+                self.field3.layer.shadowColor = #colorLiteral(red: 0.8319607973, green: 0, blue: 0, alpha: 1)//rosso scuro -> mattone #C21212
                 self.field3.layer.borderWidth = 2
                 field3.text?.removeAll()
                 
-            } // fine field 3
+            }//fine field 3
             
             for i in pickerStandard{
                 if(field4.text! == i){
@@ -344,28 +473,214 @@ class SMD: UIViewController, UITextFieldDelegate{
             
             if (found_flag4 == 1){
                 found_flag4 = 0
+                i = 0
                 self.field4.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                self.field4.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 self.field4.layer.borderWidth = 1
             } else if ( field4.text! != ""){
                 
                 self.field4.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+                self.field4.layer.shadowColor = #colorLiteral(red: 0.8319607973, green: 0, blue: 0, alpha: 1)//rosso scuro -> mattone #C21212
                 self.field4.layer.borderWidth = 2
                 field4.text?.removeAll()
                 
-            } // fine field 4
+            }//fine field 4
             
-        } // fine if button == 4
+        }//fine verifica caratteri per 4 simboli
         
+        //verifica caratteri per 3 simboli && NOT(eia-96)
+        if(curr_button == 3 && eia_option == false){
+            
+            for i in pickerStandard{
+                if(field1.text! == i){
+                    found_flag1 = 1
+                }
+            }
+            
+            if (found_flag1 == 1){
+                found_flag1 = 0
+                i = 0
+                self.field1.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                self.field1.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                self.field1.layer.borderWidth = 1
+            } else if ( field1.text! != "") {
+                self.field1.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)//rosso
+                self.field1.layer.shadowColor = #colorLiteral(red: 0.8319607973, green: 0, blue: 0, alpha: 1)//rosso scuro -> mattone #C21212
+                self.field1.layer.borderWidth = 2
+                field1.text?.removeAll()
+            }
+            //fine field1
+            
+            
+            for i in pickerStandard{
+                if(field2.text! == i){
+                    found_flag2 = 1
+                }
+            }
+            
+            if (found_flag2 == 1){
+                found_flag2 = 0
+                i = 0
+                self.field2.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                self.field2.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                self.field2.layer.borderWidth = 1
+            } else if ( field2.text! != ""){
+                
+                self.field2.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+                self.field2.layer.shadowColor = #colorLiteral(red: 0.8319607973, green: 0, blue: 0, alpha: 1)//rosso scuro -> mattone #C21212
+                self.field2.layer.borderWidth = 2
+                field2.text?.removeAll()
+                
+            } // fine field 2
+            
+            for i in pickerStandard{
+                if(field3.text! == i){
+                    found_flag3 = 1
+                }
+            }
+            
+            if (found_flag3 == 1){
+                found_flag3 = 0
+                i = 0
+                self.field3.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                self.field3.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                self.field3.layer.borderWidth = 1
+            } else if ( field3.text! != ""){
+                
+                self.field3.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+                self.field3.layer.shadowColor = #colorLiteral(red: 0.8319607973, green: 0, blue: 0, alpha: 1)//rosso scuro -> mattone #C21212
+                self.field3.layer.borderWidth = 2
+                field3.text?.removeAll()
+                
+            }//fine field 3
+            
+            
+        }//fine verifica caratteri per 3 simboli && NOT(eia-96)
+        
+        
+        //verifica caratteri per 3 simboli && (eia-96)
+        if(curr_button == 3 && eia_option == true){
+            
+            for i in pickerDigits{
+                if(field1.text! == i){
+                    found_flag1 = 1
+                }
+            }
+            
+            if (found_flag1 == 1){
+                found_flag1 = 0
+                i = 0
+                self.field1.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                self.field1.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                self.field1.layer.borderWidth = 1
+            } else if ( field1.text! != "") {
+                self.field1.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)//rosso
+                self.field1.layer.shadowColor = #colorLiteral(red: 0.8319607973, green: 0, blue: 0, alpha: 1)//rosso scuro -> mattone #C21212
+                self.field1.layer.borderWidth = 2
+                field1.text?.removeAll()
+            }
+            // fine  field1
+            
+            
+            for i in pickerDigits{
+                if(field2.text! == i){
+                    found_flag2 = 1
+                }
+            }
+            
+            if (found_flag2 == 1){
+                found_flag2 = 0
+                i = 0
+                self.field2.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                self.field2.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                self.field2.layer.borderWidth = 1
+            } else if ( field2.text! != ""){
+                
+                self.field2.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+                self.field2.layer.shadowColor = #colorLiteral(red: 0.8319607973, green: 0, blue: 0, alpha: 1)//rosso scuro -> mattone #C21212
+                self.field2.layer.borderWidth = 2
+                field2.text?.removeAll()
+                
+            } // fine field 2
+            
+            for i in pickerEIA{
+                if(field3.text! == i){
+                    found_flag3 = 1
+                }
+            }
+            
+            if (found_flag3 == 1){
+                found_flag3 = 0
+                i = 0
+                self.field3.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                self.field3.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                self.field3.layer.borderWidth = 1
+            } else if ( field3.text! != ""){
+                
+                self.field3.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+                self.field3.layer.shadowColor = #colorLiteral(red: 0.8319607973, green: 0, blue: 0, alpha: 1)//rosso scuro -> mattone #C21212
+                self.field3.layer.borderWidth = 2
+                field3.text?.removeAll()
+                
+            }//fine field 3
+            
+            
+        }//fine verifica caratteri per 3 simboli && (eia-96)
+        
+        //verifica caratteri per 2 simbolI
+        if(curr_button == 2){
+            
+            for i in pickerLetters{
+                if(field1.text! == i){
+                    found_flag1 = 1
+                }
+            }
+            
+            if (found_flag1 == 1){
+                found_flag1 = 0
+                i = 0
+                self.field1.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                self.field1.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                self.field1.layer.borderWidth = 1
+            } else if ( field1.text! != "") {
+                self.field1.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)//rosso
+                self.field1.layer.shadowColor = #colorLiteral(red: 0.8319607973, green: 0, blue: 0, alpha: 1)//rosso scuro -> mattone #C21212
+                self.field1.layer.borderWidth = 2
+                field1.text?.removeAll()
+            }
+            // fine  field1
+            
+            
+            for i in pickerDigits{
+                if(field2.text! == i){
+                    found_flag2 = 1
+                }
+            }
+            
+            if (found_flag2 == 1){
+                found_flag2 = 0
+                i = 0
+                self.field2.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                self.field2.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+                self.field2.layer.borderWidth = 1
+            } else if ( field2.text! != ""){
+                
+                self.field2.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
+                self.field2.layer.shadowColor = #colorLiteral(red: 0.8319607973, green: 0, blue: 0, alpha: 1)//rosso scuro -> mattone #C21212
+                self.field2.layer.borderWidth = 2
+                field2.text?.removeAll()
+                
+            } // fine field 2
+            
+            
+            
+        }//fine verifica caratteri per 2 simboli
         
 
         
 
         
     } // fine touchesBegan
-    
-    
-    
-
     
 
 }
