@@ -84,12 +84,31 @@ class Resistor: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
     var selectedPicker1, selectedPicker2, selectedPicker3, selectedPicker4, selectedPicker5, selectedPicker6: String!
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        /*
+        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.navigationController!.navigationBar.frame.size.width, height: self.navigationController!.navigationBar.frame.size.height))
+        imageView.contentMode = .scaleAspectFit
+       
+
+        
+        // 4
+        let image = UIImage(named: "navbar-background")
+        imageView.image = image
+        */
+        
+        
+        /*
+        // 5
+        navigationItem.titleView = imageView
+        */
+
+    }//fine viewDidAppear
+    
     /*#########################inizio viewDidLoad#########################*/
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let img = UIImage(named: "navbar-background")
-        navigationController?.navigationBar.setBackgroundImage(img, for: .default)
         
         self.etichettaD1.layer.cornerRadius = 3//etichetta D1 arrotondata
         self.etichettaD2.layer.cornerRadius = 3//etichetta D2 arrotondata

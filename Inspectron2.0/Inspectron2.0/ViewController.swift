@@ -30,41 +30,24 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     var inputCamera: AVCaptureDeviceInput!
     var pivotPinchScale: CGFloat!//fattore di zoom
     var captureDevice: AVCaptureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)!//Imposta il device di acquisizione
-//    var torch: Bool
 
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-         /*
-        do{
-            inputCamera = try AVCaptureDeviceInput(device: captureDevice)
-        }catch{
-            print(error)
-        }
-        
-        captureSession = AVCaptureSession()//inizializza la variabile di CaptureSession
-        captureSession?.addInput(inputCamera!)
-        
-        videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession!)
-        videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        
-        self.Camera?.layer.addSublayer(self.videoPreviewLayer!)
-        captureSession?.startRunning()
-        */
+
     }//fine viewWillAppear
     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         videoPreviewLayer!.frame = UIScreen.main.bounds
+        
     }//fine viewDidAppear
  
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let img = UIImage(named: "navbar-background")
-        navigationController?.navigationBar.setBackgroundImage(img, for: .default)
         
         do{
             inputCamera = try AVCaptureDeviceInput(device: captureDevice)
