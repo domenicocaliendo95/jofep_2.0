@@ -14,6 +14,7 @@ import CoreImage
 class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
 
 @IBOutlet weak var Camera: UIImageView!//collegamento a UIImageView
+    @IBOutlet var flashButton: UIButton!//bottone flash
     
     @IBOutlet var rect: UIView!{
         didSet{
@@ -34,6 +35,8 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        flashButton.setBackgroundImage(UIImage(named: "flash_off"), for: UIControlState.normal)
+        
 
     }//fine viewWillAppear
     
@@ -79,7 +82,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     
 override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-    print("Tap")
         let screenSize = Camera.bounds.size //dimensioni cornice
         
         if let tounchPoint = touches.first {
@@ -97,7 +99,6 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
                     captureDevice.exposureMode = AVCaptureDevice.ExposureMode.continuousAutoExposure
                     captureDevice.unlockForConfiguration()
                 } catch { /*nothing*/ }
-                
             
         }
     }
@@ -106,7 +107,6 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
 
  
     @IBAction func pinchToZoom(_ sender: UIPinchGestureRecognizer) {
-         print("Pinch to Zoom")
         do {
             try captureDevice.lockForConfiguration()
             switch sender.state {
@@ -128,13 +128,37 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     
 
     @IBAction func flashButton(_ sender: UIButton) {
-        print("Marmitta")
         do{
             try captureDevice.lockForConfiguration()
         if(captureDevice.torchMode == .on){
             captureDevice.torchMode = .off
+            flashButton.setBackgroundImage(UIImage(named: "flash_off"), for: UIControlState.normal)
+            
+            //bottone flash animato
+            UIView.animate(withDuration: 0.07,
+                           animations: {
+                            sender.transform = CGAffineTransform(scaleX: 0.98, y: 0.94)
+            },
+                           completion: { finish in
+                            UIView.animate(withDuration: 0.07, animations: {
+                                sender.transform = CGAffineTransform.identity
+                            })
+            })
+            
         }else{
             captureDevice.torchMode = .on
+            flashButton.setBackgroundImage(UIImage(named: "flash_on"), for: UIControlState.normal)
+            
+            //bottone flash animato
+            UIView.animate(withDuration: 0.07,
+                           animations: {
+                            sender.transform = CGAffineTransform(scaleX: 0.98, y: 0.94)
+            },
+                           completion: { finish in
+                            UIView.animate(withDuration: 0.07, animations: {
+                                sender.transform = CGAffineTransform.identity
+                            })
+            })
         }
         
         captureDevice.unlockForConfiguration()
@@ -157,8 +181,17 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
                 case UISwipeGestureRecognizerDirection.right:
                     print("Swipe right")
                     captureDevice.torchMode = .on
-                    //torch = true
-                    //torchButton.setBackgroundImage(UIImage(named: "flash-on"), for: UIControlState.normal)
+                    self.flashButton.setBackgroundImage(UIImage(named: "flash_on"), for: UIControlState.normal)
+                    //bottone flash animato
+                    UIView.animate(withDuration: 0.07,
+                                   animations: {
+                                    self.flashButton.transform = CGAffineTransform(scaleX: 0.98, y: 0.94)
+                    },
+                                   completion: { finish in
+                                    UIView.animate(withDuration: 0.07, animations: {
+                                        self.flashButton.transform = CGAffineTransform.identity
+                                    })
+                    })
                     //try captureDevice.setTorchModeOn(level: 1.0)
                     break
                 
@@ -184,8 +217,16 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
                 case UISwipeGestureRecognizerDirection.left:
                     print("Swipe left")
                     captureDevice.torchMode = .off
-                    //torch = false
-                    //torchButton.setBackgroundImage(UIImage(named: "flash-off"), for: UIControlState.normal)
+                    self.flashButton.setBackgroundImage(UIImage(named: "flash_off"), for: UIControlState.normal)
+                    UIView.animate(withDuration: 0.07,
+                                   animations: {
+                                    self.flashButton.transform = CGAffineTransform(scaleX: 0.98, y: 0.94)
+                    },
+                                   completion: { finish in
+                                    UIView.animate(withDuration: 0.07, animations: {
+                                        self.flashButton.transform = CGAffineTransform.identity
+                                    })
+                    })
                     break
                     
                 default: break

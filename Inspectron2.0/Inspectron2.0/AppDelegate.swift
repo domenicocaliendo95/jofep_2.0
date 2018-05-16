@@ -17,10 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         //navbar background
-        let navBackgroundImage = UIImage(named: "navbar-background")
+        
+            let navBackgroundImage = UIImage(named: "navbar-background")
         UINavigationBar.appearance().setBackgroundImage(navBackgroundImage, for: .default)
         UINavigationBar.appearance().setBackgroundImage(navBackgroundImage?.resizableImage(withCapInsets: UIEdgeInsetsMake(0, 0, 0, 0), resizingMode: .stretch), for: .default)
 
+            sleep(1)
         return true
     }
 

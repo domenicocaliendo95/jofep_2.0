@@ -11,7 +11,8 @@ import UIKit
 
 class Resistor: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-
+    @IBOutlet var stepper: UIStepper!
+    
     //seleziona numero di bande premendo +/-
     @IBAction func addRemoveBand(_ sender: UIStepper) {
         
@@ -87,28 +88,14 @@ class Resistor: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        /*
-        let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.navigationController!.navigationBar.frame.size.width, height: self.navigationController!.navigationBar.frame.size.height))
-        imageView.contentMode = .scaleAspectFit
-       
-
-        
-        // 4
-        let image = UIImage(named: "navbar-background")
-        imageView.image = image
-        */
-        
-        
-        /*
-        // 5
-        navigationItem.titleView = imageView
-        */
 
     }//fine viewDidAppear
     
     /*#########################inizio viewDidLoad#########################*/
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.stepper.layer.cornerRadius = 3
         
         self.etichettaD1.layer.cornerRadius = 3//etichetta D1 arrotondata
         self.etichettaD2.layer.cornerRadius = 3//etichetta D2 arrotondata

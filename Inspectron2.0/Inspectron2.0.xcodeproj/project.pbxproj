@@ -17,6 +17,8 @@
 		00F6ECEF20666A2C00368646 /* Inspectron2_0UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F6ECEE20666A2C00368646 /* Inspectron2_0UITests.swift */; };
 		00F6ED372066C35E00368646 /* NoteFolli.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 00F6ED362066C35E00368646 /* NoteFolli.rtf */; };
 		FA610D9920AC24DE0072B267 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA610D9820AC24DE0072B267 /* Launch Screen.storyboard */; };
+		FAEBE17720AC67AF0022AB55 /* LaunchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEBE17620AC67AF0022AB55 /* LaunchController.swift */; };
+		FAEBE17920AC79360022AB55 /* Credits.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEBE17820AC79360022AB55 /* Credits.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		00F6ECF020666A2C00368646 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00F6ED362066C35E00368646 /* NoteFolli.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = NoteFolli.rtf; sourceTree = "<group>"; };
 		FA610D9820AC24DE0072B267 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		FAEBE17620AC67AF0022AB55 /* LaunchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchController.swift; sourceTree = "<group>"; };
+		FAEBE17820AC79360022AB55 /* Credits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credits.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +108,8 @@
 			isa = PBXGroup;
 			children = (
 				FA610D9820AC24DE0072B267 /* Launch Screen.storyboard */,
+				FAEBE17620AC67AF0022AB55 /* LaunchController.swift */,
+				FAEBE17820AC79360022AB55 /* Credits.swift */,
 				000728E9209B3C3600B25593 /* ResistorController.swift */,
 				000728EB20A43E4500B25593 /* SMDController.swift */,
 				00F6ECCE20666A2C00368646 /* AppDelegate.swift */,
@@ -270,8 +276,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				00F6ECD120666A2C00368646 /* ViewController.swift in Sources */,
+				FAEBE17720AC67AF0022AB55 /* LaunchController.swift in Sources */,
 				000728EA209B3C3600B25593 /* ResistorController.swift in Sources */,
 				000728EC20A43E4500B25593 /* SMDController.swift in Sources */,
+				FAEBE17920AC79360022AB55 /* Credits.swift in Sources */,
 				00F6ECCF20666A2C00368646 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
