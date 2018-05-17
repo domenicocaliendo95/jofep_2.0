@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().setBackgroundImage(navBackgroundImage, for: .default)
         UINavigationBar.appearance().setBackgroundImage(navBackgroundImage?.resizableImage(withCapInsets: UIEdgeInsetsMake(0, 0, 0, 0), resizingMode: .stretch), for: .default)
 
-            sleep(1)
+            //sleep(1)
         return true
     }
 

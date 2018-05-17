@@ -12,13 +12,15 @@ import UIKit
 class Credits: UIViewController{
     
     @IBOutlet var logo: UIImageView!
+    @IBOutlet var spritz: UIImageView!
+    
     let rotation = CGAffineTransform(rotationAngle: CGFloat(Double.pi * 360))
     
     override func viewDidLoad() {
         super.viewDidLoad()
   
         
-
+        self.spritz.alpha = 0.4
     }//fine viewDidLoad()
     
     override func viewWillAppear(_ animated: Bool) {

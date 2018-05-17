@@ -13,7 +13,14 @@ class SMD: UIViewController, UITextFieldDelegate{
     
     let limitLength = 1
     
+    @IBOutlet var risultatoSMD: UILabel!
     var eia_option = false
+    
+    var field1_text: String = ""
+    var field2_text: String = ""
+    var field3_text: String = ""
+    var field4_text: String = ""
+
 
     var curr_button = 4
     var i: Int = 0
@@ -679,10 +686,87 @@ class SMD: UIViewController, UITextFieldDelegate{
         }//fine verifica caratteri per 2 simboli
         
 
+        field1_text = self.field1.text!
+        field2_text = self.field2.text!
+        field3_text = self.field3.text!
+        field4_text = self.field4.text!
         
-
+        if( (curr_button == 2) && (field1.text! != "") && (field2.text! != "")){
+        calculateSMD2(field1_text: field1_text, field2_text: field2_text)
+        }
         
     } // fine touchesBegan
+    
+    func calculateSMD2(field1_text: String, field2_text: String) {
+        
+    print(field1_text)
+    print(field2_text)
+        
+        var valore1 = 0.0
+        var valore2 = 0
+        var risultato: Double
+    
+        if(field1_text == "A"){
+        valore1 = 1.0
+        } else if(field1_text == "B"){
+            valore1 = 1.1
+        } else if(field1_text == "C"){
+            valore1 = 1.2
+        } else if(field1_text == "D"){
+            valore1 = 1.3
+        } else if(field1_text == "E"){
+            valore1 = 1.5
+        } else  if(field1_text == "F"){
+            valore1 = 1.6
+        } else  if(field1_text == "G"){
+            valore1 = 1.8
+        } else  if(field1_text == "H"){
+            valore1 = 2.0
+        } else  if(field1_text == "J"){
+            valore1 = 2.2
+        } else  if(field1_text == "K"){
+            valore1 = 2.4
+        } else  if(field1_text == "L"){
+            valore1 = 2.7
+        } else  if(field1_text == "M"){
+            valore1 = 3.0
+        } else  if(field1_text == "N"){
+            valore1 = 3.3
+        } else  if(field1_text == "P"){
+            valore1 = 3.6
+        } else  if(field1_text == "Q"){
+            valore1 = 3.9
+        } else  if(field1_text == "R"){
+            valore1 = 4.3
+        } else if(field1_text == "S"){
+            valore1 = 4.7
+        } else  if(field1_text == "T"){
+            valore1 = 5.1
+        } else  if(field1_text == "U"){
+            valore1 = 5.6
+        } else  if(field1_text == "V"){
+            valore1 = 6.2
+        } else  if(field1_text == "W"){
+            valore1 = 6.8
+        } else  if(field1_text == "X"){
+            valore1 = 7.5
+        } else  if(field1_text == "Y"){
+            valore1 = 8.2
+        } else  if(field1_text == "Z"){
+            valore1 = 9.1
+        } else {
+            valore1 = 0.0
+        }
+        
+        valore2 = Int(field2_text)!
+        print(valore1)
+        print(valore2)
+        
+        risultato = valore1*pow(10.0, Double(valore2))
+    
+        print(risultato)
+        
+    }
     
 
 }
