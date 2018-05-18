@@ -49,6 +49,7 @@ class SMD: UIViewController, UITextFieldDelegate{
     
     @IBAction func eia_switch_action(_ sender: UISwitch) {
         if(eia_option == true){
+            self.risultatoSMD.text = "0 Ω"
             eia_option = false
             print(eia_option)
             self.i = 0
@@ -73,6 +74,7 @@ class SMD: UIViewController, UITextFieldDelegate{
             self.field4.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             self.field4.layer.borderWidth = 1
         } else{
+            self.risultatoSMD.text = "0 Ω"
             eia_option = true
             print(eia_option)
             self.i = 0
@@ -107,6 +109,7 @@ class SMD: UIViewController, UITextFieldDelegate{
     @IBOutlet var label_field4: UILabel!
     
     @IBAction func four_button(_ sender: UIButton) {
+        self.risultatoSMD.text = "0 Ω"
         self.i = 0
         self.found_flag1 = 0
         self.found_flag2 = 0
@@ -158,7 +161,7 @@ class SMD: UIViewController, UITextFieldDelegate{
     }
     
     @IBAction func three_button(_ sender: UIButton) {
-        
+        self.risultatoSMD.text = "0 Ω"
         self.eia_option = false
         print(eia_option)
         self.i = 0
@@ -210,7 +213,7 @@ class SMD: UIViewController, UITextFieldDelegate{
     
     
     @IBAction func two_button(_ sender: UIButton) {
-        
+        self.risultatoSMD.text = "0 Ω"
         self.i = 0
         self.found_flag1 = 0
         self.found_flag2 = 0
@@ -265,6 +268,7 @@ class SMD: UIViewController, UITextFieldDelegate{
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }//fine viewDidAppear
+    
     
     
     //######################### inizio viewDidLoad() #########################
@@ -357,6 +361,7 @@ class SMD: UIViewController, UITextFieldDelegate{
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+  
     }
     
     @objc func keyboardWillShow(notification: NSNotification){
@@ -691,19 +696,41 @@ class SMD: UIViewController, UITextFieldDelegate{
         field3_text = self.field3.text!
         field4_text = self.field4.text!
         
-        if( (curr_button == 2) && (field1.text! != "") && (field2.text! != "")){
-        calculateSMD2(field1_text: field1_text, field2_text: field2_text)
+        if(curr_button == 2){
+            if((field1.text! != "") && (field2.text! != "")){
+                calculateSMD2(field1_text: field1_text, field2_text: field2_text)
+            }else if ((field1.text! == "") || (field2.text! == "")){
+                self.risultatoSMD.text = "0 Ω"
+            }
+        }
+        if(curr_button == 3 && eia_option == false){
+            if((field1.text! != "") && (field2.text! != "") && (field3.text! != "")){
+                calculateSMD3(field1_text: field1_text, field2_text: field2_text, field3_text: field3_text)
+            }else if ((field1.text! == "") || (field2.text! == "") || (field3.text! == "")){
+                self.risultatoSMD.text = "0 Ω"
+            }
+        }
+        if(curr_button == 4 ){
+            if((field1.text! != "") && (field2.text! != "") && (field3.text! != "") && (field4.text! != "")){
+                calculateSMD4(field1_text: field1_text, field2_text: field2_text, field3_text: field3_text, field4_text: field4_text)
+            }else if ((field1.text! == "") || (field2.text! == "") || (field3.text! == "") || (field4.text! == "")){
+                self.risultatoSMD.text = "0 Ω"
+            }
+        }
+        if(curr_button == 3 && eia_option == true){
+            if((field1.text! != "") && (field2.text! != "") && (field3.text! != "")){
+                calculateSMD_eia(field1_text: field1_text, field2_text: field2_text, field3_text: field3_text)
+            }else if ((field1.text! == "") || (field2.text! == "") || (field3.text! == "")){
+                self.risultatoSMD.text = "0 Ω"
+            }
         }
         
     } // fine touchesBegan
     
     func calculateSMD2(field1_text: String, field2_text: String) {
-        
-    print(field1_text)
-    print(field2_text)
-        
+  
         var valore1 = 0.0
-        var valore2 = 0
+        var valore2 = 0.0
         var risultato: Double
     
         if(field1_text == "A"){
@@ -758,16 +785,144 @@ class SMD: UIViewController, UITextFieldDelegate{
             valore1 = 0.0
         }
         
-        valore2 = Int(field2_text)!
-        print(valore1)
-        print(valore2)
+        valore2 = Double(field2_text)!
+        risultato = valore1*pow(10.0, valore2)
+        self.risultatoSMD.text = String(risultato) + " Ω"
         
-        risultato = valore1*pow(10.0, Double(valore2))
+    } // fine calculateSMD2
     
-        print(risultato)
+    func calculateSMD3(field1_text: String, field2_text: String, field3_text: String){
         
-    }
+        var risultato = 0.0
+        var count = 0
+        
+        if(field1_text == "M" || field1_text == "R" ){
+            count = count+1
+        }
+        if(field2_text == "M" || field2_text == "R" ){
+            count = count+1
+        }
+        if(field3_text == "M" || field3_text == "R" ){
+            count = count+1
+        }
+        
+        if(field1_text == "M" && field2_text != "M" && field2_text != "R" && field3_text != "M" && field3_text != "R") {
+            risultato = Double("0." + field2_text + field3_text)!/1000
+            self.risultatoSMD.text = String(risultato) + " Ω"
+        }else if(field1_text != "M" && field1_text != "R" && field2_text == "M" && field3_text != "M" && field3_text != "R"){
+            risultato = Double(field1_text + "." + field3_text)!/1000
+            self.risultatoSMD.text = String(risultato) + " Ω"
+        }else if(field1_text != "M" && field1_text != "R" && field2_text != "M" && field2_text != "R" && field3_text == "M"){
+            risultato = Double(field1_text + field2_text + ".0")!/1000
+            self.risultatoSMD.text = String(risultato) + " Ω"
+        }else if(field1_text == "R" && field2_text != "M" && field2_text != "R" && field3_text != "M" && field3_text != "R") {
+            risultato = Double("0." + field2_text + field3_text)!
+            self.risultatoSMD.text = String(risultato) + " Ω"
+        }else if(field1_text != "M" && field1_text != "R" && field2_text == "R" && field3_text != "M" && field3_text != "R"){
+            risultato = Double(field1_text + "." + field3_text)!
+            self.risultatoSMD.text = String(risultato) + " Ω"
+        }else if(field1_text != "M" && field1_text != "R" && field2_text != "M" && field2_text != "R" && field3_text == "R"){
+            risultato = Double(field1_text + field2_text + ".0")!
+            self.risultatoSMD.text = String(risultato) + " Ω"
+        }else if(count == 0)  {
+            risultato = Double(field1_text + field2_text)! * pow(10.0, Double(field3_text)!)
+            self.risultatoSMD.text = String(risultato) + " Ω"
+        }else{
+            self.risultatoSMD.text =  "?"
+        }
+        
+    } // fine calculate SMD3
     
 
+    func calculateSMD4(field1_text: String, field2_text: String, field3_text: String, field4_text: String){
+        
+        var risultato = 0.0
+        var count = 0
+        
+        if(field1_text == "M" || field1_text == "R" ){
+            count = count+1
+        }
+        if(field2_text == "M" || field2_text == "R" ){
+            count = count+1
+        }
+        if(field3_text == "M" || field3_text == "R" ){
+            count = count+1
+        }
+        if(field4_text == "M" || field4_text == "R" ){
+            count = count+1
+        }
+        
+        if(field1_text == "M" && field2_text != "M" && field2_text != "R" && field3_text != "M" && field3_text != "R" && field4_text != "M" && field4_text != "R") {
+            risultato = Double("0." + field2_text + field3_text + field4_text)!/1000
+            self.risultatoSMD.text = String(risultato) + " Ω"
+        }else if(field1_text != "M" && field1_text != "R" && field2_text == "M" && field3_text != "M" && field3_text != "R" && field4_text != "M" && field4_text != "R"){
+            risultato = Double(field1_text + "." + field3_text + field4_text)!/1000
+            self.risultatoSMD.text = String(risultato) + " Ω"
+        }else if(field1_text != "M" && field1_text != "R" && field2_text != "M" && field2_text != "R" && field3_text == "M" && field4_text != "M" && field4_text != "R"){
+            risultato = Double(field1_text + field2_text + "." + field4_text)!/1000
+            self.risultatoSMD.text = String(risultato) + " Ω"
+        }else if(field1_text != "M" && field1_text != "R" && field2_text != "M" && field2_text != "R" && field3_text != "M" && field3_text != "R" && field4_text == "M"){
+            risultato = Double(field1_text + field2_text + field3_text + ".0")!/1000
+            self.risultatoSMD.text = String(risultato) + " Ω"
+        }else if(field1_text == "R" && field2_text != "M" && field2_text != "R" && field3_text != "M" && field3_text != "R" && field4_text != "M" && field4_text != "R") {
+            risultato = Double("0." + field2_text + field3_text + field4_text)!
+            self.risultatoSMD.text = String(risultato) + " Ω"
+        }else if(field1_text != "M" && field1_text != "R" && field2_text == "R" && field3_text != "M" && field3_text != "R" && field4_text != "M" && field4_text != "R"){
+            risultato = Double(field1_text + "." + field3_text + field4_text)!
+            self.risultatoSMD.text = String(risultato) + " Ω"
+        }else if(field1_text != "M" && field1_text != "R" && field2_text != "M" && field2_text != "R" && field3_text == "R" && field4_text != "M" && field4_text != "R"){
+            risultato = Double(field1_text + field2_text + "." + field4_text)!
+            self.risultatoSMD.text = String(risultato) + " Ω"
+        }else if(field1_text != "M" && field1_text != "R" && field2_text != "M" && field2_text != "R" && field3_text != "R" && field3_text != "M" && field4_text == "R"){
+            risultato = Double(field1_text + field2_text + field3_text + ".0")!
+            self.risultatoSMD.text = String(risultato) + " Ω"
+        }else if(count == 0)  {
+            risultato = Double(field1_text + field2_text + field3_text)! * pow(10.0, Double(field4_text)!)
+            self.risultatoSMD.text = String(risultato) + " Ω"
+        }else{
+            self.risultatoSMD.text =  "?"
+        }
+        
+    } // fine calculate SMD4
+    
+    func calculateSMD_eia(field1_text: String, field2_text: String, field3_text: String){
+        var valore = 0.0
+        var moltiplicatore = 0.0
+        var risultato = 0.0
+        var indice = 0
+        var values = [100, 102, 105, 107, 110, 113, 115, 118, 121, 124, 127, 130, 133, 137, 140, 143, 147, 150, 154, 158, 162, 165, 169, 174, 178, 182, 187, 191, 196,200, 205, 210, 215, 221, 226, 232, 237, 243, 249, 255, 261, 267, 274, 280, 287, 294, 301, 309, 316, 324, 332, 340, 348, 357, 365, 374, 383, 392, 402, 412, 422, 432, 442, 453, 464, 475, 487, 499, 511, 523, 536, 549, 562, 576, 590, 604, 619, 634, 649, 665, 681, 698, 715, 732, 750, 768, 787, 806, 825, 845, 866, 887, 909, 931, 953, 976]
+        
+        indice = Int(field1_text + field2_text)!
+        if(indice == 0 || indice == 97 || indice == 98 || indice == 99){
+            self.risultatoSMD.text = "?"
+        }else{
+        valore = Double(values[indice-1])
+            
+        }
+       
+        if(field3_text == "Z"){
+            moltiplicatore = 0.001
+        }else if(field3_text == "Y" || field3_text == "R"){
+            moltiplicatore = 0.01
+        }else if(field3_text == "X" || field3_text == "S"){
+            moltiplicatore = 0.1
+        }else if(field3_text == "A"){
+            moltiplicatore = 1
+        }else if(field3_text == "B" || field3_text == "H"){
+            moltiplicatore = 10
+        }else if(field3_text == "C"){
+            moltiplicatore = 100
+        }else if(field3_text == "D"){
+            moltiplicatore = 1000
+        }else if(field3_text == "E"){
+            moltiplicatore = 10000
+        }else if(field3_text == "F"){
+            moltiplicatore = 100000
+        }
+        risultato = valore * moltiplicatore
+        self.risultatoSMD.text = String(risultato) + " Ω"
+    } // fine funzione EIA
+    
+    
 }
 

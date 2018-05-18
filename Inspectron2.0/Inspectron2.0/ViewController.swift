@@ -34,7 +34,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
 
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewWillAppear(true)
         flashButton.setBackgroundImage(UIImage(named: "flash_off"), for: UIControlState.normal)
         
 
@@ -42,10 +42,33 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     
     override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+        super.viewDidAppear(true)
         videoPreviewLayer!.frame = UIScreen.main.bounds
         
     }//fine viewDidAppear
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        
+        
+        do{
+            try captureDevice.lockForConfiguration()
+            if(captureDevice.torchMode == .on){
+                captureDevice.torchMode = .off
+                flashButton.setBackgroundImage(UIImage(named: "flash_off"), for: UIControlState.normal)
+                
+                
+                
+            }
+            
+            captureDevice.unlockForConfiguration()
+        }
+        catch{
+            print(error)
+        }
+        
+        
+    }//viewWillDisappear() spegne flash
  
     
     override func viewDidLoad() {
