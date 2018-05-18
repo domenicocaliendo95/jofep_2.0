@@ -12,6 +12,7 @@ import UIKit
 class SMD: UIViewController, UITextFieldDelegate{
     
     let limitLength = 1
+    var j = 0
     
     @IBOutlet var risultatoSMD: UILabel!
     var eia_option = false
@@ -151,7 +152,7 @@ class SMD: UIViewController, UITextFieldDelegate{
         //BOTTONE ANIMATO 4
         UIView.animate(withDuration: 0.07,
                        animations: {
-                        sender.transform = CGAffineTransform(scaleX: 0.98, y: 0.94)
+                        sender.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
         },
                        completion: { finish in
                         UIView.animate(withDuration: 0.07, animations: {
@@ -202,7 +203,7 @@ class SMD: UIViewController, UITextFieldDelegate{
         //BOTTONE ANIMATO 3
         UIView.animate(withDuration: 0.07,
                        animations: {
-                        sender.transform = CGAffineTransform(scaleX: 0.98, y: 0.94)
+                        sender.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
         },
                        completion: { finish in
                         UIView.animate(withDuration: 0.07, animations: {
@@ -255,7 +256,7 @@ class SMD: UIViewController, UITextFieldDelegate{
         //BOTTONE ANIMATO 2
         UIView.animate(withDuration: 0.07,
                        animations: {
-                        sender.transform = CGAffineTransform(scaleX: 0.98, y: 0.94)
+                        sender.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
         },
                        completion: { finish in
                         UIView.animate(withDuration: 0.07, animations: {
@@ -274,7 +275,9 @@ class SMD: UIViewController, UITextFieldDelegate{
     //######################### inizio viewDidLoad() #########################
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(eia_option)
+        
+        //field1.returnKeyType = UIReturnKeyType.continue
+
 
         field1.delegate = self
         field2.delegate = self
@@ -414,6 +417,8 @@ class SMD: UIViewController, UITextFieldDelegate{
         }
         
         //verifica caratteri per 4 simboli
+        
+        
         if(curr_button == 4){
             
             for i in pickerStandard{
@@ -432,6 +437,7 @@ class SMD: UIViewController, UITextFieldDelegate{
                 self.field1.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)//rosso
                 self.field1.layer.shadowColor = #colorLiteral(red: 0.8319607973, green: 0, blue: 0, alpha: 1)//rosso scuro -> mattone #C21212
                 self.field1.layer.borderWidth = 2
+                
                 field1.text?.removeAll()
             }
             // fine  field1
@@ -787,7 +793,7 @@ class SMD: UIViewController, UITextFieldDelegate{
         
         valore2 = Double(field2_text)!
         risultato = valore1*pow(10.0, valore2)
-        self.risultatoSMD.text = String(risultato) + " Ω"
+        print_label(result: risultato)
         
     } // fine calculateSMD2
     
@@ -808,25 +814,25 @@ class SMD: UIViewController, UITextFieldDelegate{
         
         if(field1_text == "M" && field2_text != "M" && field2_text != "R" && field3_text != "M" && field3_text != "R") {
             risultato = Double("0." + field2_text + field3_text)!/1000
-            self.risultatoSMD.text = String(risultato) + " Ω"
+            print_label(result: risultato)
         }else if(field1_text != "M" && field1_text != "R" && field2_text == "M" && field3_text != "M" && field3_text != "R"){
             risultato = Double(field1_text + "." + field3_text)!/1000
-            self.risultatoSMD.text = String(risultato) + " Ω"
+            print_label(result: risultato)
         }else if(field1_text != "M" && field1_text != "R" && field2_text != "M" && field2_text != "R" && field3_text == "M"){
             risultato = Double(field1_text + field2_text + ".0")!/1000
-            self.risultatoSMD.text = String(risultato) + " Ω"
+            print_label(result: risultato)
         }else if(field1_text == "R" && field2_text != "M" && field2_text != "R" && field3_text != "M" && field3_text != "R") {
             risultato = Double("0." + field2_text + field3_text)!
-            self.risultatoSMD.text = String(risultato) + " Ω"
+            print_label(result: risultato)
         }else if(field1_text != "M" && field1_text != "R" && field2_text == "R" && field3_text != "M" && field3_text != "R"){
             risultato = Double(field1_text + "." + field3_text)!
-            self.risultatoSMD.text = String(risultato) + " Ω"
+            print_label(result: risultato)
         }else if(field1_text != "M" && field1_text != "R" && field2_text != "M" && field2_text != "R" && field3_text == "R"){
             risultato = Double(field1_text + field2_text + ".0")!
-            self.risultatoSMD.text = String(risultato) + " Ω"
+            print_label(result: risultato)
         }else if(count == 0)  {
             risultato = Double(field1_text + field2_text)! * pow(10.0, Double(field3_text)!)
-            self.risultatoSMD.text = String(risultato) + " Ω"
+            print_label(result: risultato)
         }else{
             self.risultatoSMD.text =  "?"
         }
@@ -854,31 +860,31 @@ class SMD: UIViewController, UITextFieldDelegate{
         
         if(field1_text == "M" && field2_text != "M" && field2_text != "R" && field3_text != "M" && field3_text != "R" && field4_text != "M" && field4_text != "R") {
             risultato = Double("0." + field2_text + field3_text + field4_text)!/1000
-            self.risultatoSMD.text = String(risultato) + " Ω"
+            print_label(result: risultato)
         }else if(field1_text != "M" && field1_text != "R" && field2_text == "M" && field3_text != "M" && field3_text != "R" && field4_text != "M" && field4_text != "R"){
             risultato = Double(field1_text + "." + field3_text + field4_text)!/1000
-            self.risultatoSMD.text = String(risultato) + " Ω"
+            print_label(result: risultato)
         }else if(field1_text != "M" && field1_text != "R" && field2_text != "M" && field2_text != "R" && field3_text == "M" && field4_text != "M" && field4_text != "R"){
             risultato = Double(field1_text + field2_text + "." + field4_text)!/1000
-            self.risultatoSMD.text = String(risultato) + " Ω"
+            print_label(result: risultato)
         }else if(field1_text != "M" && field1_text != "R" && field2_text != "M" && field2_text != "R" && field3_text != "M" && field3_text != "R" && field4_text == "M"){
             risultato = Double(field1_text + field2_text + field3_text + ".0")!/1000
-            self.risultatoSMD.text = String(risultato) + " Ω"
+            print_label(result: risultato)
         }else if(field1_text == "R" && field2_text != "M" && field2_text != "R" && field3_text != "M" && field3_text != "R" && field4_text != "M" && field4_text != "R") {
             risultato = Double("0." + field2_text + field3_text + field4_text)!
-            self.risultatoSMD.text = String(risultato) + " Ω"
+            print_label(result: risultato)
         }else if(field1_text != "M" && field1_text != "R" && field2_text == "R" && field3_text != "M" && field3_text != "R" && field4_text != "M" && field4_text != "R"){
             risultato = Double(field1_text + "." + field3_text + field4_text)!
-            self.risultatoSMD.text = String(risultato) + " Ω"
+            print_label(result: risultato)
         }else if(field1_text != "M" && field1_text != "R" && field2_text != "M" && field2_text != "R" && field3_text == "R" && field4_text != "M" && field4_text != "R"){
             risultato = Double(field1_text + field2_text + "." + field4_text)!
-            self.risultatoSMD.text = String(risultato) + " Ω"
+            print_label(result: risultato)
         }else if(field1_text != "M" && field1_text != "R" && field2_text != "M" && field2_text != "R" && field3_text != "R" && field3_text != "M" && field4_text == "R"){
             risultato = Double(field1_text + field2_text + field3_text + ".0")!
-            self.risultatoSMD.text = String(risultato) + " Ω"
+            print_label(result: risultato)
         }else if(count == 0)  {
             risultato = Double(field1_text + field2_text + field3_text)! * pow(10.0, Double(field4_text)!)
-            self.risultatoSMD.text = String(risultato) + " Ω"
+            print_label(result: risultato)
         }else{
             self.risultatoSMD.text =  "?"
         }
@@ -920,8 +926,25 @@ class SMD: UIViewController, UITextFieldDelegate{
             moltiplicatore = 100000
         }
         risultato = valore * moltiplicatore
-        self.risultatoSMD.text = String(risultato) + " Ω"
+        print_label(result: risultato)
     } // fine funzione EIA
+    
+    func print_label(result: Double){
+        print(result)
+        if(result < 0.001){
+            self.risultatoSMD.text = String(format: "%g", result*1000000) + " μΩ"
+        }else if((result < 1) && (result >= 0.001)){
+            self.risultatoSMD.text = String(format: "%g", result*1000) + " mΩ"
+        }else if ((result < 1000) && (result > 1) ){
+            self.risultatoSMD.text = String(format: "%g", result) + " Ω"
+        }else if (result >= 1000) && (result < 1000000){
+            self.risultatoSMD.text = String(format: "%g", result/1000) + " KΩ"
+        }else if (result >= 1000000) && (result < 1000000000){
+            self.risultatoSMD.text = String(format: "%g", result/1000000) + " MΩ"
+        }else if (result >= 1000000000){
+            self.risultatoSMD.text = String(format: "%g", result/1000000000) + " GΩ"
+        }
+    }
     
     
 }

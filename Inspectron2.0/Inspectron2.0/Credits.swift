@@ -20,7 +20,7 @@ class Credits: UIViewController{
         super.viewDidLoad()
   
         
-        self.spritz.alpha = 0.4
+        self.spritz.alpha = 0.3
     }//fine viewDidLoad()
     
     override func viewWillAppear(_ animated: Bool) {

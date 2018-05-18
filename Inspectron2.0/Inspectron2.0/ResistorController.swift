@@ -22,7 +22,7 @@ class Resistor: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
         //BOTTONE ANIMATO
         UIStepper.animate(withDuration: 0.07,
                          animations: {
-                            sender.transform = CGAffineTransform(scaleX: 0.98, y: 0.94)
+                            sender.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
         },
                          completion: { finish in
                             UIStepper.animate(withDuration: 0.07, animations: {
@@ -378,6 +378,29 @@ class Resistor: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
         return value
     }//fine valueTCRFromColor
     
+    //restituisce il valore del picker in STRING in base al colore, valido per il picker Tolerance
+    func valueTCRFromColorNumber (color: String) -> Double{
+        
+        var value: Double = 250
+        
+        switch color {
+        case "Black": value = 250
+        case "Brown": value = 100
+        case "Red": value = 50
+        case "Yellow": value = 25
+        case "Green": value = 20
+        case "Orange": value = 15
+        case "Blue": value = 10
+        case "Violet": value = 5
+        case "Grey": value = 1
+            
+        default:
+            break
+        }
+        
+        return value * 0.000001
+    }//fine valueTCRFromColor
+    
     //restituisce il valore del picker in STRING (per la stampa in label) in base al colore, valido per il picker Tolerance
     func valueTCRFromColorString (color: String) -> String{
         
@@ -681,37 +704,61 @@ class Resistor: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
         let band3 = valueBandFromColor(color: selectedPicker3)
         let band4 = valueMultiplierFromColor(color: selectedPicker4)
         let band5 = valueToleranceFromColor(color: selectedPicker5)
-        let band6 = valueTCRFromColor(color: selectedPicker6)
+        let band6 = valueTCRFromColorNumber(color: selectedPicker6)
         
-        let n = Double ("\(band1)\(band2)\(band3)")!
+        var n = 0.0
+        
+        
+        if(picker3.isHidden){
+            n = Double ("\(band1)\(band2)")!
+        }else{
+            n = Double ("\(band1)\(band2)\(band3)")!
+        }
         let finalVal = n*band4
+        let finalTCR = finalVal * band6
+        var labelTCR = ""
+        
+        if(finalTCR < 0.001){
+            labelTCR = String(format: "%g", finalTCR * 1000000) + " μΩ ppm/°C"
+        }else if(finalTCR < 1 && finalTCR >= 0.001){
+            labelTCR = String(format: "%g", finalTCR * 1000) + " mΩ ppm/°C"
+        }else if (finalTCR < 1000 && finalTCR >= 1){
+            labelTCR = String(format: "%g", finalTCR) + " Ω ppm/°C"
+        }else if(finalTCR >= 1000 && finalTCR < 1000000){
+            labelTCR = String(format: "%g", finalTCR / 1000) + " KΩ ppm/°C"
+        }else if(finalTCR >= 1000000 && finalTCR < 1000000000){
+            labelTCR = String(format: "%g", finalTCR / 1000000) + " MΩ ppm/°C"
+        }else if(finalTCR > 1000000000){
+            labelTCR = String(format: "%g", finalTCR / 1000000000) + " GΩ ppm/°C"
+        }
+        
         
         if (finalVal < 1000)
         {
             outputValue.text = String (format: "%g", finalVal) + " Ω"
             outputTolerance.text = "\(band5)"
-            outputTCR.text = "\(band6)"
+            outputTCR.text = "± \(labelTCR)"
         }
         else
             if (finalVal >= 1000) && (finalVal < 1000000)
             {
                 outputValue.text = String (format: "%g", finalVal/1000) + " KΩ"
                 outputTolerance.text = "\(band5)"
-                outputTCR.text = "\(band6)"
+                outputTCR.text = "± \(labelTCR)"
             }
             else
                 if (finalVal >= 1000000) && (finalVal < 1000000000)
                 {
                     outputValue.text = String (format: "%g", finalVal/1000000) + " MΩ"
                     outputTolerance.text = "\(band5)"
-                    outputTCR.text = "\(band6)"
+                    outputTCR.text = "± \(labelTCR)"
         }
                 else
                     if (finalVal >= 1000000000)
                     {
                         outputValue.text = String (format: "%g", finalVal/1000000000) + " GΩ"
                         outputTolerance.text = "\(band5)"
-                        outputTCR.text = "\(band6)"
+                        outputTCR.text = "± \(labelTCR)"
         }
     }
 

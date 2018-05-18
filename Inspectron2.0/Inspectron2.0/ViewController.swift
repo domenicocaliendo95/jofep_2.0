@@ -160,7 +160,7 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
             //bottone flash animato
             UIView.animate(withDuration: 0.07,
                            animations: {
-                            sender.transform = CGAffineTransform(scaleX: 0.98, y: 0.94)
+                            sender.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
             },
                            completion: { finish in
                             UIView.animate(withDuration: 0.07, animations: {
@@ -175,7 +175,7 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
             //bottone flash animato
             UIView.animate(withDuration: 0.07,
                            animations: {
-                            sender.transform = CGAffineTransform(scaleX: 0.98, y: 0.94)
+                            sender.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
             },
                            completion: { finish in
                             UIView.animate(withDuration: 0.07, animations: {
@@ -208,7 +208,7 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
                     //bottone flash animato
                     UIView.animate(withDuration: 0.07,
                                    animations: {
-                                    self.flashButton.transform = CGAffineTransform(scaleX: 0.98, y: 0.94)
+                                    self.flashButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
                     },
                                    completion: { finish in
                                     UIView.animate(withDuration: 0.07, animations: {
@@ -243,7 +243,7 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
                     self.flashButton.setBackgroundImage(UIImage(named: "flash_off"), for: UIControlState.normal)
                     UIView.animate(withDuration: 0.07,
                                    animations: {
-                                    self.flashButton.transform = CGAffineTransform(scaleX: 0.98, y: 0.94)
+                                    self.flashButton.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
                     },
                                    completion: { finish in
                                     UIView.animate(withDuration: 0.07, animations: {
