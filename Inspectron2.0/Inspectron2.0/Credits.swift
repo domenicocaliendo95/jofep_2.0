@@ -14,6 +14,22 @@ class Credits: UIViewController{
     @IBOutlet var logo: UIImageView!
     @IBOutlet var spritz: UIImageView!
     
+    @IBAction func bottoneDomenico(_ sender: UIButton) {
+        
+        if let url = NSURL(string: "https://www.linkedin.com/in/domenico-caliendo-76b40a127/"){
+            UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+        }
+        
+    }
+    
+    @IBAction func bottoneGennaro(_ sender: UIButton) {
+        
+        if let url = NSURL(string: "https://www.linkedin.com/in/gennaro-gemito-a609a9107"){
+            UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
+        }
+    }
+    
+    
     let rotation = CGAffineTransform(rotationAngle: CGFloat(Double.pi * 360))
     
     override func viewDidLoad() {

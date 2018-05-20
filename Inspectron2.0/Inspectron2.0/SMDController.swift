@@ -358,6 +358,31 @@ class SMD: UIViewController, UITextFieldDelegate{
         
     }//######################### fine viewDidLoad() #########################
     
+    
+    /*
+     func textFieldShouldReturn(_ textField: UITextField) -> Bool
+     {
+     
+     if(curr_text == 1){
+     self.field2.superview?.viewWithTag(field2.tag)?.becomeFirstResponder()
+     curr_text = 2
+     }
+     
+     if(curr_text == 2){
+     self.field3.superview?.viewWithTag(field3.tag)?.becomeFirstResponder()
+     curr_text = 3
+     }
+     
+     if(curr_text == 3){
+     self.field4.superview?.viewWithTag(field4.tag)?.becomeFirstResponder()
+     curr_text = 4
+     }
+     
+     return false
+     }
+     */
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(true)

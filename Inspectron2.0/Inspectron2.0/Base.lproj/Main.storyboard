@@ -96,6 +96,38 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logospritz" translatesAutoresizingMaskIntoConstraints="NO" id="eEk-ER-m1N">
                                 <rect key="frame" x="0.0" y="284" width="375" height="289"/>
                             </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright © 2018 - All rights reserved" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fpj-as-cKg">
+                                <rect key="frame" x="33.5" y="274" width="308" height="21.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="unisa_logo_foundation" translatesAutoresizingMaskIntoConstraints="NO" id="PSO-OU-hb0">
+                                <rect key="frame" x="25" y="523" width="325" height="75"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="75" id="ujc-Rg-g2K"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MWh-Go-goT">
+                                <rect key="frame" x="90" y="310.5" width="195" height="40"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <state key="normal" title="Domenico Caliendo">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="bottoneDomenico:" destination="1ql-3Q-k3X" eventType="touchUpInside" id="7nM-hZ-ECW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5AV-sd-Fn1">
+                                <rect key="frame" x="106" y="350.5" width="163" height="40"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                <state key="normal" title="Gennaro Gemito">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="bottoneGennaro:" destination="1ql-3Q-k3X" eventType="touchUpInside" id="nq9-Rb-XRZ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -104,14 +136,24 @@
                             <constraint firstItem="uh5-MW-EHm" firstAttribute="leading" secondItem="hRI-TA-tmI" secondAttribute="trailing" constant="-5" id="0CJ-sc-TBR"/>
                             <constraint firstItem="UBb-3w-3op" firstAttribute="trailing" secondItem="8vI-5H-xBZ" secondAttribute="trailing" id="0iw-q6-3PQ"/>
                             <constraint firstItem="eEk-ER-m1N" firstAttribute="top" secondItem="8vI-5H-xBZ" secondAttribute="bottom" constant="20" id="30U-za-TU7"/>
+                            <constraint firstItem="5AV-sd-Fn1" firstAttribute="top" secondItem="MWh-Go-goT" secondAttribute="bottom" id="3PU-4S-Cxh"/>
+                            <constraint firstItem="Fpj-as-cKg" firstAttribute="centerX" secondItem="C39-4C-2Oy" secondAttribute="centerX" id="CC7-WA-J5v"/>
+                            <constraint firstItem="PSO-OU-hb0" firstAttribute="centerX" secondItem="C39-4C-2Oy" secondAttribute="centerX" id="KFF-BM-PHM"/>
                             <constraint firstItem="UBb-3w-3op" firstAttribute="trailing" secondItem="eEk-ER-m1N" secondAttribute="trailing" id="KWl-M6-jqB"/>
                             <constraint firstItem="8vI-5H-xBZ" firstAttribute="leading" secondItem="UBb-3w-3op" secondAttribute="leading" id="Lzw-2Q-VBi"/>
                             <constraint firstItem="TZD-tS-rv0" firstAttribute="top" secondItem="UBb-3w-3op" secondAttribute="top" constant="60" id="Mlz-tD-Tot"/>
                             <constraint firstItem="UBb-3w-3op" firstAttribute="bottom" secondItem="eEk-ER-m1N" secondAttribute="bottom" constant="45" id="N4O-Z6-bLi"/>
                             <constraint firstItem="eEk-ER-m1N" firstAttribute="leading" secondItem="UBb-3w-3op" secondAttribute="leading" id="OU8-Vh-4i1"/>
+                            <constraint firstItem="UBb-3w-3op" firstAttribute="bottom" secondItem="PSO-OU-hb0" secondAttribute="bottom" constant="20" id="RhD-FN-2YJ"/>
+                            <constraint firstItem="UBb-3w-3op" firstAttribute="trailing" secondItem="PSO-OU-hb0" secondAttribute="trailing" constant="25" id="Vh4-N1-UOM"/>
                             <constraint firstItem="TZD-tS-rv0" firstAttribute="centerX" secondItem="C39-4C-2Oy" secondAttribute="centerX" id="X3w-cV-6ru"/>
                             <constraint firstItem="hRI-TA-tmI" firstAttribute="centerX" secondItem="C39-4C-2Oy" secondAttribute="centerX" id="aha-EW-aZi"/>
+                            <constraint firstItem="MWh-Go-goT" firstAttribute="centerX" secondItem="C39-4C-2Oy" secondAttribute="centerX" id="geY-hL-GI3"/>
+                            <constraint firstItem="PSO-OU-hb0" firstAttribute="leading" secondItem="UBb-3w-3op" secondAttribute="leading" constant="25" id="ico-IW-tMV"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uh5-MW-EHm" secondAttribute="trailing" constant="20" symbolic="YES" id="iji-2Y-QHw"/>
+                            <constraint firstItem="5AV-sd-Fn1" firstAttribute="centerX" secondItem="C39-4C-2Oy" secondAttribute="centerX" id="iqY-KQ-OYi"/>
+                            <constraint firstItem="MWh-Go-goT" firstAttribute="top" secondItem="Fpj-as-cKg" secondAttribute="bottom" constant="15" id="kFF-kj-yLn"/>
+                            <constraint firstItem="Fpj-as-cKg" firstAttribute="top" secondItem="8vI-5H-xBZ" secondAttribute="bottom" constant="10" id="mTQ-Jl-eU0"/>
                             <constraint firstItem="uh5-MW-EHm" firstAttribute="top" secondItem="hRI-TA-tmI" secondAttribute="top" constant="5" id="wUB-tC-dKa"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UBb-3w-3op"/>
@@ -877,6 +919,7 @@
         <image name="res" width="25" height="25"/>
         <image name="res_logo" width="41" height="124"/>
         <image name="smd" width="25" height="13"/>
+        <image name="unisa_logo_foundation" width="472" height="164"/>
     </resources>
     <color key="tintColor" red="1" green="0.57637232540000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
