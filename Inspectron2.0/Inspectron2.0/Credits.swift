@@ -13,6 +13,8 @@ class Credits: UIViewController{
     
     @IBOutlet var logo: UIImageView!
     @IBOutlet var spritz: UIImageView!
+    @IBOutlet var outlet_Domenico: UIButton!
+    @IBOutlet var outlet_Gennaro: UIButton!
     
     @IBAction func bottoneDomenico(_ sender: UIButton) {
         
@@ -36,19 +38,62 @@ class Credits: UIViewController{
         super.viewDidLoad()
   
         
-        self.spritz.alpha = 0.3
+        rotate360Degrees(duration: 120.0, completionDelegate: nil)
+        
+        
+        /*
+        let blurEffect1 = UIBlurEffect(style: .regular)
+        let blurEffectView1 = UIVisualEffectView(effect: blurEffect1)
+        blurEffectView1.frame = self.view.frame
+        
+        let blurEffect2 = UIBlurEffect(style: .regular)
+        let blurEffectView2 = UIVisualEffectView(effect: blurEffect2)
+        blurEffectView2.frame = self.view.frame
+        */
+        
+        //self.view.insertSubview(blurEffectView, atIndex: 0)
+
+
+        self.spritz.alpha = 0.2
+        
+        self.outlet_Domenico.layer.cornerRadius = 3
+        self.outlet_Domenico.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.outlet_Domenico.layer.borderWidth = 1.0
+        //self.outlet_Domenico.insertSubview(blurEffectView1, at: 0)
+        
+        self.outlet_Gennaro.layer.cornerRadius = 3
+        self.outlet_Gennaro.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        self.outlet_Gennaro.layer.borderWidth = 1.0
+        //self.outlet_Gennaro.insertSubview(blurEffectView2, at: 0)
+        
+        
     }//fine viewDidLoad()
+    
+    @IBAction func fastRotatione(_ sender: UILongPressGestureRecognizer) {
+        
+            rotate360Degrees(duration: 120.0, completionDelegate: nil)
+        
+        
+        
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        rotate360Degrees()
+        rotate360Degrees(duration: 1200.0, completionDelegate: nil)
     }
     
-    func rotate360Degrees(duration: CFTimeInterval = 120.0, completionDelegate: AnyObject? = nil) {
+    override func loadView() {
+        super.loadView()
+        
+        rotate360Degrees(duration: 1200.0, completionDelegate: nil)
+    }
+    
+    func rotate360Degrees(duration: CFTimeInterval, completionDelegate: AnyObject?) {
         let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
         rotateAnimation.fromValue = 0.0
-        rotateAnimation.toValue = CGFloat(Double.pi * -(60.0))
+        rotateAnimation.toValue = CGFloat(Double.pi * -(600.0))
         rotateAnimation.duration = duration
         rotateAnimation.autoreverses = false
         

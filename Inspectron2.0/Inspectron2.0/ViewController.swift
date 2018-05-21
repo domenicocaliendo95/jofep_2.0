@@ -10,10 +10,11 @@ import UIKit
 import AVFoundation //Framework, cercare uso.
 import Vision
 import CoreImage
+import AVKit
 
 class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
 
-@IBOutlet weak var Camera: UIImageView!//collegamento a UIImageView
+// @IBOutlet weak var Camera: UIImageView!//collegamento a UIImageView
     @IBOutlet var flashButton: UIButton!//bottone flash
     
     @IBOutlet var rect: UIView!{
@@ -26,13 +27,13 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     }
     
     
-    var videoPreviewLayer: AVCaptureVideoPreviewLayer?//vedo l'acquisizione della fotocamera nel mio ViewController
+   /* var videoPreviewLayer: AVCaptureVideoPreviewLayer?//vedo l'acquisizione della fotocamera nel mio ViewController
     var captureSession: AVCaptureSession!//avvia la fotocamera, cattura le immagini
-    var inputCamera: AVCaptureDeviceInput!
+    var inputCamera: AVCaptureDeviceInput! */
     var pivotPinchScale: CGFloat!//fattore di zoom
     var captureDevice: AVCaptureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)!//Imposta il device di acquisizione
 
-    
+ 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         flashButton.setBackgroundImage(UIImage(named: "flash_off"), for: UIControlState.normal)
@@ -43,7 +44,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        videoPreviewLayer!.frame = UIScreen.main.bounds
+       // videoPreviewLayer!.frame = UIScreen.main.bounds
         
     }//fine viewDidAppear
     
@@ -75,7 +76,30 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         super.viewDidLoad()
         
         
-        do{
+        let captureSession = AVCaptureSession()
+        captureSession.sessionPreset = .photo
+        guard let captureDevice = AVCaptureDevice.default(for: .video) else { return }
+        guard let input = try? AVCaptureDeviceInput(device: captureDevice) else { return }
+        captureSession.addInput(input)
+        captureSession.startRunning()
+        
+        let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
+        
+        view.layer.addSublayer(previewLayer)
+        previewLayer.frame = view.frame //View per anteprima
+        
+        let dataOutput = AVCaptureVideoDataOutput()
+        dataOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "Video Queue"))
+        captureSession.addOutput(dataOutput)
+        
+        /*let request = VNCoreMLRequest(model: InspectronModelOne, completionHandler: <#T##VNRequestCompletionHandler?##VNRequestCompletionHandler?##(VNRequest, Error?) -> Void#>)
+         VNImageRequestHandler(cgImage: <#T##CGImage#>, options: <#T##[VNImageOption : Any]#>).perform(<#T##requests: [VNRequest]##[VNRequest]#>) // Responsible for analyzing the camera, CGImage is a translation from camera to this method.
+         
+         */
+        
+        
+        
+    /*    do{
             inputCamera = try AVCaptureDeviceInput(device: captureDevice)
         }catch{
             print(error)
@@ -86,17 +110,37 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         
         videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession!)
         videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        
+        //captureSession.sessionPreset = .photo // serve a ridimensionare per le foto
         self.Camera?.layer.addSublayer(self.videoPreviewLayer!)
         captureSession?.startRunning()
         
         viewWillAppear(true)//animated true
         viewDidAppear(true)//animated true
         Camera.isUserInteractionEnabled=true  // Grazie a максимальний комп'ютер
+        */
+        
+       /* let dataOutput = AVCaptureVideoDataOutput()
+        dataOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "Video Queue"))
+        captureSession.addOutput(dataOutput) */
+        
+
+        
+        // --- ML & Vision ---
+        
+       /*let request = VNCoreMLRequest(model: InspectronModelOne, completionHandler: <#T##VNRequestCompletionHandler?##VNRequestCompletionHandler?##(VNRequest, Error?) -> Void#>)
+        VNImageRequestHandler(cgImage: <#T##CGImage#>, options: <#T##[VNImageOption : Any]#>).perform(<#T##requests: [VNRequest]##[VNRequest]#>) // Responsible for analyzing the camera, CGImage is a translation from camera to this method.
+        
+        */
+        
+        // --- END ML & Vision ---
         
         
         
     }//fine viewDidLoad
+    
+    func captureOutput(_ output: AVCaptureOutput, didDrop sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        print("Camera captured a frame", Date())
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -105,9 +149,9 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     
 override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let screenSize = Camera.bounds.size //dimensioni cornice
+       // let screenSize = Camera.bounds.size //dimensioni cornice
         
-        if let tounchPoint = touches.first {
+        /*if let tounchPoint = touches.first {
             let x = tounchPoint.location(in: Camera).x / screenSize.width
             let y = 1.0 - tounchPoint.location(in: Camera).y / screenSize.height
             let focusPoint = CGPoint (x: x, y: y)
@@ -123,14 +167,14 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
                     captureDevice.unlockForConfiguration()
                 } catch { /*nothing*/ }
             
-        }
+        } */
     }
  
     
 
  
     @IBAction func pinchToZoom(_ sender: UIPinchGestureRecognizer) {
-        do {
+        /*do {
             try captureDevice.lockForConfiguration()
             switch sender.state {
             case .began:
@@ -146,7 +190,7 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         } catch {
             print(error)
         }
-        
+        */
     }
     
 
@@ -262,6 +306,32 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
             
         }//fine if hasTorch
     }//fine flashOFF
+    
+    
+    
+    
+    
+    
+    
+    /*   ◊◊◊◊◊◊◊ ML & VISION ◊◊◊◊◊◊◊
+ 
+ 
+ _..._                      .-'''-.
+ .-'_..._''.                  '   _    \
+ .--.   _..._            _________   _...._            __.....__       .' .'      '.\               /   /` '.   \    _..._
+ |__| .'     '.          \        |.'      '-.     .-''         '.    / .'                         .   |     \  '  .'     '.
+ .--..   .-.   .          \        .'```'.    '.  /     .-''"'-.  `. . '               .|  .-,.--. |   '      |  '.   .-.   .
+ |  ||  '   '  |           \      |       \     \/     /________\   \| |             .' |_ |  .-. |\    \     / / |  '   '  |
+ |  ||  |   |  |       _    |     |        |    ||                  || |           .'     || |  | | `.   ` ..' /  |  |   |  |
+ |  ||  |   |  |     .' |   |      \      /    . \    .-------------'. '          '--.  .-'| |  | |    '-...-'`   |  |   |  |
+ |  ||  |   |  |    .   | / |     |\`'-.-'   .'   \    '-.____...---. \ '.          .|  |  | |  '-                |  |   |  |
+ |__||  |   |  |  .'.'| |// |     | '-....-'`      `.             .'   '. `._____.-'/|  |  | |                    |  |   |  |
+ |  |   |  |.'.'.-'  / .'     '.                 `''-...... -'       `-.______ / |  '.'| |                    |  |   |  |
+ |  |   |  |.'   \_.''-----------'                                            `  |   / |_|                    |  |   |  |
+ '--'   '--'                                                                     `'-'                         '--'   '--'
+*/
+    
+
     
     
 

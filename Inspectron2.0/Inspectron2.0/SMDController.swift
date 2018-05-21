@@ -21,6 +21,8 @@ class SMD: UIViewController, UITextFieldDelegate{
     var field2_text: String = ""
     var field3_text: String = ""
     var field4_text: String = ""
+    
+    var check_values_var = 0
 
 
     var curr_button = 4
@@ -58,10 +60,10 @@ class SMD: UIViewController, UITextFieldDelegate{
             self.found_flag2 = 0
             self.found_flag3 = 0
             self.found_flag4 = 0
-            field1.text?.removeAll()
-            field2.text?.removeAll()
-            field3.text?.removeAll()
-            field4.text?.removeAll()
+            self.field1.text?.removeAll()
+            self.field2.text?.removeAll()
+            self.field3.text?.removeAll()
+            self.field4.text?.removeAll()
             self.field1.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             self.field1.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             self.field1.layer.borderWidth = 1
@@ -275,9 +277,6 @@ class SMD: UIViewController, UITextFieldDelegate{
     //######################### inizio viewDidLoad() #########################
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //field1.returnKeyType = UIReturnKeyType.continue
-
 
         field1.delegate = self
         field2.delegate = self
@@ -408,42 +407,9 @@ class SMD: UIViewController, UITextFieldDelegate{
         }
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-        self.view.frame.origin.y = 0//reset keyboard height
+    func check_values() -> Int{
         
-        if(field1.text!.count > 1){
-            error_label.text = "Please insert only one letter or number!"
-         
-            field1.text?.removeAll()
-            field1.becomeFirstResponder()
-            
-        }else if(field2.text!.count > 1){
-            error_label.text = "Please insert only one letter or number!"
-            
-            field2.text?.removeAll()
-            field2.becomeFirstResponder()
-            
-        } else if(field3.text!.count > 1){
-            error_label.text = "Please insert only one letter or number!"
-            
-            field3.text?.removeAll()
-            field3.becomeFirstResponder()
-            
-        } else if(field4.text!.count > 1){
-            error_label.text = "Please insert only one letter or number!"
-            
-            field4.text?.removeAll()
-            field4.becomeFirstResponder()
-            
-        } else if((field1.text!.count <= 1) && (field2.text!.count <= 1) && (field3.text!.count <= 1) && (field4.text!.count <= 1) ) {
-            error_label.text = ""
-            
-        }
-        
-        //verifica caratteri per 4 simboli
-        
-        
+        //controllo per 4 field text
         if(curr_button == 4){
             
             for i in pickerStandard{
@@ -464,6 +430,7 @@ class SMD: UIViewController, UITextFieldDelegate{
                 self.field1.layer.borderWidth = 2
                 
                 field1.text?.removeAll()
+                return 1
             }
             // fine  field1
             
@@ -481,11 +448,12 @@ class SMD: UIViewController, UITextFieldDelegate{
                 self.field2.layer.shadowColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 self.field2.layer.borderWidth = 1
             } else if ( field2.text! != ""){
-
+                
                 self.field2.layer.borderColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
                 self.field2.layer.shadowColor = #colorLiteral(red: 0.8319607973, green: 0, blue: 0, alpha: 1)//rosso scuro -> mattone #C21212
                 self.field2.layer.borderWidth = 2
                 field2.text?.removeAll()
+                return 2
                 
             } // fine field 2
             
@@ -507,6 +475,7 @@ class SMD: UIViewController, UITextFieldDelegate{
                 self.field3.layer.shadowColor = #colorLiteral(red: 0.8319607973, green: 0, blue: 0, alpha: 1)//rosso scuro -> mattone #C21212
                 self.field3.layer.borderWidth = 2
                 field3.text?.removeAll()
+                return 3
                 
             }//fine field 3
             
@@ -528,6 +497,7 @@ class SMD: UIViewController, UITextFieldDelegate{
                 self.field4.layer.shadowColor = #colorLiteral(red: 0.8319607973, green: 0, blue: 0, alpha: 1)//rosso scuro -> mattone #C21212
                 self.field4.layer.borderWidth = 2
                 field4.text?.removeAll()
+                return 4
                 
             }//fine field 4
             
@@ -553,6 +523,7 @@ class SMD: UIViewController, UITextFieldDelegate{
                 self.field1.layer.shadowColor = #colorLiteral(red: 0.8319607973, green: 0, blue: 0, alpha: 1)//rosso scuro -> mattone #C21212
                 self.field1.layer.borderWidth = 2
                 field1.text?.removeAll()
+                return 1
             }
             //fine field1
             
@@ -575,6 +546,7 @@ class SMD: UIViewController, UITextFieldDelegate{
                 self.field2.layer.shadowColor = #colorLiteral(red: 0.8319607973, green: 0, blue: 0, alpha: 1)//rosso scuro -> mattone #C21212
                 self.field2.layer.borderWidth = 2
                 field2.text?.removeAll()
+                return 2
                 
             } // fine field 2
             
@@ -596,6 +568,7 @@ class SMD: UIViewController, UITextFieldDelegate{
                 self.field3.layer.shadowColor = #colorLiteral(red: 0.8319607973, green: 0, blue: 0, alpha: 1)//rosso scuro -> mattone #C21212
                 self.field3.layer.borderWidth = 2
                 field3.text?.removeAll()
+                return 3
                 
             }//fine field 3
             
@@ -623,6 +596,7 @@ class SMD: UIViewController, UITextFieldDelegate{
                 self.field1.layer.shadowColor = #colorLiteral(red: 0.8319607973, green: 0, blue: 0, alpha: 1)//rosso scuro -> mattone #C21212
                 self.field1.layer.borderWidth = 2
                 field1.text?.removeAll()
+                return 1
             }
             // fine  field1
             
@@ -645,6 +619,7 @@ class SMD: UIViewController, UITextFieldDelegate{
                 self.field2.layer.shadowColor = #colorLiteral(red: 0.8319607973, green: 0, blue: 0, alpha: 1)//rosso scuro -> mattone #C21212
                 self.field2.layer.borderWidth = 2
                 field2.text?.removeAll()
+                return 2
                 
             } // fine field 2
             
@@ -666,6 +641,7 @@ class SMD: UIViewController, UITextFieldDelegate{
                 self.field3.layer.shadowColor = #colorLiteral(red: 0.8319607973, green: 0, blue: 0, alpha: 1)//rosso scuro -> mattone #C21212
                 self.field3.layer.borderWidth = 2
                 field3.text?.removeAll()
+                return 3
                 
             }//fine field 3
             
@@ -692,6 +668,7 @@ class SMD: UIViewController, UITextFieldDelegate{
                 self.field1.layer.shadowColor = #colorLiteral(red: 0.8319607973, green: 0, blue: 0, alpha: 1)//rosso scuro -> mattone #C21212
                 self.field1.layer.borderWidth = 2
                 field1.text?.removeAll()
+                return 1
             }
             // fine  field1
             
@@ -714,6 +691,7 @@ class SMD: UIViewController, UITextFieldDelegate{
                 self.field2.layer.shadowColor = #colorLiteral(red: 0.8319607973, green: 0, blue: 0, alpha: 1)//rosso scuro -> mattone #C21212
                 self.field2.layer.borderWidth = 2
                 field2.text?.removeAll()
+                return 2
                 
             } // fine field 2
             
@@ -721,6 +699,42 @@ class SMD: UIViewController, UITextFieldDelegate{
             
         }//fine verifica caratteri per 2 simboli
         
+        return 0
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+
+        
+        if(field1.text!.count > 1){
+            error_label.text = "Please insert only one letter or number!"
+         
+            field1.text?.removeAll()
+            //field1.becomeFirstResponder()
+            
+        }else if(field2.text!.count > 1){
+            error_label.text = "Please insert only one letter or number!"
+            
+            field2.text?.removeAll()
+           // field2.becomeFirstResponder()
+            
+        } else if(field3.text!.count > 1){
+            error_label.text = "Please insert only one letter or number!"
+            
+            field3.text?.removeAll()
+            //field3.becomeFirstResponder()
+            
+        } else if(field4.text!.count > 1){
+            error_label.text = "Please insert only one letter or number!"
+            
+            field4.text?.removeAll()
+            //field4.becomeFirstResponder()
+            
+        } else if((field1.text!.count <= 1) && (field2.text!.count <= 1) && (field3.text!.count <= 1) && (field4.text!.count <= 1) ) {
+            error_label.text = ""
+            
+        }
+        
+        //verifica caratteri per 4 simboli
+        check_values_var = check_values()
 
         field1_text = self.field1.text!
         field2_text = self.field2.text!
@@ -755,6 +769,20 @@ class SMD: UIViewController, UITextFieldDelegate{
                 self.risultatoSMD.text = "0 Ω"
             }
         }
+        
+       /*  if(field1_text == ""){
+            self.field1.becomeFirstResponder()
+        }else if(field2_text == ""){
+            self.field2.becomeFirstResponder()
+        }else if(curr_button == 3 && field3_text == ""){
+            self.field3.becomeFirstResponder()
+        }else if(curr_button == 4 && field4_text == ""){
+            self.field4.becomeFirstResponder()
+        }else{ */
+            self.view.endEditing(true)
+            self.view.frame.origin.y = 0//reset keyboard height
+       /* } */
+        
         
     } // fine touchesBegan
     
@@ -969,7 +997,108 @@ class SMD: UIViewController, UITextFieldDelegate{
         }else if (result >= 1000000000){
             self.risultatoSMD.text = String(format: "%g", result/1000000000) + " GΩ"
         }
+    }//fine print label
+    
+    
+    @IBAction func text1_change(_ sender: UITextField) {
+        
+        self.check_values_var = check_values()
+        
+        if(check_values_var == 1){
+            self.field1.becomeFirstResponder()
+        }else if(check_values() == 0){
+            if(field2.text == ""){
+                self.field2.becomeFirstResponder()
+            }
+        }
+        
+        
+        
+        
     }
+    
+    
+    @IBAction func text2_change(_ sender: UITextField) {
+        
+        self.check_values_var = check_values()
+        if(curr_button == 2){
+            if(check_values_var == 2){
+                self.field2.becomeFirstResponder()
+            }else if(check_values_var == 0 && field1.text! != "" && field2.text! != "" ){
+                self.view.endEditing(true)
+                self.view.frame.origin.y = 0//reset keyboard height
+                calculateSMD2(field1_text: self.field1.text!, field2_text: self.field2.text!)
+            }
+        }else if(check_values_var == 0) {
+            if(field3.text == ""){
+                self.field3.becomeFirstResponder()
+            }
+        }else if(check_values_var == 2){
+            self.field2.becomeFirstResponder()
+        }
+        
+
+    }
+    
+    
+    @IBAction func text3_change(_ sender: UITextField) {
+        
+        self.check_values_var = check_values()
+        
+        
+        if(curr_button == 3){
+            if(check_values_var == 3){
+                self.field3.becomeFirstResponder()
+            }else if(check_values_var == 0 && field1.text! != "" && field2.text! != "" && field3.text! != ""){
+                self.view.endEditing(true)
+                self.view.frame.origin.y = 0//reset keyboard height
+                if(eia_option == false){
+                    calculateSMD3(field1_text: self.field1.text!, field2_text: self.field2.text!, field3_text: self.field3.text!)
+                }else{
+                    calculateSMD_eia(field1_text: self.field1.text!, field2_text: self.field2.text!, field3_text: self.field3.text!)
+                }
+            }
+        }else if(check_values_var == 0){
+            if(field4.text == ""){
+                self.field4.becomeFirstResponder()
+            }
+        }else if(check_values_var == 3){
+            self.field3.becomeFirstResponder()
+        }
+    }//fine text3_change
+    
+    
+
+    @IBAction func text4_change(_ sender: UITextField) {
+        
+        self.check_values_var = check_values()
+        
+        
+        if(curr_button == 4){
+            if(check_values_var == 4){
+                self.field4.becomeFirstResponder()
+            }else if(check_values_var == 0 && field1.text! != "" && field2.text! != "" && field3.text! != "" && field4.text! != ""){
+                self.view.endEditing(true)
+                self.view.frame.origin.y = 0//reset keyboard height
+                calculateSMD4(field1_text: self.field1.text!, field2_text: self.field2.text!, field3_text: self.field3.text!, field4_text: self.field4.text!)
+                
+            }
+        }
+    }
+        
+    
+    @IBAction func longPressDelete(_ sender: UILongPressGestureRecognizer) {
+        
+        self.field1.text?.removeAll()
+        self.field2.text?.removeAll()
+        self.field3.text?.removeAll()
+        self.field4.text?.removeAll()
+        
+        self.risultatoSMD.text = "0 Ω"
+        
+    }
+    
+ 
     
     
 }

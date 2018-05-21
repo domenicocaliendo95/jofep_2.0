@@ -94,7 +94,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logospritz" translatesAutoresizingMaskIntoConstraints="NO" id="eEk-ER-m1N">
-                                <rect key="frame" x="0.0" y="284" width="375" height="289"/>
+                                <rect key="frame" x="0.0" y="279" width="375" height="319"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Copyright © 2018 - All rights reserved" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fpj-as-cKg">
                                 <rect key="frame" x="33.5" y="274" width="308" height="21.5"/>
@@ -108,9 +108,12 @@
                                     <constraint firstAttribute="height" constant="75" id="ujc-Rg-g2K"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MWh-Go-goT">
-                                <rect key="frame" x="90" y="310.5" width="195" height="40"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MWh-Go-goT">
+                                <rect key="frame" x="87.5" y="315.5" width="200" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="aEB-0R-cFZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <state key="normal" title="Domenico Caliendo">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -118,9 +121,12 @@
                                     <action selector="bottoneDomenico:" destination="1ql-3Q-k3X" eventType="touchUpInside" id="7nM-hZ-ECW"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5AV-sd-Fn1">
-                                <rect key="frame" x="106" y="350.5" width="163" height="40"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5AV-sd-Fn1">
+                                <rect key="frame" x="87.5" y="363.5" width="200" height="38"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="aqf-fd-3dB"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <state key="normal" title="Gennaro Gemito">
                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -130,19 +136,20 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="hRI-TA-tmI" firstAttribute="top" secondItem="UBb-3w-3op" secondAttribute="top" constant="40" id="00y-q1-pT8"/>
                             <constraint firstItem="8vI-5H-xBZ" firstAttribute="top" secondItem="hRI-TA-tmI" secondAttribute="bottom" constant="10" id="05g-Qp-ZJD"/>
                             <constraint firstItem="uh5-MW-EHm" firstAttribute="leading" secondItem="hRI-TA-tmI" secondAttribute="trailing" constant="-5" id="0CJ-sc-TBR"/>
                             <constraint firstItem="UBb-3w-3op" firstAttribute="trailing" secondItem="8vI-5H-xBZ" secondAttribute="trailing" id="0iw-q6-3PQ"/>
-                            <constraint firstItem="eEk-ER-m1N" firstAttribute="top" secondItem="8vI-5H-xBZ" secondAttribute="bottom" constant="20" id="30U-za-TU7"/>
-                            <constraint firstItem="5AV-sd-Fn1" firstAttribute="top" secondItem="MWh-Go-goT" secondAttribute="bottom" id="3PU-4S-Cxh"/>
+                            <constraint firstItem="eEk-ER-m1N" firstAttribute="top" secondItem="8vI-5H-xBZ" secondAttribute="bottom" constant="15" id="30U-za-TU7"/>
+                            <constraint firstItem="5AV-sd-Fn1" firstAttribute="top" secondItem="MWh-Go-goT" secondAttribute="bottom" constant="10" id="3PU-4S-Cxh"/>
                             <constraint firstItem="Fpj-as-cKg" firstAttribute="centerX" secondItem="C39-4C-2Oy" secondAttribute="centerX" id="CC7-WA-J5v"/>
                             <constraint firstItem="PSO-OU-hb0" firstAttribute="centerX" secondItem="C39-4C-2Oy" secondAttribute="centerX" id="KFF-BM-PHM"/>
                             <constraint firstItem="UBb-3w-3op" firstAttribute="trailing" secondItem="eEk-ER-m1N" secondAttribute="trailing" id="KWl-M6-jqB"/>
                             <constraint firstItem="8vI-5H-xBZ" firstAttribute="leading" secondItem="UBb-3w-3op" secondAttribute="leading" id="Lzw-2Q-VBi"/>
                             <constraint firstItem="TZD-tS-rv0" firstAttribute="top" secondItem="UBb-3w-3op" secondAttribute="top" constant="60" id="Mlz-tD-Tot"/>
-                            <constraint firstItem="UBb-3w-3op" firstAttribute="bottom" secondItem="eEk-ER-m1N" secondAttribute="bottom" constant="45" id="N4O-Z6-bLi"/>
+                            <constraint firstItem="UBb-3w-3op" firstAttribute="bottom" secondItem="eEk-ER-m1N" secondAttribute="bottom" constant="20" id="N4O-Z6-bLi"/>
                             <constraint firstItem="eEk-ER-m1N" firstAttribute="leading" secondItem="UBb-3w-3op" secondAttribute="leading" id="OU8-Vh-4i1"/>
                             <constraint firstItem="UBb-3w-3op" firstAttribute="bottom" secondItem="PSO-OU-hb0" secondAttribute="bottom" constant="20" id="RhD-FN-2YJ"/>
                             <constraint firstItem="UBb-3w-3op" firstAttribute="trailing" secondItem="PSO-OU-hb0" secondAttribute="trailing" constant="25" id="Vh4-N1-UOM"/>
@@ -152,19 +159,29 @@
                             <constraint firstItem="PSO-OU-hb0" firstAttribute="leading" secondItem="UBb-3w-3op" secondAttribute="leading" constant="25" id="ico-IW-tMV"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="uh5-MW-EHm" secondAttribute="trailing" constant="20" symbolic="YES" id="iji-2Y-QHw"/>
                             <constraint firstItem="5AV-sd-Fn1" firstAttribute="centerX" secondItem="C39-4C-2Oy" secondAttribute="centerX" id="iqY-KQ-OYi"/>
-                            <constraint firstItem="MWh-Go-goT" firstAttribute="top" secondItem="Fpj-as-cKg" secondAttribute="bottom" constant="15" id="kFF-kj-yLn"/>
+                            <constraint firstItem="MWh-Go-goT" firstAttribute="top" secondItem="Fpj-as-cKg" secondAttribute="bottom" constant="20" id="kFF-kj-yLn"/>
                             <constraint firstItem="Fpj-as-cKg" firstAttribute="top" secondItem="8vI-5H-xBZ" secondAttribute="bottom" constant="10" id="mTQ-Jl-eU0"/>
                             <constraint firstItem="uh5-MW-EHm" firstAttribute="top" secondItem="hRI-TA-tmI" secondAttribute="top" constant="5" id="wUB-tC-dKa"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="UBb-3w-3op"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="EXZ-jJ-DPH" appends="YES" id="w1d-cs-rZD"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Info" id="gCe-Hv-IHe"/>
                     <connections>
                         <outlet property="logo" destination="hRI-TA-tmI" id="y3v-2e-P3G"/>
+                        <outlet property="outlet_Domenico" destination="MWh-Go-goT" id="pNG-vY-bI1"/>
+                        <outlet property="outlet_Gennaro" destination="5AV-sd-Fn1" id="C7y-go-Yeo"/>
                         <outlet property="spritz" destination="eEk-ER-m1N" id="BgI-Je-0i9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="k6J-Eq-kk9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer delaysTouchesBegan="YES" allowableMovement="10" minimumPressDuration="2" numberOfTouchesRequired="2" id="EXZ-jJ-DPH">
+                    <connections>
+                        <action selector="fastRotatione:" destination="1ql-3Q-k3X" id="n5J-eb-g2r"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-2799.1999999999998" y="1148.2758620689656"/>
         </scene>
@@ -604,7 +621,10 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" keyboardType="numbersAndPunctuation" keyboardAppearance="alert"/>
+                                        <connections>
+                                            <action selector="text1_change:" destination="aFD-b0-hAm" eventType="editingChanged" id="Syv-Or-NSO"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Le-h1-9N7">
                                         <rect key="frame" x="70" y="0.0" width="50" height="50"/>
@@ -614,7 +634,10 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" keyboardType="numbersAndPunctuation" keyboardAppearance="alert"/>
+                                        <connections>
+                                            <action selector="text2_change:" destination="aFD-b0-hAm" eventType="editingChanged" id="vTS-Yp-XFl"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Q6v-go-vT2">
                                         <rect key="frame" x="140" y="0.0" width="50" height="50"/>
@@ -624,7 +647,10 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" keyboardType="numbersAndPunctuation" keyboardAppearance="alert"/>
+                                        <connections>
+                                            <action selector="text3_change:" destination="aFD-b0-hAm" eventType="editingChanged" id="q6c-v3-sw7"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZVN-Rd-BMu">
                                         <rect key="frame" x="210" y="0.0" width="50" height="50"/>
@@ -634,7 +660,10 @@
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" keyboardType="numbersAndPunctuation" keyboardAppearance="alert"/>
+                                        <connections>
+                                            <action selector="text4_change:" destination="aFD-b0-hAm" eventType="editingChanged" id="L6O-Ep-GjJ"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                             </stackView>
@@ -734,6 +763,7 @@
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="8LT-J4-gp8" firstAttribute="top" secondItem="haI-QA-ZyK" secondAttribute="bottom" constant="75" id="0BZ-oz-TcW"/>
                             <constraint firstItem="ih4-bC-vLc" firstAttribute="top" secondItem="haI-QA-ZyK" secondAttribute="bottom" constant="10" id="0Bh-c6-vlt"/>
@@ -755,6 +785,9 @@
                             <constraint firstItem="eFp-DA-FsM" firstAttribute="centerX" secondItem="msx-kr-5pZ" secondAttribute="centerX" id="ywB-la-sHf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="VCc-ke-0r2"/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="7lG-bY-Ht3" appends="YES" id="99B-EI-Hnd"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="SMD" id="IM5-Gv-4wj"/>
                     <connections>
@@ -776,6 +809,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MXw-Sn-VwY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="7lG-bY-Ht3">
+                    <connections>
+                        <action selector="longPressDelete:" destination="aFD-b0-hAm" id="0ox-tS-4EA"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-735.20000000000005" y="1148.2758620689656"/>
         </scene>
@@ -815,15 +853,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NWn-Lx-CCE">
-                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
-                                <gestureRecognizers/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="Tcl-Ov-ZlA" appends="YES" id="SPo-RO-vTe"/>
-                                    <outletCollection property="gestureRecognizers" destination="Kcy-MB-stp" appends="YES" id="Wrt-He-UHW"/>
-                                    <outletCollection property="gestureRecognizers" destination="SuX-dt-cKn" appends="YES" id="HJO-wV-ILP"/>
-                                </connections>
-                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xfT-Ya-0qY">
                                 <rect key="frame" x="325" y="74" width="40" height="40"/>
                                 <constraints>
@@ -849,21 +878,16 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="NWn-Lx-CCE" secondAttribute="bottom" id="3Xs-8S-44l"/>
                             <constraint firstItem="xfT-Ya-0qY" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" symbolic="YES" id="5qW-wo-7w3"/>
                             <constraint firstItem="xfT-Ya-0qY" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="FzL-uS-BcQ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xfT-Ya-0qY" secondAttribute="trailing" constant="10" id="MxD-E5-D3z"/>
-                            <constraint firstItem="NWn-Lx-CCE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="O06-Uz-FWP"/>
                             <constraint firstItem="iq0-fH-Ovg" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="XXh-KP-VhB"/>
                             <constraint firstItem="iq0-fH-Ovg" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="gGS-51-4PK"/>
-                            <constraint firstItem="NWn-Lx-CCE" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="hy4-Up-0Ae"/>
-                            <constraint firstItem="NWn-Lx-CCE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="nef-ea-i2s"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Inspectron" id="arz-XJ-4R1"/>
                     <connections>
-                        <outlet property="Camera" destination="NWn-Lx-CCE" id="GnL-uL-x5F"/>
                         <outlet property="flashButton" destination="xfT-Ya-0qY" id="YJX-aM-Suu"/>
                         <outlet property="rect" destination="iq0-fH-Ovg" id="peA-WO-lHa"/>
                     </connections>
