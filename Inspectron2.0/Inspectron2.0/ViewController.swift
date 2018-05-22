@@ -26,6 +26,10 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             }
     }//rettangolo arancione centrale
     
+    @IBOutlet var debugLabel: UILabel!
+    
+    var testoPredizione = "Mimmo Parente"
+    
     //var videoPreviewLayer: AVCaptureVideoPreviewLayer?//vedo l'acquisizione della fotocamera nel mio ViewController
     //var captureSession: AVCaptureSession!//avvia la fotocamera, cattura le immagini
     //var inputCamera: AVCaptureDeviceInput!
@@ -63,10 +67,15 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     }//viewWillDisappear() spegne flash
  
     
+
+    
     
     //############################################## viewDidLoad() ###################################################
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        
         
         
         let captureSession = AVCaptureSession()
@@ -89,7 +98,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         dataOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "videoQueue"))
         captureSession.addOutput(dataOutput)
         
-        /*let request = VNCoreMLRequest(model: InspectronModelOne, completionHandler: <#T##VNRequestCompletionHandler?##VNRequestCompletionHandler?##(VNRequest, Error?) -> Void#>)
+        /*
          VNImageRequestHandler(cgImage: <#T##CGImage#>, options: <#T##[VNImageOption : Any]#>).perform(<#T##requests: [VNRequest]##[VNRequest]#>)// Responsible for analyzing the camera, CGImage is a translation from camera to this method.
          */
         
@@ -114,28 +123,44 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         Camera.isUserInteractionEnabled=true  // Grazie a максимальний комп'ютер
         */
         
-       /* let dataOutput = AVCaptureVideoDataOutput()
-        dataOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "Video Queue"))
-        captureSession.addOutput(dataOutput) */
         
-
-        
-        // --- ML & Vision ---
-        
-       /*let request = VNCoreMLRequest(model: InspectronModelOne, completionHandler: <#T##VNRequestCompletionHandler?##VNRequestCompletionHandler?##(VNRequest, Error?) -> Void#>)
-        VNImageRequestHandler(cgImage: <#T##CGImage#>, options: <#T##[VNImageOption : Any]#>).perform(<#T##requests: [VNRequest]##[VNRequest]#>) // Responsible for analyzing the camera, CGImage is a translation from camera to this method.
-        
-        */
-        
-        // --- END ML & Vision ---
-        
-        
+        cameraLayer.isUserInteractionEnabled=true
         
     }//fine viewDidLoad
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        print("Camera captured a frame", Date())
-    }//questa funzione viene richiamata automaticamente ogni volta che la camera cattura un frame, non bisogna richiamarla da nessuna parte, ecco perchè stampa ongi millesimo di secondo la data
+        //print("Camera captured a frame", Date())
+        
+        guard let pixelBuffer: CVPixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
+        guard let model = try? VNCoreMLModel(for: InspectronModelOne().model) else { return }
+        let request = VNCoreMLRequest(model: model){
+            (finishedReq, err) in
+            
+           // print(finishedReq.results)
+            
+            guard let results = finishedReq.results as? [VNClassificationObservation] else { return }
+            guard let firstObservation = results.first else { return }
+            guard let secondObservation = results.last else { return }
+            
+            if(firstObservation.confidence >= 0.700000 || secondObservation.confidence >= 0.70000){
+                print(firstObservation.identifier, firstObservation.confidence)
+                DispatchQueue.global(qos: .background).async {
+                    DispatchQueue.main.async {
+                    self.debugLabel.text! = String(firstObservation.identifier) + ": " + String(firstObservation.confidence) + "\n" + String(secondObservation.identifier) + ": " + String(secondObservation.confidence)
+                    }
+                }
+                print(secondObservation.identifier, secondObservation.confidence)
+            }else{
+                DispatchQueue.global(qos: .background).async {
+                    
+                    DispatchQueue.main.async {
+                        self.debugLabel.text! = "Not a resistor"
+                    }
+                }
+            }
+        }
+        try? VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:]).perform([request])
+    }//questa funzione viene richiamata automaticamente ogni volta che la camera cattura un frame, non bisogna richiamarla da nessuna parte, ecco perchè stampa ogni millesimo di secondo la data
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -168,25 +193,31 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     
 
  
+
+
     @IBAction func pinchToZoom(_ sender: UIPinchGestureRecognizer) {
-        /*do {
-            try captureDevice.lockForConfiguration()
+    
+    
+        do {
+            try self.captureDevice.lockForConfiguration()
             switch sender.state {
             case .began:
-                self.pivotPinchScale = captureDevice.videoZoomFactor
+                self.pivotPinchScale = self.captureDevice.videoZoomFactor
             case .changed:
                 var factor = self.pivotPinchScale * (sender.scale * 1.001)
-                factor = max(1, min(factor, captureDevice.activeFormat.videoMaxZoomFactor))
-                captureDevice.videoZoomFactor = factor
+                factor = max(1, min(factor, self.captureDevice.activeFormat.videoMaxZoomFactor))
+                self.captureDevice.videoZoomFactor = factor
             default:
                 break
             }
-            captureDevice.unlockForConfiguration()
+            self.captureDevice.unlockForConfiguration()
         } catch {
             print(error)
         }
-        */
+    
+
     }
+    
     
 
     @IBAction func flashButton(_ sender: UIButton) {
@@ -232,15 +263,19 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     
 
  //gesture flashON -> swipe verso destra
+    
+    
+    
     @IBAction func flashON(_ sender: UISwipeGestureRecognizer) {
-        
+
+    
         if (captureDevice.hasTorch) {
             do {
                 try captureDevice.lockForConfiguration()
                 switch sender.direction
                 {
                 case UISwipeGestureRecognizerDirection.right:
-                    print("Swipe right")
+                    
                     captureDevice.torchMode = .on
                     self.flashButton.setBackgroundImage(UIImage(named: "flash_on"), for: UIControlState.normal)
                     //bottone flash animato
@@ -269,14 +304,18 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     
 
 //gesture flashOFF -> swipe verso sinistra
+
+
     @IBAction func flashOFF(_ sender: UISwipeGestureRecognizer) {
-        if (captureDevice.hasTorch) {
+    
+    
+  if (captureDevice.hasTorch) {
             do {
                 try captureDevice.lockForConfiguration()
                 switch sender.direction
                 {
                 case UISwipeGestureRecognizerDirection.left:
-                    print("Swipe left")
+                    
                     captureDevice.torchMode = .off
                     self.flashButton.setBackgroundImage(UIImage(named: "flash_off"), for: UIControlState.normal)
                     UIView.animate(withDuration: 0.07,
@@ -299,24 +338,9 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
             }
             
         }//fine if hasTorch
+
+    
     }//fine flashOFF
-    
-/*
- _..._                      .-'''-.
- .-'_..._''.                  '   _    \
- .--.   _..._            _________   _...._            __.....__       .' .'      '.\               /   /` '.   \    _..._
- |__| .'     '.          \        |.'      '-.     .-''         '.    / .'                         .   |     \  '  .'     '.
- .--..   .-.   .          \        .'```'.    '.  /     .-''"'-.  `. . '               .|  .-,.--. |   '      |  '.   .-.   .
- |  ||  '   '  |           \      |       \     \/     /________\   \| |             .' |_ |  .-. |\    \     / / |  '   '  |
- |  ||  |   |  |       _    |     |        |    ||                  || |           .'     || |  | | `.   ` ..' /  |  |   |  |
- |  ||  |   |  |     .' |   |      \      /    . \    .-------------'. '          '--.  .-'| |  | |    '-...-'`   |  |   |  |
- |  ||  |   |  |    .   | / |     |\`'-.-'   .'   \    '-.____...---. \ '.          .|  |  | |  '-                |  |   |  |
- |__||  |   |  |  .'.'| |// |     | '-....-'`      `.             .'   '. `._____.-'/|  |  | |                    |  |   |  |
- |  |   |  |.'.'.-'  / .'     '.                 `''-...... -'       `-.______ / |  '.'| |                    |  |   |  |
- |  |   |  |.'   \_.''-----------'                                            `  |   / |_|                    |  |   |  |
- '--'   '--'                                                                     `'-'                         '--'   '--'
-*/
-    
 
     
     

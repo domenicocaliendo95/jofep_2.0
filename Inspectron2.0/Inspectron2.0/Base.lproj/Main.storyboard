@@ -855,6 +855,12 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="TdY-rf-RHH">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="5xH-9G-BZM" appends="YES" id="UBm-jn-zFa"/>
+                                    <outletCollection property="gestureRecognizers" destination="Xpe-Hd-6YJ" appends="YES" id="DDk-39-f9m"/>
+                                    <outletCollection property="gestureRecognizers" destination="knl-jh-7LG" appends="YES" id="58a-15-bkE"/>
+                                </connections>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xfT-Ya-0qY">
                                 <rect key="frame" x="325" y="74" width="40" height="40"/>
@@ -877,6 +883,13 @@
                                     <constraint firstAttribute="width" constant="250" id="Vhc-vj-kWd"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k0l-P5-bxz">
+                                <rect key="frame" x="16" y="64" width="238" height="78"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <color key="textColor" red="1" green="0.034920876080000003" blue="0.0" alpha="0.87058999999999997" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
@@ -896,24 +909,25 @@
                     <navigationItem key="navigationItem" title="Inspectron" id="arz-XJ-4R1"/>
                     <connections>
                         <outlet property="cameraLayer" destination="TdY-rf-RHH" id="9Xg-Io-AOH"/>
+                        <outlet property="debugLabel" destination="k0l-P5-bxz" id="J2k-3e-f55"/>
                         <outlet property="flashButton" destination="xfT-Ya-0qY" id="YJX-aM-Suu"/>
                         <outlet property="rect" destination="iq0-fH-Ovg" id="peA-WO-lHa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <pinchGestureRecognizer id="Tcl-Ov-ZlA">
+                <pinchGestureRecognizer id="5xH-9G-BZM">
                     <connections>
-                        <action selector="pinchToZoom:" destination="BYZ-38-t0r" id="pRz-zn-rQW"/>
+                        <action selector="pinchToZoom:" destination="BYZ-38-t0r" id="MDO-u0-Ft5"/>
                     </connections>
                 </pinchGestureRecognizer>
-                <swipeGestureRecognizer direction="right" id="Kcy-MB-stp">
+                <swipeGestureRecognizer direction="right" id="Xpe-Hd-6YJ">
                     <connections>
-                        <action selector="flashON:" destination="BYZ-38-t0r" id="g4h-EF-2Y0"/>
+                        <action selector="flashON:" destination="BYZ-38-t0r" id="a8e-D0-xbT"/>
                     </connections>
                 </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="left" id="SuX-dt-cKn">
+                <swipeGestureRecognizer direction="left" id="knl-jh-7LG">
                     <connections>
-                        <action selector="flashOFF:" destination="BYZ-38-t0r" id="S4a-OA-9pc"/>
+                        <action selector="flashOFF:" destination="BYZ-38-t0r" id="hh0-Sa-jwE"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
