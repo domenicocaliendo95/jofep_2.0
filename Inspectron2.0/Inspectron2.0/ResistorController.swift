@@ -3,7 +3,7 @@
 //  Inspectron2.0
 //
 //  Created by Caliendo Domenico on 03/05/18.
-//  Copyright © 2018 Caliendo Domenico. All rights reserved.
+//  Copyright © 2018 Caliendo Domenico - Gemito Gennaro. All rights reserved.
 //
 
 import Foundation

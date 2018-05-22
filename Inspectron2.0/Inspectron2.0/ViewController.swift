@@ -3,7 +3,7 @@
 //  Inspectron2.0
 //
 //  Created by Caliendo Domenico & Gemito Gennaro on 24/03/18.
-//  Copyright © 2018 Caliendo Domenico & Gemito Gennaro. All rights reserved.
+//  Copyright © 2018 Caliendo Domenico - Gemito Gennaro. All rights reserved.
 //
 
 import UIKit
@@ -14,7 +14,7 @@ import AVKit
 
 class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
 
-// @IBOutlet weak var Camera: UIImageView!//collegamento a UIImageView
+    @IBOutlet var cameraLayer: UIImageView!//collegamento nel main storyboard
     @IBOutlet var flashButton: UIButton!//bottone flash
     
     @IBOutlet var rect: UIView!{
@@ -24,12 +24,11 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             self.rect.layer.borderColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
             self.rect.layer.borderWidth = 2
             }
-    }
+    }//rettangolo arancione centrale
     
-    
-   /* var videoPreviewLayer: AVCaptureVideoPreviewLayer?//vedo l'acquisizione della fotocamera nel mio ViewController
-    var captureSession: AVCaptureSession!//avvia la fotocamera, cattura le immagini
-    var inputCamera: AVCaptureDeviceInput! */
+    //var videoPreviewLayer: AVCaptureVideoPreviewLayer?//vedo l'acquisizione della fotocamera nel mio ViewController
+    //var captureSession: AVCaptureSession!//avvia la fotocamera, cattura le immagini
+    //var inputCamera: AVCaptureDeviceInput!
     var pivotPinchScale: CGFloat!//fattore di zoom
     var captureDevice: AVCaptureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)!//Imposta il device di acquisizione
 
@@ -37,29 +36,22 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         flashButton.setBackgroundImage(UIImage(named: "flash_off"), for: UIControlState.normal)
-        
-
     }//fine viewWillAppear
     
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-       // videoPreviewLayer!.frame = UIScreen.main.bounds
-        
     }//fine viewDidAppear
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         
-        
+        //spegne flash al cambio di schermata
         do{
             try captureDevice.lockForConfiguration()
             if(captureDevice.torchMode == .on){
                 captureDevice.torchMode = .off
                 flashButton.setBackgroundImage(UIImage(named: "flash_off"), for: UIControlState.normal)
-                
-                
-                
             }
             
             captureDevice.unlockForConfiguration()
@@ -68,17 +60,18 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             print(error)
         }
         
-        
     }//viewWillDisappear() spegne flash
  
     
+    
+    //############################################## viewDidLoad() ###################################################
     override func viewDidLoad() {
         super.viewDidLoad()
         
         
         let captureSession = AVCaptureSession()
         captureSession.sessionPreset = .photo
-        guard let captureDevice = AVCaptureDevice.default(for: .video) else { return }
+        //guard let captureDevice = AVCaptureDevice.default(for: .video) else { return }//##########ATTENZIONE! ABBIAMO GIA' UN captureDevice sopra!!!###########
         guard let input = try? AVCaptureDeviceInput(device: captureDevice) else { return }
         captureSession.addInput(input)
         captureSession.startRunning()
@@ -87,19 +80,21 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         
         view.layer.addSublayer(previewLayer)
         previewLayer.frame = view.frame //View per anteprima
+        previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        previewLayer.frame = UIScreen.main.bounds//si adatta perfettamente ad ogni dispositivo, più FORTE dei constraint, da lasciare
+        self.cameraLayer?.layer.addSublayer(previewLayer)//mette la fotocamera sulla view
         
+
         let dataOutput = AVCaptureVideoDataOutput()
-        dataOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "Video Queue"))
+        dataOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "videoQueue"))
         captureSession.addOutput(dataOutput)
         
         /*let request = VNCoreMLRequest(model: InspectronModelOne, completionHandler: <#T##VNRequestCompletionHandler?##VNRequestCompletionHandler?##(VNRequest, Error?) -> Void#>)
-         VNImageRequestHandler(cgImage: <#T##CGImage#>, options: <#T##[VNImageOption : Any]#>).perform(<#T##requests: [VNRequest]##[VNRequest]#>) // Responsible for analyzing the camera, CGImage is a translation from camera to this method.
-         
+         VNImageRequestHandler(cgImage: <#T##CGImage#>, options: <#T##[VNImageOption : Any]#>).perform(<#T##requests: [VNRequest]##[VNRequest]#>)// Responsible for analyzing the camera, CGImage is a translation from camera to this method.
          */
         
         
-        
-    /*    do{
+         /*do{
             inputCamera = try AVCaptureDeviceInput(device: captureDevice)
         }catch{
             print(error)
@@ -138,9 +133,9 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         
     }//fine viewDidLoad
     
-    func captureOutput(_ output: AVCaptureOutput, didDrop sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         print("Camera captured a frame", Date())
-    }
+    }//questa funzione viene richiamata automaticamente ogni volta che la camera cattura un frame, non bisogna richiamarla da nessuna parte, ecco perchè stampa ongi millesimo di secondo la data
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -149,14 +144,15 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     
 override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-       // let screenSize = Camera.bounds.size //dimensioni cornice
+       let screenSize = cameraLayer.bounds.size//dimensioni cornice
         
-        /*if let tounchPoint = touches.first {
-            let x = tounchPoint.location(in: Camera).x / screenSize.width
-            let y = 1.0 - tounchPoint.location(in: Camera).y / screenSize.height
+        if let tounchPoint = touches.first {
+            let x = tounchPoint.location(in: cameraLayer).x / screenSize.width
+            let y = 1.0 - tounchPoint.location(in: cameraLayer).y / screenSize.height
             let focusPoint = CGPoint (x: x, y: y)
             
-            //let captureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) //Imposta il device di acquisizione
+            guard let captureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
+            else { return }//Imposta il device di acquisizione
            
                 do{
                     try captureDevice.lockForConfiguration()
@@ -166,8 +162,7 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
                     captureDevice.exposureMode = AVCaptureDevice.ExposureMode.continuousAutoExposure
                     captureDevice.unlockForConfiguration()
                 } catch { /*nothing*/ }
-            
-        } */
+        }
     }
  
     
@@ -233,8 +228,7 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         catch{
             print(error)
         }
-        
-    }
+    }//bottone flash in alto a dx
     
 
  //gesture flashON -> swipe verso destra
@@ -307,15 +301,7 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         }//fine if hasTorch
     }//fine flashOFF
     
-    
-    
-    
-    
-    
-    
-    /*   ◊◊◊◊◊◊◊ ML & VISION ◊◊◊◊◊◊◊
- 
- 
+/*
  _..._                      .-'''-.
  .-'_..._''.                  '   _    \
  .--.   _..._            _________   _...._            __.....__       .' .'      '.\               /   /` '.   \    _..._

@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		000728EA209B3C3600B25593 /* ResistorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000728E9209B3C3600B25593 /* ResistorController.swift */; };
 		000728EC20A43E4500B25593 /* SMDController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000728EB20A43E4500B25593 /* SMDController.swift */; };
-		0040B30B20B36046008AE5AB /* InspectronModelOne.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0040B30A20B36046008AE5AB /* InspectronModelOne.mlmodel */; };
 		00F6ECCF20666A2C00368646 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F6ECCE20666A2C00368646 /* AppDelegate.swift */; };
 		00F6ECD120666A2C00368646 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F6ECD020666A2C00368646 /* ViewController.swift */; };
 		00F6ECD420666A2C00368646 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00F6ECD220666A2C00368646 /* Main.storyboard */; };
@@ -41,7 +40,6 @@
 /* Begin PBXFileReference section */
 		000728E9209B3C3600B25593 /* ResistorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResistorController.swift; sourceTree = "<group>"; };
 		000728EB20A43E4500B25593 /* SMDController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMDController.swift; sourceTree = "<group>"; };
-		0040B30A20B36046008AE5AB /* InspectronModelOne.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; name = InspectronModelOne.mlmodel; path = ../../../../Downloads/InspectronModelOne.mlmodel; sourceTree = "<group>"; };
 		00F6ECCB20666A2C00368646 /* Inspectron2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Inspectron2.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00F6ECCE20666A2C00368646 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		00F6ECD020666A2C00368646 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -107,7 +105,6 @@
 		00F6ECCD20666A2C00368646 /* Inspectron2.0 */ = {
 			isa = PBXGroup;
 			children = (
-				0040B30A20B36046008AE5AB /* InspectronModelOne.mlmodel */,
 				FAEBE17820AC79360022AB55 /* Credits.swift */,
 				000728E9209B3C3600B25593 /* ResistorController.swift */,
 				000728EB20A43E4500B25593 /* SMDController.swift */,
@@ -275,7 +272,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0040B30B20B36046008AE5AB /* InspectronModelOne.mlmodel in Sources */,
 				00F6ECD120666A2C00368646 /* ViewController.swift in Sources */,
 				000728EA209B3C3600B25593 /* ResistorController.swift in Sources */,
 				000728EC20A43E4500B25593 /* SMDController.swift in Sources */,

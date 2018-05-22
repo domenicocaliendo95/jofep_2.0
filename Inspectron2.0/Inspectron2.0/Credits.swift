@@ -3,7 +3,7 @@
 //  Inspectron2.0
 //
 //  Created by Gemito Gennaro on 16/05/18.
-//  Copyright © 2018 Caliendo Domenico. All rights reserved.
+//  Copyright © 2018 Caliendo Domenico - Gemito Gennaro. All rights reserved.
 //
 
 import Foundation
@@ -39,42 +39,25 @@ class Credits: UIViewController{
   
         
         rotate360Degrees(duration: 120.0, completionDelegate: nil)
-        
-        
-        /*
-        let blurEffect1 = UIBlurEffect(style: .regular)
-        let blurEffectView1 = UIVisualEffectView(effect: blurEffect1)
-        blurEffectView1.frame = self.view.frame
-        
-        let blurEffect2 = UIBlurEffect(style: .regular)
-        let blurEffectView2 = UIVisualEffectView(effect: blurEffect2)
-        blurEffectView2.frame = self.view.frame
-        */
-        
-        //self.view.insertSubview(blurEffectView, atIndex: 0)
 
-
-        self.spritz.alpha = 0.2
+        self.spritz.alpha = 0.3
         
         self.outlet_Domenico.layer.cornerRadius = 3
         self.outlet_Domenico.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         self.outlet_Domenico.layer.borderWidth = 1.0
-        //self.outlet_Domenico.insertSubview(blurEffectView1, at: 0)
+        self.outlet_Domenico.layer.backgroundColor = UIColor.white.withAlphaComponent(0.7).cgColor
         
         self.outlet_Gennaro.layer.cornerRadius = 3
         self.outlet_Gennaro.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         self.outlet_Gennaro.layer.borderWidth = 1.0
-        //self.outlet_Gennaro.insertSubview(blurEffectView2, at: 0)
-        
+        self.outlet_Gennaro.layer.backgroundColor = UIColor.white.withAlphaComponent(0.7).cgColor
         
     }//fine viewDidLoad()
     
     @IBAction func fastRotatione(_ sender: UILongPressGestureRecognizer) {
         
             rotate360Degrees(duration: 120.0, completionDelegate: nil)
-        
-        
-        
+
     }
     
     
