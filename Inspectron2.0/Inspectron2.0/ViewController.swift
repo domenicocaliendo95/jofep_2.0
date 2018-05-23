@@ -11,6 +11,7 @@ import AVFoundation //Framework, cercare uso.
 import Vision
 import CoreImage
 import AVKit
+import CoreGraphics
 
 class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
 
@@ -23,10 +24,27 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             self.rect.layer.backgroundColor = nil
             self.rect.layer.borderColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
             self.rect.layer.borderWidth = 2
+            //self.rect.frame.origin = CGPoint(x: UIScreen.main.bounds.size.width/2, y: UIScreen.main.bounds.size.height/2)
             }
     }//rettangolo arancione centrale
     
+    var effectiveWidth: CGFloat = 0
+    var effectiveHeight: CGFloat = 0
+    var effectiveRect: CGRect? = nil
+    var viewWidth: CGFloat = 0
+    var viewHeight: CGFloat = 0
+   
+    private let context = CIContext()
     @IBOutlet var debugLabel: UILabel!
+    
+    @IBOutlet var croppedView: UIImageView!{
+        didSet{
+    self.croppedView.layer.cornerRadius = 10
+    self.croppedView.layer.backgroundColor = nil
+    self.croppedView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+    self.croppedView.layer.borderWidth = 2
+    }
+}//rettangolo arancione centrale
     
     var testoPredizione = "Mimmo Parente"
     
@@ -73,13 +91,20 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     //############################################## viewDidLoad() ###################################################
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewWidth = cameraLayer.bounds.width * UIScreen.main.scale
+        viewHeight = cameraLayer.bounds.height * UIScreen.main.scale
+        effectiveWidth = self.rect.layer.frame.size.width
+        effectiveHeight = self.rect.layer.frame.size.height
         
-        
-        
-        
+       // effectiveRect = CGRect(x: ((UIScreen.main.bounds.width)/2), y: ((UIScreen.main.bounds.height)/2), width: effectiveWidth, height: effectiveHeight)
+        //effectiveRect = CGRect(x: 0, y: 0, width: 250, height: 100)
+        print(self.cameraLayer.layer.frame.size.width)
+        print(self.cameraLayer.layer.frame.size.height)
+        print(self.effectiveWidth)
+        print(self.effectiveHeight)
         
         let captureSession = AVCaptureSession()
-        captureSession.sessionPreset = .photo
+//        captureSession.sessionPreset = .photo
         //guard let captureDevice = AVCaptureDevice.default(for: .video) else { return }//##########ATTENZIONE! ABBIAMO GIA' UN captureDevice sopra!!!###########
         guard let input = try? AVCaptureDeviceInput(device: captureDevice) else { return }
         captureSession.addInput(input)
@@ -87,10 +112,14 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         
         let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         
+        previewLayer.frame = self.cameraLayer.bounds
+        
+        
+        
         view.layer.addSublayer(previewLayer)
         previewLayer.frame = view.frame //View per anteprima
-        previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-        previewLayer.frame = UIScreen.main.bounds//si adatta perfettamente ad ogni dispositivo, più FORTE dei constraint, da lasciare
+//        previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+//        previewLayer.frame = UIScreen.main.bounds//si adatta perfettamente ad ogni dispositivo, più FORTE dei constraint, da lasciare
         self.cameraLayer?.layer.addSublayer(previewLayer)//mette la fotocamera sulla view
         
 
@@ -128,10 +157,22 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         
     }//fine viewDidLoad
     
+    /*
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.preview
+    }*/
+    
+    
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         //print("Camera captured a frame", Date())
         
         guard let pixelBuffer: CVPixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
+        guard let uiImage = imageFromSampleBuffer(sampleBuffer: sampleBuffer) else { return }
+        DispatchQueue.main.async {
+            self.croppedView.image = uiImage
+        }
+        
         guard let model = try? VNCoreMLModel(for: InspectronModelOne().model) else { return }
         let request = VNCoreMLRequest(model: model){
             (finishedReq, err) in
@@ -161,6 +202,23 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         }
         try? VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:]).perform([request])
     }//questa funzione viene richiamata automaticamente ogni volta che la camera cattura un frame, non bisogna richiamarla da nessuna parte, ecco perchè stampa ogni millesimo di secondo la data
+    
+
+    private func imageFromSampleBuffer(sampleBuffer: CMSampleBuffer) -> UIImage?{
+        guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {return nil}
+        var ciImage = CIImage(cvPixelBuffer: imageBuffer)// nella variabile ciImage ci va un solo frame
+        ciImage = ciImage.oriented(forExifOrientation: 6)
+        var cgImage = context.createCGImage(ciImage, from: ciImage.extent)
+        
+        var effectiveRect = CGRect(x: (UIScreen.main.bounds.size.height)/2, y: (UIScreen.main.bounds.size.width)/2, width: effectiveWidth, height: effectiveHeight)
+
+        cgImage = cgImage?.cropping(to: effectiveRect)
+
+        return UIImage(cgImage: cgImage!)
+    }
+    
+
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -342,6 +400,9 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     
     }//fine flashOFF
 
+    
+    
+    
     
     
 
