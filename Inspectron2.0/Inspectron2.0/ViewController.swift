@@ -13,10 +13,20 @@ import CoreImage
 import AVKit
 import CoreGraphics
 
-class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
+class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate   {
 
     @IBOutlet var cameraLayer: UIImageView!//collegamento nel main storyboard
     @IBOutlet var flashButton: UIButton!//bottone flash
+    
+    var image: UIImage?//la foto scattata
+    
+    var imagePicker: UIImagePickerController!
+    let screenScale = UIScreen.main.nativeScale//SCALE NATIVO
+    
+    let dataOutput = AVCaptureVideoDataOutput()
+    let photoOutput = AVCapturePhotoOutput()
+
+
     
     @IBOutlet var rect: UIView!{
         didSet{
@@ -43,18 +53,34 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     self.croppedView.layer.backgroundColor = nil
     self.croppedView.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
     self.croppedView.layer.borderWidth = 2
+    
     }
-}//rettangolo arancione centrale
+}//rettangolo nero
     
-    var testoPredizione = "Mimmo Parente"
     
-    //var videoPreviewLayer: AVCaptureVideoPreviewLayer?//vedo l'acquisizione della fotocamera nel mio ViewController
-    //var captureSession: AVCaptureSession!//avvia la fotocamera, cattura le immagini
-    //var inputCamera: AVCaptureDeviceInput!
+    
+    @IBOutlet var asseX: UIImageView!{
+        didSet{
+            self.asseX.layer.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            self.asseX.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            self.asseX.layer.borderWidth = 1
+        }
+    }//rettangolo nero
+
+    @IBOutlet var asseY: UIImageView!{
+        didSet{
+            self.asseY.layer.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            self.asseY.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            self.asseY.layer.borderWidth = 1
+        }
+    }//rettangolo nero
+
+    var testoPredizione = ""
     var pivotPinchScale: CGFloat!//fattore di zoom
     var captureDevice: AVCaptureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)!//Imposta il device di acquisizione
 
- 
+    /*######################################################*/
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         flashButton.setBackgroundImage(UIImage(named: "flash_off"), for: UIControlState.normal)
@@ -63,6 +89,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+
     }//fine viewDidAppear
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -85,26 +112,35 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     }//viewWillDisappear() spegne flash
  
     
-
-    
     
     //############################################## viewDidLoad() ###################################################
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewWidth = cameraLayer.bounds.width * UIScreen.main.scale
-        viewHeight = cameraLayer.bounds.height * UIScreen.main.scale
+        viewWidth = cameraLayer.bounds.width * screenScale
+        viewHeight = cameraLayer.bounds.height * screenScale
         effectiveWidth = self.rect.layer.frame.size.width
         effectiveHeight = self.rect.layer.frame.size.height
         
-       // effectiveRect = CGRect(x: ((UIScreen.main.bounds.width)/2), y: ((UIScreen.main.bounds.height)/2), width: effectiveWidth, height: effectiveHeight)
-        //effectiveRect = CGRect(x: 0, y: 0, width: 250, height: 100)
+        effectiveRect = CGRect(origin: CGPoint(x: ((1080/2)-((1080*effectiveWidth*screenScale/viewWidth)/2)), y: ((1920/2)-((1920*effectiveHeight*screenScale/viewHeight)/2))), size: CGSize(width: (1080*effectiveWidth*screenScale/viewWidth), height: (1920*effectiveHeight*screenScale/viewHeight)))
+
+        print("")//riga vuota
+        print("effectiveWidth (rettangolo arancione) = " + String(describing: effectiveWidth))//in pixel
+        print("effectiveHeight (rettangolo arancione) = " + String(describing: effectiveHeight))//in pixel
+        print("effectiveRect (rettangolo nero) = " + String(describing: effectiveRect))
+        print("cameraLayer (WIDTH) = " + String(describing: viewWidth))
+        print("cameraLayer (HEIGHT) = " + String(describing: viewHeight))
+        print(screenScale)
+        print("")//riga vuota
+        
+        /*
         print(self.cameraLayer.layer.frame.size.width)
         print(self.cameraLayer.layer.frame.size.height)
-        print(self.effectiveWidth)
-        print(self.effectiveHeight)
+        print(UIScreen.main.bounds.width)
+        print(UIScreen.main.bounds.height)*/
+    
         
         let captureSession = AVCaptureSession()
-//        captureSession.sessionPreset = .photo
+        captureSession.sessionPreset = .hd1920x1080
         //guard let captureDevice = AVCaptureDevice.default(for: .video) else { return }//##########ATTENZIONE! ABBIAMO GIA' UN captureDevice sopra!!!###########
         guard let input = try? AVCaptureDeviceInput(device: captureDevice) else { return }
         captureSession.addInput(input)
@@ -112,20 +148,16 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         
         let previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         
-        previewLayer.frame = self.cameraLayer.bounds
-        
-        
-        
         view.layer.addSublayer(previewLayer)
         previewLayer.frame = view.frame //View per anteprima
-//        previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-//        previewLayer.frame = UIScreen.main.bounds//si adatta perfettamente ad ogni dispositivo, più FORTE dei constraint, da lasciare
+        previewLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+        previewLayer.frame = UIScreen.main.bounds//si adatta perfettamente ad ogni dispositivo, più FORTE dei constraint, da lasciare
         self.cameraLayer?.layer.addSublayer(previewLayer)//mette la fotocamera sulla view
         
 
-        let dataOutput = AVCaptureVideoDataOutput()
         dataOutput.setSampleBufferDelegate(self, queue: DispatchQueue(label: "videoQueue"))
         captureSession.addOutput(dataOutput)
+        captureSession.addOutput(photoOutput)
         
         /*
          VNImageRequestHandler(cgImage: <#T##CGImage#>, options: <#T##[VNImageOption : Any]#>).perform(<#T##requests: [VNRequest]##[VNRequest]#>)// Responsible for analyzing the camera, CGImage is a translation from camera to this method.
@@ -138,35 +170,28 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             print(error)
         }
         
-        captureSession = AVCaptureSession()//inizializza la variabile di CaptureSession
-        captureSession?.addInput(inputCamera!)
-        
         videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession!)
         videoPreviewLayer?.videoGravity = AVLayerVideoGravity.resizeAspectFill
         //captureSession.sessionPreset = .photo // serve a ridimensionare per le foto
         self.Camera?.layer.addSublayer(self.videoPreviewLayer!)
         captureSession?.startRunning()
-        
-        viewWillAppear(true)//animated true
-        viewDidAppear(true)//animated true
         Camera.isUserInteractionEnabled=true  // Grazie a максимальний комп'ютер
         */
-        
         
         cameraLayer.isUserInteractionEnabled=true
         
     }//fine viewDidLoad
     
-    /*
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        self.preview
-    }*/
     
+    
+    @IBAction func takePhoto(_ sender: UIButton) {
+        //performSegue(withIdentifier: "showPhoto_Segue", sender: nil)//va in errore di gerarchia
+        let settings = AVCapturePhotoSettings()
+        self.photoOutput.capturePhoto(with: settings, delegate: self)
+    }
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         //print("Camera captured a frame", Date())
-        
         guard let pixelBuffer: CVPixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
         guard let uiImage = imageFromSampleBuffer(sampleBuffer: sampleBuffer) else { return }
         DispatchQueue.main.async {
@@ -177,23 +202,22 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         let request = VNCoreMLRequest(model: model){
             (finishedReq, err) in
             
-           // print(finishedReq.results)
+           //print(finishedReq.results)
             
             guard let results = finishedReq.results as? [VNClassificationObservation] else { return }
             guard let firstObservation = results.first else { return }
             guard let secondObservation = results.last else { return }
             
             if(firstObservation.confidence >= 0.700000 || secondObservation.confidence >= 0.70000){
-                print(firstObservation.identifier, firstObservation.confidence)
+                //print(firstObservation.identifier, firstObservation.confidence)//stampa RESISTOR || SMD
                 DispatchQueue.global(qos: .background).async {
                     DispatchQueue.main.async {
                     self.debugLabel.text! = String(firstObservation.identifier) + ": " + String(firstObservation.confidence) + "\n" + String(secondObservation.identifier) + ": " + String(secondObservation.confidence)
                     }
                 }
-                print(secondObservation.identifier, secondObservation.confidence)
+                //print(secondObservation.identifier, secondObservation.confidence)//stampa RESISTOR || SMD
             }else{
                 DispatchQueue.global(qos: .background).async {
-                    
                     DispatchQueue.main.async {
                         self.debugLabel.text! = "Not a resistor"
                     }
@@ -210,14 +234,27 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         ciImage = ciImage.oriented(forExifOrientation: 6)
         var cgImage = context.createCGImage(ciImage, from: ciImage.extent)
         
-        var effectiveRect = CGRect(x: (UIScreen.main.bounds.size.height)/2, y: (UIScreen.main.bounds.size.width)/2, width: effectiveWidth, height: effectiveHeight)
+        //let effectiveRect = CGRect(origin: CGPoint(x: ((UIScreen.main.bounds.size.width)), y: ((UIScreen.main.bounds.size.height))), size: CGSize(width: croppedView.layer.frame.width, height: croppedView.layer.frame.height))
+        
+        //let effectiveRect = CGRect(x: 223, y: 612, width: 250, height: 110)
+        
+        //effectiveRect = CGRect(origin: CGPoint(x: 415, y: 905), size: CGSize(width: 250, height: 110))
 
-        cgImage = cgImage?.cropping(to: effectiveRect)
-
+        
+        print("cgImage.width BEFORE_CROPPING = " + String((cgImage?.width)!))
+        print("cgImage.height BEFORE_CROPPING = " + String((cgImage?.height)!))
+        
+        cgImage = cgImage?.cropping(to: self.effectiveRect!)
+        
+        print("cgImage.width AFTER_CROPPING = " + String((cgImage?.width)!))
+        print("cgImage.height AFTER_CROPPING = " + String((cgImage?.height)!))
+        
+ 
+        
         return UIImage(cgImage: cgImage!)
     }
     
-
+   
     
     
     override func didReceiveMemoryWarning() {
@@ -227,7 +264,16 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     
 override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-       let screenSize = cameraLayer.bounds.size//dimensioni cornice
+   
+    /*
+    //stampa la posizione di dove tocchi
+    if let touch = touches.first {
+        let position = touch.location(in: cameraLayer)
+        print(position.x)
+        print(position.y)
+    }
+    */
+        let screenSize = cameraLayer.bounds.size//dimensioni cornice
         
         if let tounchPoint = touches.first {
             let x = tounchPoint.location(in: cameraLayer).x / screenSize.width
@@ -346,7 +392,6 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
                                         self.flashButton.transform = CGAffineTransform.identity
                                     })
                     })
-                    //try captureDevice.setTorchModeOn(level: 1.0)
                     break
                 
                 default: break
@@ -400,13 +445,54 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     
     }//fine flashOFF
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showPhoto_Segue" {
+            let previewVC = segue.destination as! PreviewViewController//segue
+            
+            /*
+            var ciImage = CIImage(image: image!)
+            ciImage = ciImage?.oriented(forExifOrientation: 6)//orientamento orizzontale
+            print("Orientamento OK!")
+            var cgImage = context.createCGImage(ciImage!, from: (ciImage?.extent)!)
+            print("Cast a CGImage OK!")
+            cgImage = cgImage?.cropping(to: effectiveRect!)
+            image = UIImage(cgImage: cgImage!)
+            print("Cast a UIImage OK!")*/
+            
+            previewVC.image = self.image
+        }
+    }
     
-    
-    
-    
-    
+   
+
 
 }//fine class ViewController
+
+extension ViewController: AVCapturePhotoCaptureDelegate{
+    
+    func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
+        if let imageData = photo.fileDataRepresentation(){
+            print(imageData)
+            
+            let uiImage = UIImage(data: imageData)//non me lo zoomma
+            var ciImage = CIImage(image: uiImage!)
+            
+            ciImage = ciImage?.oriented(forExifOrientation: 6)//orientamento orizzontale
+            print("Orientamento OK!")
+            var cgImage = context.createCGImage(ciImage!, from: (ciImage?.extent)!)
+            print("Cast a CGImage OK!")
+            cgImage = cgImage?.cropping(to: effectiveRect!)
+            image = UIImage(cgImage: cgImage!)
+            print("Cast a UIImage OK!")
+           
+            //image = UIImage(data: imageData)
+            
+            performSegue(withIdentifier: "showPhoto_Segue", sender: nil)
+        }
+    }
+}
+
+
 
     
 
