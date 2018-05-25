@@ -12,11 +12,17 @@ import Vision
 import CoreImage
 import AVKit
 import CoreGraphics
+import CoreML
 
 class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate   {
 
     @IBOutlet var cameraLayer: UIImageView!//collegamento nel main storyboard
     @IBOutlet var flashButton: UIButton!//bottone flash
+    
+    let filter = AdaptiveTreshold()
+
+    
+    var automaticView: Bool = false
     
     var image: UIImage?//la foto scattata
     
@@ -25,7 +31,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     let dataOutput = AVCaptureVideoDataOutput()
     let photoOutput = AVCapturePhotoOutput()
-
+    var i = 0
 
     
     @IBOutlet var rect: UIView!{
@@ -37,6 +43,8 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             //self.rect.frame.origin = CGPoint(x: UIScreen.main.bounds.size.width/2, y: UIScreen.main.bounds.size.height/2)
             }
     }//rettangolo arancione centrale
+    
+    
     
     var effectiveWidth: CGFloat = 0
     var effectiveHeight: CGFloat = 0
@@ -83,6 +91,9 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
+        self.automaticView = true
+        
         flashButton.setBackgroundImage(UIImage(named: "flash_off"), for: UIControlState.normal)
     }//fine viewWillAppear
     
@@ -94,6 +105,8 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
+        
+        self.automaticView = false
         
         //spegne flash al cambio di schermata
         do{
@@ -191,19 +204,27 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     }
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        i = i+1
+        if(i >= 10){ //rallentata acquisizione del 10%
         //print("Camera captured a frame", Date())
+        
+        //while(self.automaticView == true)
+        if(self.automaticView == false){
+            return
+        }
+        
         guard let pixelBuffer: CVPixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else { return }
         guard let uiImage = imageFromSampleBuffer(sampleBuffer: sampleBuffer) else { return }
         DispatchQueue.main.async {
-            self.croppedView.image = uiImage
+            //self.croppedView.image = uiImage
         }
+
         
         guard let model = try? VNCoreMLModel(for: InspectronModelOne().model) else { return }
         let request = VNCoreMLRequest(model: model){
             (finishedReq, err) in
             
            //print(finishedReq.results)
-            
             guard let results = finishedReq.results as? [VNClassificationObservation] else { return }
             guard let firstObservation = results.first else { return }
             guard let secondObservation = results.last else { return }
@@ -213,8 +234,75 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                 DispatchQueue.global(qos: .background).async {
                     DispatchQueue.main.async {
                     self.debugLabel.text! = String(firstObservation.identifier) + ": " + String(firstObservation.confidence) + "\n" + String(secondObservation.identifier) + ": " + String(secondObservation.confidence)
+                    //self.croppedView.image = uiImage
+                    self.rect.layer.borderColor = #colorLiteral(red: 0, green: 0.9768045545, blue: 0, alpha: 1)
+                        
                     }
                 }
+                //print(secondObservation.identifier, secondObservation.confidence)//stampa RESISTOR || SMD
+            }else{
+                DispatchQueue.global(qos: .background).async {
+                    DispatchQueue.main.async {
+                        self.debugLabel.text! = "Not a resistor"
+                        self.rect.layer.borderColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
+                    }
+                }
+            }
+        }
+            
+            let ciImageCropped = CIImage(image: uiImage)
+            
+            //try? VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:]).perform([request])//richiesta sulla view intera, non ci serve!
+            try? VNImageRequestHandler(ciImage: ciImageCropped!, options: [:]).perform([request])//faccio la richiesta di analisi sull'immagine già croppata!! Non sulla view intera
+            
+            self.filter.inputImage = ciImageCropped//mando in input l'immagine al treshold
+            //l'algoritmo calcola il treshold
+            let final_treshold = filter.outputImage!//salvo l'output del treshold
+            
+            var uiImage_tresholded = UIImage(ciImage: final_treshold)
+            
+            DispatchQueue.main.async {
+                self.croppedView.image = uiImage_tresholded
+            }
+            
+            
+            i = 0
+        }//fine if giganti
+    }//questa funzione viene richiamata automaticamente ogni volta che la camera cattura un frame, non bisogna richiamarla da nessuna parte, ecco perchè stampa ogni millesimo di secondo la data
+    
+
+    private func imageFromSampleBuffer(sampleBuffer: CMSampleBuffer) -> UIImage?{
+        
+        guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {return nil}
+        var ciImage = CIImage(cvPixelBuffer: imageBuffer)// nella variabile ciImage ci va un solo frame
+        ciImage = ciImage.oriented(forExifOrientation: 6)
+        var cgImage = context.createCGImage(ciImage, from: ciImage.extent)
+    
+        //print("cgImage.width BEFORE_CROPPING = " + String((cgImage?.width)!))
+        //print("cgImage.height BEFORE_CROPPING = " + String((cgImage?.height)!))
+        
+        cgImage = cgImage?.cropping(to: self.effectiveRect!)
+        
+        //print("cgImage.width AFTER_CROPPING = " + String((cgImage?.width)!))
+        //print("cgImage.height AFTER_CROPPING = " + String((cgImage?.height)!))
+        
+        /*
+        let model = try? VNCoreMLModel(for: InspectronModelOne().model)
+        let request = VNCoreMLRequest(model: model!){
+            (finishedReq, err) in
+            
+            //print(finishedReq.results)
+            let results = finishedReq.results as? [VNClassificationObservation]
+            let firstObservation = (results!.first)
+            let secondObservation = (results!.last)
+            
+            if(firstObservation!.confidence >= 0.700000 || secondObservation!.confidence >= 0.70000){
+                //print(firstObservation.identifier, firstObservation.confidence)//stampa RESISTOR || SMD
+               
+                    DispatchQueue.main.async {
+                        self.debugLabel.text! = String(firstObservation!.identifier) + ": " + String(firstObservation!.confidence) + "\n" + String(secondObservation!.identifier) + ": " + String(secondObservation!.confidence)
+                    }
+                
                 //print(secondObservation.identifier, secondObservation.confidence)//stampa RESISTOR || SMD
             }else{
                 DispatchQueue.global(qos: .background).async {
@@ -224,31 +312,9 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                 }
             }
         }
+        
         try? VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:]).perform([request])
-    }//questa funzione viene richiamata automaticamente ogni volta che la camera cattura un frame, non bisogna richiamarla da nessuna parte, ecco perchè stampa ogni millesimo di secondo la data
-    
-
-    private func imageFromSampleBuffer(sampleBuffer: CMSampleBuffer) -> UIImage?{
-        guard let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {return nil}
-        var ciImage = CIImage(cvPixelBuffer: imageBuffer)// nella variabile ciImage ci va un solo frame
-        ciImage = ciImage.oriented(forExifOrientation: 6)
-        var cgImage = context.createCGImage(ciImage, from: ciImage.extent)
-        
-        //let effectiveRect = CGRect(origin: CGPoint(x: ((UIScreen.main.bounds.size.width)), y: ((UIScreen.main.bounds.size.height))), size: CGSize(width: croppedView.layer.frame.width, height: croppedView.layer.frame.height))
-        
-        //let effectiveRect = CGRect(x: 223, y: 612, width: 250, height: 110)
-        
-        //effectiveRect = CGRect(origin: CGPoint(x: 415, y: 905), size: CGSize(width: 250, height: 110))
-
-        
-        print("cgImage.width BEFORE_CROPPING = " + String((cgImage?.width)!))
-        print("cgImage.height BEFORE_CROPPING = " + String((cgImage?.height)!))
-        
-        cgImage = cgImage?.cropping(to: self.effectiveRect!)
-        
-        print("cgImage.width AFTER_CROPPING = " + String((cgImage?.width)!))
-        print("cgImage.height AFTER_CROPPING = " + String((cgImage?.height)!))
-        
+        */
  
         
         return UIImage(cgImage: cgImage!)
@@ -449,21 +515,12 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if segue.identifier == "showPhoto_Segue" {
             let previewVC = segue.destination as! PreviewViewController//segue
             
-            /*
-            var ciImage = CIImage(image: image!)
-            ciImage = ciImage?.oriented(forExifOrientation: 6)//orientamento orizzontale
-            print("Orientamento OK!")
-            var cgImage = context.createCGImage(ciImage!, from: (ciImage?.extent)!)
-            print("Cast a CGImage OK!")
-            cgImage = cgImage?.cropping(to: effectiveRect!)
-            image = UIImage(cgImage: cgImage!)
-            print("Cast a UIImage OK!")*/
-            
             previewVC.image = self.image
         }
     }
     
    
+
 
 
 }//fine class ViewController

@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:../Inspectron2.0/InspectronModelOne.mlmodel">
+      location = "group:/Users/caliendodomenico/Desktop/jofep_2.0/Inspectron2.0/Inspectron2.0/InspectronModelOne.mlmodel">
    </FileRef>
    <FileRef
       location = "self:">
