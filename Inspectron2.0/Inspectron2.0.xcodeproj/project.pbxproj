@@ -19,6 +19,8 @@
 		00F6ECEF20666A2C00368646 /* Inspectron2_0UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F6ECEE20666A2C00368646 /* Inspectron2_0UITests.swift */; };
 		00F6ED372066C35E00368646 /* NoteFolli.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 00F6ED362066C35E00368646 /* NoteFolli.rtf */; };
 		FA4B5DA720B70C3900C30212 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4B5DA620B70C3900C30212 /* PreviewViewController.swift */; };
+		FA55BA4020BAAC3E005B86C1 /* CameraSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA55BA3F20BAAC3E005B86C1 /* CameraSettingsViewController.swift */; };
+		FAC5B0DA20B8B325001CC7FF /* LaunchScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC5B0D920B8B325001CC7FF /* LaunchScreenController.swift */; };
 		FAEBE17920AC79360022AB55 /* Credits.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEBE17820AC79360022AB55 /* Credits.swift */; };
 		FAF8F74720ADE2F40089FA0D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAF8F74620ADE2F40089FA0D /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
@@ -59,6 +61,8 @@
 		00F6ECF020666A2C00368646 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00F6ED362066C35E00368646 /* NoteFolli.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = NoteFolli.rtf; sourceTree = "<group>"; };
 		FA4B5DA620B70C3900C30212 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
+		FA55BA3F20BAAC3E005B86C1 /* CameraSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSettingsViewController.swift; sourceTree = "<group>"; };
+		FAC5B0D920B8B325001CC7FF /* LaunchScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenController.swift; sourceTree = "<group>"; };
 		FAEBE17820AC79360022AB55 /* Credits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credits.swift; sourceTree = "<group>"; };
 		FAF8F74620ADE2F40089FA0D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -115,10 +119,12 @@
 				FAEBE17820AC79360022AB55 /* Credits.swift */,
 				000728E9209B3C3600B25593 /* ResistorController.swift */,
 				000728EB20A43E4500B25593 /* SMDController.swift */,
+				FA55BA3F20BAAC3E005B86C1 /* CameraSettingsViewController.swift */,
 				00F6ECCE20666A2C00368646 /* AppDelegate.swift */,
 				00F6ECD020666A2C00368646 /* ViewController.swift */,
 				0068648B20B8543A00EC3604 /* AdaptiveTreshold.swift */,
 				FA4B5DA620B70C3900C30212 /* PreviewViewController.swift */,
+				FAC5B0D920B8B325001CC7FF /* LaunchScreenController.swift */,
 				00F6ECD220666A2C00368646 /* Main.storyboard */,
 				FAF8F74620ADE2F40089FA0D /* LaunchScreen.storyboard */,
 				00F6ECD520666A2C00368646 /* Assets.xcassets */,
@@ -283,7 +289,9 @@
 			files = (
 				00F6ECD120666A2C00368646 /* ViewController.swift in Sources */,
 				FA4B5DA720B70C3900C30212 /* PreviewViewController.swift in Sources */,
+				FA55BA4020BAAC3E005B86C1 /* CameraSettingsViewController.swift in Sources */,
 				000728EA209B3C3600B25593 /* ResistorController.swift in Sources */,
+				FAC5B0DA20B8B325001CC7FF /* LaunchScreenController.swift in Sources */,
 				000728EC20A43E4500B25593 /* SMDController.swift in Sources */,
 				0068648C20B8543A00EC3604 /* AdaptiveTreshold.swift in Sources */,
 				FAEBE17920AC79360022AB55 /* Credits.swift in Sources */,

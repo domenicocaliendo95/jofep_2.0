@@ -14,7 +14,9 @@ import AVKit
 import CoreGraphics
 import CoreML
 
-class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate   {
+class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    
+ 
 
     @IBOutlet var cameraLayer: UIImageView!//collegamento nel main storyboard
     @IBOutlet var flashButton: UIButton!//bottone flash
@@ -32,7 +34,15 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     let dataOutput = AVCaptureVideoDataOutput()
     let photoOutput = AVCapturePhotoOutput()
     var i = 0
+    var performanceVal = 0
 
+    
+    
+
+    @IBAction func settingsButton(_ sender: UIBarButtonItem) {
+        
+        performSegue(withIdentifier: "showSettings_Segue", sender: nil)
+    }
     
     @IBOutlet var rect: UIView!{
         didSet{
@@ -87,6 +97,9 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     var pivotPinchScale: CGFloat!//fattore di zoom
     var captureDevice: AVCaptureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)!//Imposta il device di acquisizione
 
+    
+
+    
     /*######################################################*/
     
     override func viewWillAppear(_ animated: Bool) {
@@ -123,12 +136,13 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         }
         
     }//viewWillDisappear() spegne flash
- 
     
-    
+
     //############################################## viewDidLoad() ###################################################
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+
         viewWidth = cameraLayer.bounds.width * screenScale
         viewHeight = cameraLayer.bounds.height * screenScale
         effectiveWidth = self.rect.layer.frame.size.width
@@ -205,6 +219,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         i = i+1
+        //print(performanceVal)
         if(i >= 10){ //rallentata acquisizione del 10%
         //print("Camera captured a frame", Date())
         
@@ -220,6 +235,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         }
 
         
+            
         guard let model = try? VNCoreMLModel(for: InspectronModelOne().model) else { return }
         let request = VNCoreMLRequest(model: model){
             (finishedReq, err) in
@@ -228,8 +244,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             guard let results = finishedReq.results as? [VNClassificationObservation] else { return }
             guard let firstObservation = results.first else { return }
             guard let secondObservation = results.last else { return }
-            
-            if(firstObservation.confidence >= 0.700000 || secondObservation.confidence >= 0.70000){
+            if((firstObservation.confidence >= 0.800000 || secondObservation.confidence >= 0.80000) && (String(firstObservation.identifier) != "Not a resistor")){
                 //print(firstObservation.identifier, firstObservation.confidence)//stampa RESISTOR || SMD
                 DispatchQueue.global(qos: .background).async {
                     DispatchQueue.main.async {
@@ -250,16 +265,25 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             }
         }
             
-            let ciImageCropped = CIImage(image: uiImage)
+            var ciImageCropped = CIImage(image: uiImage)
             
             //try? VNImageRequestHandler(cvPixelBuffer: pixelBuffer, options: [:]).perform([request])//richiesta sulla view intera, non ci serve!
             try? VNImageRequestHandler(ciImage: ciImageCropped!, options: [:]).perform([request])//faccio la richiesta di analisi sull'immagine già croppata!! Non sulla view intera
+
             
-            self.filter.inputImage = ciImageCropped//mando in input l'immagine al treshold
-            //l'algoritmo calcola il treshold
+            //##### threshold tipo 1
+            //self.filter.inputImage = ciImageCropped//mando in input l'immagine al treshold
+            
+            //#### threshold tipo 2 with option kCIImageColorSpace
+            var cgImageCropped = context.createCGImage(ciImageCropped!, from: (ciImageCropped?.extent)!)
+//            print("Cast a CGImage OK!")
+            self.filter.inputImage = CIImage(cgImage: cgImageCropped!, options: [kCIImageColorSpace: NSNull()])
+            
+            //___________________________________________l'algoritmo calcola il treshold
+            
             let final_treshold = filter.outputImage!//salvo l'output del treshold
             
-            var uiImage_tresholded = UIImage(ciImage: final_treshold)
+            let uiImage_tresholded = UIImage(ciImage: final_treshold)
             
             DispatchQueue.main.async {
                 self.croppedView.image = uiImage_tresholded
@@ -329,39 +353,106 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     }
     
     
-override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-   
-    /*
-    //stampa la posizione di dove tocchi
-    if let touch = touches.first {
-        let position = touch.location(in: cameraLayer)
-        print(position.x)
-        print(position.y)
-    }
-    */
-        let screenSize = cameraLayer.bounds.size//dimensioni cornice
+    
+    var touch_x: CGFloat = 0.0
+    var touch_y: CGFloat = 0.0
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print("TouchesBegan")
         
-        if let tounchPoint = touches.first {
-            let x = tounchPoint.location(in: cameraLayer).x / screenSize.width
-            let y = 1.0 - tounchPoint.location(in: cameraLayer).y / screenSize.height
+        
+        let screenSize = cameraLayer.bounds.size//dimensioni cornice
+         
+         if let tounchPoint = touches.first {
+         
+         self.touch_x = tounchPoint.location(in: cameraLayer).x / screenSize.width
+         self.touch_y = 1.0 - tounchPoint.location(in: cameraLayer).y / screenSize.height
+         /*let focusPoint = CGPoint (x: x, y: y)
+         
+         
+         guard let captureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else { return }//Imposta il device di acquisizione
+         
+        
+         
+         
+         
+         do{
+         try captureDevice.lockForConfiguration()
+         captureDevice.focusPointOfInterest = focusPoint
+         captureDevice.focusMode = .autoFocus
+         captureDevice.exposurePointOfInterest = focusPoint
+         captureDevice.exposureMode = AVCaptureDevice.ExposureMode.continuousAutoExposure
+         
+         captureDevice.unlockForConfiguration()
+         } catch { /*nothing*/ }
+         
+         */
+         }
+         
+         
+        
+    }
+    
+    
+    @IBAction func tapForFocus(_ sender: UITapGestureRecognizer) {
+        
+        print("La fregna di mammita")
+        
+
+            let x = self.touch_x
+            let y = self.touch_y
             let focusPoint = CGPoint (x: x, y: y)
             
-            guard let captureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
-            else { return }//Imposta il device di acquisizione
-           
-                do{
-                    try captureDevice.lockForConfiguration()
-                    captureDevice.focusPointOfInterest = focusPoint
-                    captureDevice.focusMode = .autoFocus
-                    captureDevice.exposurePointOfInterest = focusPoint
-                    captureDevice.exposureMode = AVCaptureDevice.ExposureMode.continuousAutoExposure
-                    captureDevice.unlockForConfiguration()
-                } catch { /*nothing*/ }
+            
+            guard let captureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else { return }//Imposta il device di acquisizione
+            
+  
+            do{
+                try captureDevice.lockForConfiguration()
+                captureDevice.focusPointOfInterest = focusPoint
+                captureDevice.focusMode = .autoFocus
+                captureDevice.exposurePointOfInterest = focusPoint
+                captureDevice.exposureMode = AVCaptureDevice.ExposureMode.continuousAutoExposure
+                
+                captureDevice.unlockForConfiguration()
+            } catch { /*nothing*/ }
+            
+            
         }
-    }
- 
+
+
     
 
+    @IBAction func longPressFocus(_ sender: UILongPressGestureRecognizer) {
+        
+        print("Parente è una merda")
+        
+        
+        let x = self.touch_x
+        let y = self.touch_y
+        let focusPoint = CGPoint (x: x, y: y)
+        
+        
+        guard let captureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else { return }//Imposta il device di acquisizione
+        
+        
+        do{
+            try captureDevice.lockForConfiguration()
+            captureDevice.focusPointOfInterest = focusPoint
+            captureDevice.focusMode = .locked
+            captureDevice.exposurePointOfInterest = focusPoint
+            captureDevice.exposureMode = AVCaptureDevice.ExposureMode.continuousAutoExposure
+            
+            captureDevice.unlockForConfiguration()
+        } catch { /*nothing*/ }
+    
+    }
+    
+    
+
+
+
+    
  
 
 
@@ -514,12 +605,15 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showPhoto_Segue" {
             let previewVC = segue.destination as! PreviewViewController//segue
-            
+
             previewVC.image = self.image
         }
+        
     }
     
-   
+    
+    
+
 
 
 
