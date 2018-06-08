@@ -44,6 +44,7 @@ class PreviewViewController: UIViewController {
     
     @IBAction func cancelButton(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
+        
     }
     
     @IBAction func saveButton(_ sender: UIButton) {

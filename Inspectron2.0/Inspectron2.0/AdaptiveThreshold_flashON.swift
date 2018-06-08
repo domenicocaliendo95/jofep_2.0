@@ -1,14 +1,16 @@
+import Foundation
 import Vision
 import CoreImage
 import AVKit
 import UIKit
-import Foundation
 
-class AdaptiveTreshold: CIFilter{
-
+class AdaptiveThreshold_flashON: CIFilter{
+    
     var inputImage : CIImage?
     
-    var threshold: Float = 0.384688 //This is set to a good value via Otsu's method
+    
+    var threshold: Float = 0.584688 //This is set to a good value via Otsu's method
+    
     
     var thresholdKernel =  CIColorKernel(source:
         "kernel vec4 thresholdKernel(sampler image, float threshold) {" +
@@ -29,5 +31,5 @@ class AdaptiveTreshold: CIFilter{
         return thresholdKernel.apply(extent: extent, arguments: arguments)
     }
     
-
+    
 }
