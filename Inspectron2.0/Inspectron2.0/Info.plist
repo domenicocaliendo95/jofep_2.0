@@ -25,7 +25,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-	<string>Inspectron requires access to the camera</string>
+	<string>Inspectron would like to access the camera</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Save in Album</string>
 	<key>NSPhotoLibraryUsageDescription</key>

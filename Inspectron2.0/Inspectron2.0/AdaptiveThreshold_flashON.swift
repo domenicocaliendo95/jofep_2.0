@@ -9,7 +9,7 @@ class AdaptiveThreshold_flashON: CIFilter{
     var inputImage : CIImage?
     
     
-    var threshold: Float = 0.584688 //This is set to a good value via Otsu's method
+    var threshold: Float = 0.654688 //This is set to a good value via Otsu's method //0.584688
     
     
     var thresholdKernel =  CIColorKernel(source:

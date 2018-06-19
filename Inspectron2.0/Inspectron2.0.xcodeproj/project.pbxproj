@@ -10,7 +10,10 @@
 		000728EA209B3C3600B25593 /* ResistorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000728E9209B3C3600B25593 /* ResistorController.swift */; };
 		000728EC20A43E4500B25593 /* SMDController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000728EB20A43E4500B25593 /* SMDController.swift */; };
 		0068648C20B8543A00EC3604 /* AdaptiveTreshold.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0068648B20B8543A00EC3604 /* AdaptiveTreshold.swift */; };
-		00BB465C20CACA510048C0B9 /* ColorClassification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00BB465B20CACA510048C0B9 /* ColorClassification.swift */; };
+		00CD799520D1813C0034DCBB /* AcquiredResistorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CD799420D1813C0034DCBB /* AcquiredResistorController.swift */; };
+		00CD799720D197C10034DCBB /* OutputValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CD799620D197C10034DCBB /* OutputValue.swift */; };
+		00CD799920D3EA7D0034DCBB /* ColorClassificationModel.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 00CD799820D3EA7C0034DCBB /* ColorClassificationModel.mlmodel */; };
+		00EB18F920CEC489002FFF45 /* GenerateOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00EB18F820CEC489002FFF45 /* GenerateOutput.swift */; };
 		00F6ECCF20666A2C00368646 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F6ECCE20666A2C00368646 /* AppDelegate.swift */; };
 		00F6ECD120666A2C00368646 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00F6ECD020666A2C00368646 /* ViewController.swift */; };
 		00F6ECD620666A2C00368646 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00F6ECD520666A2C00368646 /* Assets.xcassets */; };
@@ -20,11 +23,13 @@
 		FA4B5DA720B70C3900C30212 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4B5DA620B70C3900C30212 /* PreviewViewController.swift */; };
 		FA522E3D20BDCD9C00C2B7AA /* CatchedPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA522E3C20BDCD9C00C2B7AA /* CatchedPoint.swift */; };
 		FA55BA4020BAAC3E005B86C1 /* CameraSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA55BA3F20BAAC3E005B86C1 /* CameraSettingsViewController.swift */; };
+		FA7DBF1A20CAD22700B248FB /* ColorClassification.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7DBF1920CAD22700B248FB /* ColorClassification.swift */; };
+		FA806ED420D2A22C005B6E06 /* InspectronModelOne.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = FA806ED320D2A22C005B6E06 /* InspectronModelOne.mlmodel */; };
+		FA946EF320CD5BDA00E870F8 /* rotation.wav in Resources */ = {isa = PBXBuildFile; fileRef = FA946EF220CD5BDA00E870F8 /* rotation.wav */; };
 		FABF620B20C9E1F90039B488 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FABF620920C9E1F90039B488 /* Main.storyboard */; };
 		FAC5B0DA20B8B325001CC7FF /* LaunchScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC5B0D920B8B325001CC7FF /* LaunchScreenController.swift */; };
 		FACFF21120C67674000A3109 /* AdaptiveThreshold_flashON.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACFF21020C67674000A3109 /* AdaptiveThreshold_flashON.swift */; };
 		FAEBE17920AC79360022AB55 /* Credits.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAEBE17820AC79360022AB55 /* Credits.swift */; };
-		FAEF879920C3DAB20081B2C0 /* InspectronModelOne.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = FAEF879820C3DAB20081B2C0 /* InspectronModelOne.mlmodel */; };
 		FAF8F74720ADE2F40089FA0D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FAF8F74620ADE2F40089FA0D /* LaunchScreen.storyboard */; };
 		FAFC973A20C2DF400034CAE4 /* Camera_focusing.wav in Resources */ = {isa = PBXBuildFile; fileRef = FAFC973920C2DF400034CAE4 /* Camera_focusing.wav */; };
 /* End PBXBuildFile section */
@@ -50,7 +55,10 @@
 		000728E9209B3C3600B25593 /* ResistorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResistorController.swift; sourceTree = "<group>"; };
 		000728EB20A43E4500B25593 /* SMDController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMDController.swift; sourceTree = "<group>"; };
 		0068648B20B8543A00EC3604 /* AdaptiveTreshold.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveTreshold.swift; sourceTree = "<group>"; };
-		00BB465B20CACA510048C0B9 /* ColorClassification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorClassification.swift; sourceTree = "<group>"; };
+		00CD799420D1813C0034DCBB /* AcquiredResistorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcquiredResistorController.swift; sourceTree = "<group>"; };
+		00CD799620D197C10034DCBB /* OutputValue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OutputValue.swift; sourceTree = "<group>"; };
+		00CD799820D3EA7C0034DCBB /* ColorClassificationModel.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = ColorClassificationModel.mlmodel; sourceTree = "<group>"; };
+		00EB18F820CEC489002FFF45 /* GenerateOutput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GenerateOutput.swift; sourceTree = "<group>"; };
 		00F6ECCB20666A2C00368646 /* Inspectron2.0.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Inspectron2.0.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00F6ECCE20666A2C00368646 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		00F6ECD020666A2C00368646 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -66,11 +74,13 @@
 		FA4B5DA620B70C3900C30212 /* PreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 		FA522E3C20BDCD9C00C2B7AA /* CatchedPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatchedPoint.swift; sourceTree = "<group>"; };
 		FA55BA3F20BAAC3E005B86C1 /* CameraSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSettingsViewController.swift; sourceTree = "<group>"; };
+		FA7DBF1920CAD22700B248FB /* ColorClassification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorClassification.swift; sourceTree = "<group>"; };
+		FA806ED320D2A22C005B6E06 /* InspectronModelOne.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = InspectronModelOne.mlmodel; sourceTree = "<group>"; };
+		FA946EF220CD5BDA00E870F8 /* rotation.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = rotation.wav; sourceTree = "<group>"; };
 		FABF620A20C9E1F90039B488 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FAC5B0D920B8B325001CC7FF /* LaunchScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenController.swift; sourceTree = "<group>"; };
 		FACFF21020C67674000A3109 /* AdaptiveThreshold_flashON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveThreshold_flashON.swift; sourceTree = "<group>"; };
 		FAEBE17820AC79360022AB55 /* Credits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credits.swift; sourceTree = "<group>"; };
-		FAEF879820C3DAB20081B2C0 /* InspectronModelOne.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = InspectronModelOne.mlmodel; sourceTree = "<group>"; };
 		FAF8F74620ADE2F40089FA0D /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FAFC973920C2DF400034CAE4 /* Camera_focusing.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Camera_focusing.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -123,7 +133,10 @@
 		00F6ECCD20666A2C00368646 /* Inspectron2.0 */ = {
 			isa = PBXGroup;
 			children = (
-				FAEF879820C3DAB20081B2C0 /* InspectronModelOne.mlmodel */,
+				00CD799820D3EA7C0034DCBB /* ColorClassificationModel.mlmodel */,
+				FA806ED320D2A22C005B6E06 /* InspectronModelOne.mlmodel */,
+				00EB18F820CEC489002FFF45 /* GenerateOutput.swift */,
+				00CD799620D197C10034DCBB /* OutputValue.swift */,
 				FAEBE17820AC79360022AB55 /* Credits.swift */,
 				000728E9209B3C3600B25593 /* ResistorController.swift */,
 				000728EB20A43E4500B25593 /* SMDController.swift */,
@@ -134,14 +147,16 @@
 				0068648B20B8543A00EC3604 /* AdaptiveTreshold.swift */,
 				FACFF21020C67674000A3109 /* AdaptiveThreshold_flashON.swift */,
 				FA4B5DA620B70C3900C30212 /* PreviewViewController.swift */,
+				FA7DBF1920CAD22700B248FB /* ColorClassification.swift */,
 				FAC5B0D920B8B325001CC7FF /* LaunchScreenController.swift */,
+				00CD799420D1813C0034DCBB /* AcquiredResistorController.swift */,
 				FABF620920C9E1F90039B488 /* Main.storyboard */,
 				FAF8F74620ADE2F40089FA0D /* LaunchScreen.storyboard */,
 				00F6ECD520666A2C00368646 /* Assets.xcassets */,
 				FAFC973920C2DF400034CAE4 /* Camera_focusing.wav */,
+				FA946EF220CD5BDA00E870F8 /* rotation.wav */,
 				00F6ECDA20666A2C00368646 /* Info.plist */,
 				00F6ED362066C35E00368646 /* NoteFolli.rtf */,
-				00BB465B20CACA510048C0B9 /* ColorClassification.swift */,
 			);
 			path = Inspectron2.0;
 			sourceTree = "<group>";
@@ -275,6 +290,7 @@
 				FABF620B20C9E1F90039B488 /* Main.storyboard in Resources */,
 				FAFC973A20C2DF400034CAE4 /* Camera_focusing.wav in Resources */,
 				FAF8F74720ADE2F40089FA0D /* LaunchScreen.storyboard in Resources */,
+				FA946EF320CD5BDA00E870F8 /* rotation.wav in Resources */,
 				00F6ED372066C35E00368646 /* NoteFolli.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -306,12 +322,16 @@
 				FACFF21120C67674000A3109 /* AdaptiveThreshold_flashON.swift in Sources */,
 				000728EA209B3C3600B25593 /* ResistorController.swift in Sources */,
 				FA522E3D20BDCD9C00C2B7AA /* CatchedPoint.swift in Sources */,
+				00CD799520D1813C0034DCBB /* AcquiredResistorController.swift in Sources */,
+				00EB18F920CEC489002FFF45 /* GenerateOutput.swift in Sources */,
 				FAC5B0DA20B8B325001CC7FF /* LaunchScreenController.swift in Sources */,
+				00CD799720D197C10034DCBB /* OutputValue.swift in Sources */,
+				FA806ED420D2A22C005B6E06 /* InspectronModelOne.mlmodel in Sources */,
 				000728EC20A43E4500B25593 /* SMDController.swift in Sources */,
 				0068648C20B8543A00EC3604 /* AdaptiveTreshold.swift in Sources */,
-				FAEF879920C3DAB20081B2C0 /* InspectronModelOne.mlmodel in Sources */,
+				00CD799920D3EA7D0034DCBB /* ColorClassificationModel.mlmodel in Sources */,
 				FAEBE17920AC79360022AB55 /* Credits.swift in Sources */,
-				00BB465C20CACA510048C0B9 /* ColorClassification.swift in Sources */,
+				FA7DBF1A20CAD22700B248FB /* ColorClassification.swift in Sources */,
 				00F6ECCF20666A2C00368646 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

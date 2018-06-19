@@ -2,9 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/gemitogennaro/Desktop/jofep_2.0/Inspectron2.0/Inspectron2.0/Main.storyboard">
-   </FileRef>
-   <FileRef
       location = "self:">
    </FileRef>
 </Workspace>

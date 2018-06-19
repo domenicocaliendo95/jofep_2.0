@@ -52,6 +52,28 @@ class CameraSettingsViewController: UIViewController{
     
     
     
+    @IBAction func infoDebug(_ sender: UIButton) {
+        
+        let infoDebug = UIAlertController(title:"Debug", message: "Activating this mode you will see more helpful features like object prediction percentage, snapping tool and thresholded captured image", preferredStyle: UIAlertControllerStyle.alert)
+        
+        infoDebug.addAction(UIAlertAction(title: "OK", style: .default, handler: {
+            action in
+            switch action.style{
+            case .default:
+                break
+            case .cancel:
+                break
+            case .destructive:
+                break
+            }
+        }))
+        
+        self.present(infoDebug, animated: true, completion: nil)
+        
+    }
+    
+    
+    
     @IBAction func infoPerformance(_ sender: UIButton) {
         
             let infoPerformance = UIAlertController(title:"Performance", message: "This setting allows you to change the number of frames analyzed per second: high level of performance increases recognition precision level but may slow down your device. Recommended level: 50%", preferredStyle: UIAlertControllerStyle.alert)

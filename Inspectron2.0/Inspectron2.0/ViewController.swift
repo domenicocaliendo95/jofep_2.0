@@ -17,65 +17,242 @@ import CoreML
 
 
 class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, passPerformanceValue, passDebugValue {
-    @IBOutlet var colorSettings_outlet: UIView!
+
     
     var mostraRegolazioneColore: Bool = false
+    var coloursRGB_string = [String]()
+    
+    var numberOfBands: Int?
+    
+    var resistorHasBeenCaught: Bool = false
+    
+    @IBOutlet var resistor_result_label: UILabel!
+    @IBOutlet var whiteColorView_bottom: UIView!
+    var safe_image = UIImage(named: "black_view")
     
     @IBOutlet var sliderEV_outlet: UISlider!
-    @IBAction func colorSettings_button(_ sender: UIButton) {
+    @IBOutlet var left_debug_outlet: UIBarButtonItem!
+    
+    @IBAction func reverseButton(_ sender: UIButton) {
+        self.coloursRGB_string = reverseArray(array: self.coloursRGB_string)
         
-        if(self.mostraRegolazioneColore == false){
-            self.mostraRegolazioneColore = true
-            self.colorSettings_outlet.isHidden = false
-            self.flashButton.isEnabled = false
-            self.outletSnap.isEnabled = false
-            self.changeView_buttonOutlet.isHidden = true
-            self.croppedView.isHidden = true
-            self.arrowOutlet.isHidden = true
-        } else {
-            self.mostraRegolazioneColore = false
-            self.colorSettings_outlet.isHidden = true
-            self.flashButton.isEnabled = true
-            self.outletSnap.isEnabled = true
-            self.changeView_buttonOutlet.isHidden = false
-            self.croppedView.isHidden = false
-            self.arrowOutlet.isHidden = false
-        }
+        printBands(coloursRGB_string: self.coloursRGB_string)
+
+    }
+    
+    
+    struct colorAndPosition{
+        var r: Int
+        var g: Int
+        var b: Int
+        var x: CGFloat
+        var y: CGFloat
+    }
+    
+    var arrayColorAndPosition = [colorAndPosition]()
+    
+    @IBOutlet var resultColorView_outlet: UIView!
+    
+    @IBOutlet var band1_colorOutlet: UIImageView!
+    @IBOutlet var band2_colorOutlet: UIImageView!
+    @IBOutlet var band3_colorOutlet: UIImageView!
+    @IBOutlet var band4_colorOutlet: UIImageView!
+    @IBOutlet var band5_colorOutlet: UIImageView!
+    @IBOutlet var band6_colorOutlet: UIImageView!
+    
+    struct standardColor {
+        var name: String
+        var color: CIColor
+    }
+    
+    @IBAction func longPress6_action(_ sender: UILongPressGestureRecognizer) {
         
+        if(sender.state == .began){
+        
+            if(self.numberOfBands! > 3){
+                
+                self.band1_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band2_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band3_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band4_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band5_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band6_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+            
+                self.coloursRGB_string.remove(at: self.coloursRGB_string.count-1)
+        
+                self.numberOfBands = self.numberOfBands! - 1
+        
+                printBands(coloursRGB_string: self.coloursRGB_string)
+        }//se sono 3 bande non rimuove nulla perchè va in errore
+            
+        }//fine sender began
+        
+    }
+    
+    @IBAction func longPress5_action(_ sender: UILongPressGestureRecognizer) {
+       
+        if(sender.state == .began){
+            
+            if(self.numberOfBands! > 3){
+                
+                self.band1_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band2_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band3_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band4_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band5_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band6_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                
+                self.coloursRGB_string.remove(at: 4)
+                
+                self.numberOfBands = self.numberOfBands! - 1
+                
+                printBands(coloursRGB_string: self.coloursRGB_string)
+            }//se sono 3 bande non rimuove nulla perchè va in errore
+            
+        }//fine sender began
+    }
+
+    
+    @IBAction func longPress4_action(_ sender: UILongPressGestureRecognizer) {
+        if(sender.state == .began){
+            
+            if(self.numberOfBands! > 3){
+                
+                self.band1_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band2_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band3_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band4_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band5_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band6_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                
+                self.coloursRGB_string.remove(at: 3)
+                
+                self.numberOfBands = self.numberOfBands! - 1
+                
+                printBands(coloursRGB_string: self.coloursRGB_string)
+            }//se sono 3 bande non rimuove nulla perchè va in errore
+            
+        }//fine sender began
+    }
+    
+    
+    @IBAction func longPress3_action(_ sender: UILongPressGestureRecognizer) {
+        if(sender.state == .began){
+            
+            if(self.numberOfBands! > 3){
+                
+                self.band1_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band2_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band3_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band4_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band5_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band6_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                
+                self.coloursRGB_string.remove(at: 2)
+                
+                self.numberOfBands = self.numberOfBands! - 1
+                
+                printBands(coloursRGB_string: self.coloursRGB_string)
+            }//se sono 3 bande non rimuove nulla perchè va in errore
+            
+        }//fine sender began
     }
     
     
     
+    @IBAction func longPress2_action(_ sender: UILongPressGestureRecognizer) {
+        
+        if(sender.state == .began){
+            
+            if(self.numberOfBands! > 3){
+                
+                self.band1_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band2_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band3_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band4_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band5_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band6_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                
+                self.coloursRGB_string.remove(at: 1)
+                
+                self.numberOfBands = self.numberOfBands! - 1
+                
+                printBands(coloursRGB_string: self.coloursRGB_string)
+            }//se sono 3 bande non rimuove nulla perchè va in errore
+            
+        }//fine sender began
+    }
+    
+    
+    
+    @IBAction func longPress1_action(_ sender: UILongPressGestureRecognizer) {
+        
+        if(sender.state == .began){
+            
+            if(self.numberOfBands! > 3){
+                
+                self.band1_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band2_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band3_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band4_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band5_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                self.band6_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+                
+                self.coloursRGB_string.remove(at: 0)
+                
+                self.numberOfBands = self.numberOfBands! - 1
+                
+                printBands(coloursRGB_string: self.coloursRGB_string)
+            }//se sono 3 bande non rimuove nulla perchè va in errore
+            
+        }//fine sender began
+    }
+    
+    
+    
+    
+    
+    @IBOutlet var longPress1_outlet: UILongPressGestureRecognizer!
+    @IBOutlet var longPress2_outlet: UILongPressGestureRecognizer!
+    @IBOutlet var longPress3_outlet: UILongPressGestureRecognizer!
+    @IBOutlet var longPress4_outlet: UILongPressGestureRecognizer!
+    @IBOutlet var longPress6_outlet: UILongPressGestureRecognizer!
+    
+    @IBOutlet var longPress5_outlet: UILongPressGestureRecognizer!
     /*__________________________________ SLIDER EV _________________________________*/
     /*__________________________________ SLIDER EV _________________________________*/
     /*__________________________________ SLIDER EV _________________________________*/
     /*__________________________________ SLIDER EV _________________________________*/
 
+    var modificaSlider: Bool = false
+    
     @IBAction func sliderEV(_ sender: UISlider) {
         
-        
         self.manualEV = sender.value
+
+            if(sender.isTracking){
         
+                do{
+                    try self.captureDevice.lockForConfiguration()
+                    self.modificaSlider = true
+                    self.captureDevice.exposureMode = AVCaptureDevice.ExposureMode.custom
+                    self.captureDevice.setExposureModeCustom(duration: AVCaptureDevice.currentExposureDuration, iso: manualEV, completionHandler: nil)
+            
+                    self.captureDevice.unlockForConfiguration()
+                }   catch{
+                    print(error)
+                }
+            } else {
+                self.modificaSlider = false
+            }
         
-        do{
-            try self.captureDevice.lockForConfiguration()
-            
-            self.captureDevice.exposureMode = AVCaptureDevice.ExposureMode.custom
-            
-            self.captureDevice.setExposureModeCustom(duration: AVCaptureDevice.currentExposureDuration, iso: manualEV, completionHandler: nil)
-            
-            self.captureDevice.unlockForConfiguration()
-        }   catch{
-            print(error)
-        }
+       
         
         
     }
     
     
     @IBOutlet var errorImage_label: UILabel!
-    @IBOutlet var outletBody_label: UILabel!
-    @IBOutlet var outletBody: UIView!
     @IBOutlet var outletColor: UIView!
     @IBOutlet var outletClose: UIButton!
     @IBOutlet var outletResultColor: UIView!
@@ -101,15 +278,9 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     var acquiredWithFlash: Bool = false
     
-    var coloursArray_24bit = [CIColor]()
-    
-    var colours8bit_string = [String]()
-    
     var playerCameraFocusing: AVAudioPlayer!
     
     var cameraFocusing: String?
-    
-    var array24_dim: Int?
     
     var numberOfColors: Int = 0
     
@@ -118,35 +289,29 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     var catchedResistorBackground: CIColor?
     
     
-    struct color8bit{
-        let r: UInt8?
-        let g: UInt8?
-        let b: UInt8?
-    }
-    
-    var hashBlue = NSMutableSet()
-    var hashGreen = NSMutableSet()
-    var hashBlack = NSMutableSet()
-    var hashBrown = NSMutableSet()
-    var hashRed = NSMutableSet()
-    
-    
     @IBOutlet var outletSnap: UIButton!
    
     var outletColor_isHidden = true
     
     @IBAction func colorViewCloseButton(_ sender: UIButton) {
         
-        self.outletResultColor.subviews.forEach({ $0.removeFromSuperview() })
-        self.outletBody.subviews.forEach({ $0.removeFromSuperview() })
         
-        self.colorSettings_outlet.isHidden = true
-        self.mostraRegolazioneColore = false
+        //self.outletResultColor.subviews.forEach({ $0.removeFromSuperview() })
+        self.outletResultColor.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        self.band1_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+        self.band2_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+        self.band3_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+        self.band4_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+        self.band5_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+        self.band6_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
         
-        blackArray.removeAll()
-        coloursArray.removeAll()
-        coloursArray_8bit.removeAll()
-        colours8bit_string.removeAll()
+        //resetta label risultato
+        self.resistor_result_label.text = ""
+        
+        self.blackArray.removeAll()
+        self.coloursArray.removeAll()
+        self.coloursRGB_string.removeAll()
+        self.arrayColorAndPosition.removeAll()
 
         self.errorImage_label.isHidden = true
         self.rect.layer.borderColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
@@ -170,7 +335,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     var blackArray = [CGPoint]() //array con le posizioni in CGPoint dei pixel che hanno superato il treshold
     var coloursArray = [CIColor]() //array con il valore dei colori per i pixel che hanno superato il treshold
-    var coloursArray_8bit = [color8bit]()
     
     var automaticView: Bool = false
     
@@ -227,9 +391,11 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         }
     }//rettangolo nero
     
+    var standardColours_array = [standardColor]()
 
     var testoPredizione = ""
     var pivotPinchScale: CGFloat!//fattore di zoom
+    
     var captureDevice: AVCaptureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)!
     //Imposta il device di acquisizione
 
@@ -243,6 +409,18 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.outletResultColor.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        self.band1_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+        self.band2_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+        self.band3_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+        self.band4_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+        self.band5_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+        self.band6_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+        
+        
+        //resetta label risultato
+        self.resistor_result_label.text = ""
         
         
         
@@ -273,6 +451,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             self.croppedView.isHidden = false
             self.changeView_buttonOutlet.isHidden = false
             self.arrowOutlet.isHidden = false
+
         }
 
         
@@ -294,11 +473,17 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         
         if((persistentPerformance.object(forKey: "performanceLevel") as! Int ) == 2){
         self.settingsOutlet.setBackgroundImage(#imageLiteral(resourceName: "settings_warning"), for: [], barMetrics: .default)
-        } else if(debugVal == 0){
-            self.settingsOutlet.setBackgroundImage(#imageLiteral(resourceName: "settings"), for: [], barMetrics: .default)
         } else {
+            self.settingsOutlet.setBackgroundImage(#imageLiteral(resourceName: "settings"), for: [], barMetrics: .default)
+        } /*else {
             self.settingsOutlet.setBackgroundImage(#imageLiteral(resourceName: "settings_BUG_FINALE"), for: [], barMetrics: .default)
 
+        }*/
+        
+        if(debugVal == 1){
+            self.left_debug_outlet.setBackgroundImage(#imageLiteral(resourceName: "bug_icon_black"), for: [], barMetrics: .default)
+        } else {
+            self.left_debug_outlet.setBackgroundImage(#imageLiteral(resourceName: "vuota"), for: [], barMetrics: .default)
         }
         
         
@@ -332,14 +517,25 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
-        self.outletResultColor.subviews.forEach({ $0.removeFromSuperview() })
-        self.outletBody.subviews.forEach({ $0.removeFromSuperview() })
+        //self.outletResultColor.subviews.forEach({ $0.removeFromSuperview() })
+        self.outletResultColor.backgroundColor = #colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1)
+        self.band1_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+        self.band2_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+        self.band3_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+        self.band4_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+        self.band5_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
+        self.band6_colorOutlet.image = #imageLiteral(resourceName: "vuota")//immagine vuota
         self.errorImage_label.isHidden = true
         
-        blackArray.removeAll()
-        coloursArray.removeAll()
-        coloursArray_8bit.removeAll()
-        colours8bit_string.removeAll()
+        //resetta label risultato
+        self.resistor_result_label.text = ""
+        
+        self.blackArray.removeAll()
+        self.coloursArray.removeAll()
+        self.coloursRGB_string.removeAll()
+        self.arrayColorAndPosition.removeAll()
+
+
         self.outletColor.isHidden = true
         self.outletClose.isHidden = true
         self.outletResultColor.isHidden = true
@@ -376,21 +572,44 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         
         super.viewDidLoad()
         
-        let backgroundImage = UIImageView(frame: self.colorSettings_outlet.layer.bounds)
-        backgroundImage.image = UIImage(named: "black_view.png")
-        backgroundImage.alpha = 0.95
-        backgroundImage.contentMode = UIViewContentMode.scaleAspectFit
-        self.colorSettings_outlet.insertSubview(backgroundImage, at: 0)
-        self.colorSettings_outlet.isHidden = true
+        self.resultColorView_outlet.backgroundColor = UIColor(white: 1, alpha: 1)
+        
+        self.standardColours_array = [
+            standardColor(name: "black", color:CIColor(red: 0, green: 0, blue: 0)),
+            standardColor(name: "brown", color:CIColor(red: 102/255, green: 51/255, blue: 0)),
+            standardColor(name: "blue", color:CIColor(red: 0, green: 0, blue: 200/255)),
+            standardColor(name: "turquoise", color:CIColor(red: 60/255, green: 140/255, blue: 200/255)),
+            standardColor(name: "cyan", color:CIColor(red: 110/255, green: 230/255, blue: 255/255)),
+            standardColor(name: "green", color:CIColor(red: 0, green: 150/255, blue: 0)),
+            standardColor(name: "light_green", color:CIColor(red: 200/255, green: 255/255, blue: 200/255)),
+            standardColor(name: "yellow", color:CIColor(red: 250/255, green: 250/255, blue: 50/255)),
+            standardColor(name: "gold", color:CIColor(red: 220/255, green: 165/255, blue: 32/255)),
+            standardColor(name: "grey", color:CIColor(red: 230/255, green: 230/255, blue: 230/255)),
+            standardColor(name: "silver", color:CIColor(red: 192/255, green: 192/255, blue: 192/255)),
+            standardColor(name: "white", color:CIColor(red: 255/255, green: 255/255, blue: 255/255)),
+            standardColor(name: "bordeaux", color:CIColor(red: 153/255, green: 0, blue: 76/255)),
+            standardColor(name: "beige", color:CIColor(red: 255/255, green: 222/255, blue: 173/255)),
+            standardColor(name: "orange", color:CIColor(red: 255/255, green: 130/255, blue: 0)),
+            standardColor(name: "purple", color:CIColor(red: 150/255, green: 100/255, blue: 230/255)),
+            standardColor(name: "red", color:CIColor(red: 230/255, green: 0, blue: 0))
+            ]
+        
+        self.whiteColorView_bottom.layer.borderWidth = 1
+        self.whiteColorView_bottom.layer.borderColor = #colorLiteral(red: 0.6000000238, green: 0.6000000238, blue: 0.6000000238, alpha: 1)
         
         
         
         self.sliderEV_outlet.minimumValue = self.captureDevice.activeFormat.minISO
-        print(self.captureDevice.activeFormat.minISO)
+       
         self.sliderEV_outlet.maximumValue = self.captureDevice.activeFormat.maxISO
-        print(self.captureDevice.activeFormat.maxISO)
         
-        print(AVCaptureDevice.currentISO)
+        self.sliderEV_outlet.value = self.captureDevice.iso
+        
+        self.sliderEV_outlet.setThumbImage(UIImage(named: "exposure_black"), for: UIControlState.normal)
+
+        
+        
+        
        
         
         self.errorImage_label.isHidden = true
@@ -398,134 +617,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         self.errorImage_label.layer.borderWidth = 1.0
         self.errorImage_label.layer.backgroundColor = UIColor.white.withAlphaComponent(0.7).cgColor
         
-        
-        // POPOLO LA HASHSET CON I BLUE
-        self.hashBlue.add("001")
-        self.hashBlue.add("011")
-        self.hashBlue.add("002")
-        self.hashBlue.add("012")
-        self.hashBlue.add("022")
-        self.hashBlue.add("032")
-        self.hashBlue.add("042")
-        self.hashBlue.add("003")
-        self.hashBlue.add("013")
-        self.hashBlue.add("023")
-        self.hashBlue.add("033")
-        self.hashBlue.add("043")
-        self.hashBlue.add("053")
-        self.hashBlue.add("063")
-        self.hashBlue.add("073")
-        self.hashBlue.add("101")
-        self.hashBlue.add("111")
-        self.hashBlue.add("102")
-        self.hashBlue.add("112")
-        self.hashBlue.add("122")
-        self.hashBlue.add("132")
-        self.hashBlue.add("142")
-        self.hashBlue.add("103")
-        self.hashBlue.add("113")
-        self.hashBlue.add("123")
-        self.hashBlue.add("133")
-        self.hashBlue.add("143")
-        self.hashBlue.add("153")
-        self.hashBlue.add("163")
-        self.hashBlue.add("173")
-        self.hashBlue.add("203")
-        self.hashBlue.add("213")
-        self.hashBlue.add("223")
-        self.hashBlue.add("233")
-        self.hashBlue.add("243")
-        self.hashBlue.add("253")
-        self.hashBlue.add("263")
-        self.hashBlue.add("273")
-        self.hashBlue.add("332")
-        self.hashBlue.add("342")
-        self.hashBlue.add("333")
-        self.hashBlue.add("343")
-        self.hashBlue.add("352")
-        self.hashBlue.add("353")
-        self.hashBlue.add("363")
-        self.hashBlue.add("373")
-        
-        
-        //AGGIUNGO I VERDI IN HASHSET GREEN
-        
-        self.hashGreen.add("020")
-        self.hashGreen.add("030")
-        self.hashGreen.add("040")
-        self.hashGreen.add("050")
-        self.hashGreen.add("060")
-        self.hashGreen.add("070")
-        self.hashGreen.add("061")
-        self.hashGreen.add("071")
-        self.hashGreen.add("120")
-        self.hashGreen.add("130")
-        self.hashGreen.add("140")
-        self.hashGreen.add("150")
-        self.hashGreen.add("160")
-        self.hashGreen.add("170")
-        self.hashGreen.add("161")
-        self.hashGreen.add("171")
-        self.hashGreen.add("230")
-        self.hashGreen.add("240")
-        self.hashGreen.add("250")
-        self.hashGreen.add("260")
-        self.hashGreen.add("270")
-        self.hashGreen.add("261")
-        self.hashGreen.add("271")
-        self.hashGreen.add("340")
-        self.hashGreen.add("350")
-        self.hashGreen.add("360")
-        self.hashGreen.add("370")
-        self.hashGreen.add("371")
-        self.hashGreen.add("450")
-        self.hashGreen.add("460")
-        self.hashGreen.add("470")
-        self.hashGreen.add("451")
-        self.hashGreen.add("461")
-        self.hashGreen.add("471")
-        self.hashGreen.add("451")
-        self.hashGreen.add("560")
-        self.hashGreen.add("570")
-        self.hashGreen.add("561")
-        self.hashGreen.add("571")
 
-        // POPOLO LA MAP DI NERI
-        self.hashBlack.add("000")
-        self.hashBlack.add("010")
-        
-        
-        
-        // POPOLO LA MAP DI MARRONI
-        
-        self.hashBrown.add("200")
-        self.hashBrown.add("210")
-        self.hashBrown.add("320")
-        self.hashBrown.add("420")
-        self.hashBrown.add("100")
-        
-        // POPOLO LA MAP DI ROSSI
-        
-        self.hashRed.add("400")
-        self.hashRed.add("500")
-        self.hashRed.add("510")
-        self.hashRed.add("600")
-        self.hashRed.add("610")
-        self.hashRed.add("700")
-        self.hashRed.add("710")
-        self.hashRed.add("701")
-        self.hashRed.add("711")
-        self.hashRed.add("410")
-        self.hashRed.add("601")
-        self.hashRed.add("611")
-        self.hashRed.add("300")
-        self.hashRed.add("310")
-        self.hashRed.add("401")
-
-        
-
-        
-        
         
         cameraFocusing = Bundle.main.path(forResource: "Camera_focusing", ofType: "wav")
         
@@ -537,9 +629,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         self.outletResultColor.layer.borderWidth = 1
         self.outletResultColor.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         
-        self.outletBody.layer.cornerRadius = 10
-        self.outletBody.layer.borderWidth = 1
-        self.outletBody.layer.borderColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+       
         
         
         
@@ -593,8 +683,13 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
 
-        //print(self.captureDevice.isAdjustingWhiteBalance)
         
+        DispatchQueue.main.async {
+            if(self.modificaSlider == false){
+            self.sliderEV_outlet.value = self.captureDevice.iso
+            }
+        }
+
         
         
         if(outletColor_isHidden){
@@ -658,13 +753,15 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             guard let results = finishedReq.results as? [VNClassificationObservation] else { return }
             guard let firstObservation = results.first else { return }
             guard let secondObservation = results.last else { return }
-            if((firstObservation.confidence >= 0.800000 || secondObservation.confidence >= 0.80000) && (String(firstObservation.identifier) != "Not a resistor")){
+            if((firstObservation.confidence >= 0.990000 || secondObservation.confidence >= 0.99000) && (String(firstObservation.identifier) != "Not a resistor")){
                 
                 
                 DispatchQueue.main.async {
                     self.rect.layer.borderColor = #colorLiteral(red: 0, green: 0.9768045545, blue: 0, alpha: 1)
                     self.outletLoading.isHidden = false
                     self.outletLoading.startAnimating()
+                    self.settingsOutlet.isEnabled = false
+                    
                 }
                 
                 
@@ -672,8 +769,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                     
                     
                 self.debugLabel.text! = String(firstObservation.identifier) + ": " + String(firstObservation.confidence) + "\n" + String(secondObservation.identifier) + ": " + String(secondObservation.confidence)
-                
-                    
                     
                     
                     //spegne flash
@@ -687,9 +782,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                             self.acquiredWithFlash = false
                             
                         }
-                        
-                        print(self.acquiredWithFlash)
-                        
+                
                         
                         
                         self.captureDevice.unlockForConfiguration()
@@ -716,13 +809,13 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                         
                     }
                 
-                //print(secondObservation.identifier, secondObservation.confidence)//stampa RESISTOR || SMD
             }else{
                     DispatchQueue.main.async{
                         self.debugLabel.text! = "Not a resistor"
                         self.rect.layer.borderColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
                         self.outletLoading.stopAnimating()
                         self.outletLoading.isHidden = true
+                        self.settingsOutlet.isEnabled = true
                     }
             }
             
@@ -817,22 +910,13 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             do{
                 try captureDevice.lockForConfiguration()
                 
-                /*
-                if(captureDevice.torchMode == .on){
-                let temperatureValue = self.captureDevice.whiteBalanceMode.rawValue
-                    
-                    
-                //changeTemperature(value: Float(temperatureValue))
-                changeTemperatureRaw(temperature: Float(temperatureValue))
-                }*/
-                
-                
-                
-                self.captureDevice.focusPointOfInterest = focusPoint
-                self.captureDevice.focusMode = .autoFocus
-                self.captureDevice.exposurePointOfInterest = focusPoint
-                self.captureDevice.exposureMode = AVCaptureDevice.ExposureMode.continuousAutoExposure
-                self.captureDevice.whiteBalanceMode = AVCaptureDevice.WhiteBalanceMode.continuousAutoWhiteBalance
+
+                captureDevice.focusPointOfInterest = focusPoint
+                captureDevice.focusMode = .autoFocus
+                captureDevice.exposurePointOfInterest = focusPoint
+                captureDevice.exposureMode = AVCaptureDevice.ExposureMode.continuousAutoExposure
+                //self.sliderEV_outlet.value = self.captureDevice.iso
+                captureDevice.whiteBalanceMode = AVCaptureDevice.WhiteBalanceMode.continuousAutoWhiteBalance
                 
                 
                 captureDevice.unlockForConfiguration()
@@ -857,11 +941,12 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         
         do{
             try captureDevice.lockForConfiguration()
-            self.captureDevice.focusPointOfInterest = focusPoint
-            self.captureDevice.focusMode = .locked
-            self.captureDevice.exposurePointOfInterest = focusPoint
-            self.captureDevice.exposureMode = AVCaptureDevice.ExposureMode.continuousAutoExposure
-            self.captureDevice.whiteBalanceMode = AVCaptureDevice.WhiteBalanceMode.continuousAutoWhiteBalance
+            captureDevice.focusPointOfInterest = focusPoint
+            captureDevice.focusMode = .locked
+            captureDevice.exposurePointOfInterest = focusPoint
+            //self.sliderEV_outlet.value = captureDevice.iso
+            captureDevice.exposureMode = AVCaptureDevice.ExposureMode.continuousAutoExposure
+            captureDevice.whiteBalanceMode = AVCaptureDevice.WhiteBalanceMode.continuousAutoWhiteBalance
 
             
             
@@ -941,7 +1026,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             })
             
         }else{
-            captureDevice.torchMode = .on
+            try! captureDevice.setTorchModeOn(level: 0.1)
             flashButton.setBackgroundImage(UIImage(named: "flash_on"), for: UIControlState.normal)
             
             //bottone flash animato
@@ -967,8 +1052,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     //gesture flashON -> swipe verso destra
     @IBAction func flashON(_ sender: UISwipeGestureRecognizer) {
 
-    print(self.captureDevice.exposureMode.hashValue)
-        print(self.captureDevice.exposureMode.rawValue)
         if (captureDevice.hasTorch) {
             do {
                 try captureDevice.lockForConfiguration()
@@ -976,7 +1059,8 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                 {
                 case UISwipeGestureRecognizerDirection.right:
                     
-                    captureDevice.torchMode = .on
+                    //captureDevice.torchMode = .on
+                    try! captureDevice.setTorchModeOn(level: 0.1)
                     self.flashButton.setBackgroundImage(UIImage(named: "flash_on"), for: UIControlState.normal)
                     //bottone flash animato
                     UIView.animate(withDuration: 0.07,
@@ -1005,8 +1089,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     //gesture flashOFF -> swipe verso sinistra
     @IBAction func flashOFF(_ sender: UISwipeGestureRecognizer) {
     
-        print(self.captureDevice.exposureMode.hashValue)
-        print(self.captureDevice.exposureMode.rawValue)
         
         if (captureDevice.hasTorch) {
             do {
@@ -1052,8 +1134,23 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showPhoto_Segue" {
             let previewVC = segue.destination as! PreviewViewController//segue
+            var immagine_da_passare = CIImage(image: self.image!)
+            print("cast a CIImage OK")
+            
+            immagine_da_passare = noiseReduction(image: immagine_da_passare!)
+            
+            if(self.captureDevice.torchMode == .on){
+                immagine_da_passare = temperatureAndTint(image: immagine_da_passare!)
+            }
+            
+            immagine_da_passare = colorAdjust(image: immagine_da_passare!)!
+            
+            let immagine_finale = UIImage(ciImage: immagine_da_passare!)
+            
+            previewVC.image = immagine_finale
+            
 
-            previewVC.image = self.image
+            //previewVC.image = self.image
         }
         
         
@@ -1068,6 +1165,14 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             
             let secondViewControllerDebug = segue.destination as! CameraSettingsViewController
             secondViewControllerDebug.delegateDebug = self
+        }
+        
+        
+        if segue.identifier == "showResistor_Segue" {
+            
+            let destinationNavigationController = segue.destination as! AcquiredResistorController
+
+            //secondViewControllerDebug.delegateDebug = self
         }
         
     }
@@ -1142,7 +1247,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     func temperatureAndTint(image: CIImage) -> CIImage?{
         let filter = CIFilter(name: "CITemperatureAndTint")!
         
-        let inputVector = CIVector(x:4000, y:0)
+        let inputVector = CIVector(x:5000, y:0)//4000
         //let targetVector = CIVector(x:8000, y:0)
         
         filter.setValue(inputVector, forKey: "inputNeutral")
@@ -1201,20 +1306,22 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         let filter = CIFilter(name: "CIColorControls")!
         
         if(self.acquiredWithFlash == false){
-            filter.setValue(2.50, forKey: "inputSaturation") //2.00
-            filter.setValue(0.09, forKey: "inputBrightness") // 0.09
-            filter.setValue(1.30, forKey: "inputContrast") //1.20
-        } /*else {
-            filter.setValue(3.00, forKey: "inputSaturation") //2.00
-            filter.setValue(0.00, forKey: "inputBrightness") // 0.09
-            filter.setValue(1.20, forKey: "inputContrast") //1.20
-        }*/
+            filter.setValue(1.30, forKey: "inputSaturation") //2.30
+            filter.setValue(0.00, forKey: "inputBrightness") // 0.00
+            filter.setValue(1.00, forKey: "inputContrast") //1.00
+        }else {
+            filter.setValue(1.50, forKey: "inputSaturation") //2.50
+            filter.setValue(0.00, forKey: "inputBrightness") // 0.00
+            filter.setValue(1.00, forKey: "inputContrast") //1.08
+        }
         
         filter.setValue(image, forKey: kCIInputImageKey)
         let result = filter.outputImage!
         
         return result
     }
+    
+
     
 
     
@@ -1227,45 +1334,227 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     func generateSolidColor(coloursArray: [CIColor]){
         
-        let filter = CIFilter(name: "CIConstantColorGenerator")!
-        let colorPrint_width = Float((200/coloursArray.count))//stampa in base al numero di colori trovati
-        
-        print(coloursArray.count)
         for i in stride(from: 0, to: coloursArray.count, by: 1){
-            let current_color = coloursArray[i]
-            filter.setValue(current_color, forKey: "inputColor")
             
-            let uiCurrent_color = UIColor(ciColor: current_color)
-            let image:UIImage = getImageWithColor(color: uiCurrent_color, size: CGSize(width: CGFloat(colorPrint_width), height: CGFloat(85)), origin_x: 0, origin_y: 0)
-            let imageView: UIImageView = UIImageView(image: image)
-            
-            
-            imageView.frame = CGRect(x: CGFloat(i)*CGFloat(colorPrint_width), y: CGFloat(0), width: CGFloat(colorPrint_width), height: CGFloat(85))//tutti CGFloat
-            
-            
-            self.outletResultColor.contentMode = .scaleAspectFit
-            self.outletResultColor.addSubview(imageView)
-            
-            self.colours8bit_string.append(String(describing: Int(coloursArray[i].red*7))+String(describing: Int(coloursArray[i].green*7))+String(describing: Int(coloursArray[i].blue*3)))
-            
-            if(self.hashBlue.contains(colours8bit_string[i])){
-                print("Blue" + String(i))
-            }else if(self.hashGreen.contains(colours8bit_string[i])){
-                print("Green" + String(i))
-            }else if(self.hashRed.contains(colours8bit_string[i])){
-                print("Red" + String(i))
-            }else if(self.hashBrown.contains(colours8bit_string[i])){
-                print("Brown" + String(i))
-            }else if(self.hashBlack.contains(colours8bit_string[i])){
-                print("Black" + String(i))
-            }else{
-                print(colours8bit_string[i] + "    pos: " + String(i))
-            }
+         
+            //classifica i colori, scorre l'array con il for
+            let colorClass = ColorClassification()
+            self.coloursRGB_string.append(colorClass.inspectColor(Red: Int(coloursArray[i].red*255), Green: Int(coloursArray[i].green*255), Blue: Int(coloursArray[i].blue*255)))
             
         }
         
-      
+        
+        let GenerateColorClass = GenerateOutput()
+        let bodyColor: String = GenerateColorClass.resistorBody(colours_string: self.coloursRGB_string)
+        
+        
+        
+        print("BODY COLOOOOOR")
+        print(bodyColor)
+        
+        var bodyColor_RGB: CIColor?
+        
+
+        if(bodyColor == "gold"){
+            bodyColor_RGB = self.standardColours_array[13].color
+        }else if(bodyColor == "red"){
+            bodyColor_RGB = self.standardColours_array[12].color
+        } else if(bodyColor == "green"){
+            bodyColor_RGB = self.standardColours_array[6].color
+        } else if(bodyColor == "silver"){
+            bodyColor_RGB = self.standardColours_array[9].color
+        } else if(bodyColor == "blue"){
+            bodyColor_RGB = self.standardColours_array[3].color
+        } else {
+        for i in stride(from: 0, to: self.standardColours_array.count, by: 1){
+            if(self.standardColours_array[i].name == bodyColor){
+                bodyColor_RGB = self.standardColours_array[i].color
+                print(bodyColor_RGB)
+            }
+        }
+        }
+        
+        
+        //stampo il colore di sfondo
+        self.outletResultColor.backgroundColor = UIColor(ciColor: bodyColor_RGB!)
+        
+        print("Before flattener")
+        print(coloursRGB_string)
+        self.coloursRGB_string = GenerateColorClass.flattener(arrayOfColours: self.coloursRGB_string, bodyColor: bodyColor)
+        print("FLATTENEEEEER")
+        print(coloursRGB_string)
+        
+        self.coloursRGB_string = GenerateColorClass.bandsCount(arrayOfColours: self.coloursRGB_string, bodyColor: bodyColor)
+        
+        print("")
+        print("")
+        print("colori con bande")
+        print(coloursRGB_string)
+        
+        printBands(coloursRGB_string: self.coloursRGB_string)
+        
     }
+    
+    
+    
+    func printBands(coloursRGB_string: [String]){
+            let filter = CIFilter(name: "CIConstantColorGenerator")!
+        
+            self.numberOfBands = coloursRGB_string.count
+        
+        
+            var band1Color_RGB: CIColor?
+            var band2Color_RGB: CIColor?
+            var band3Color_RGB: CIColor?
+            var band4Color_RGB: CIColor?
+            var band5Color_RGB: CIColor?
+            var band6Color_RGB: CIColor?
+        
+        
+        if(self.numberOfBands == 6){
+            self.longPress6_outlet.isEnabled = true
+            self.longPress5_outlet.isEnabled = true
+            self.longPress4_outlet.isEnabled = true
+            self.longPress3_outlet.isEnabled = true
+            self.longPress2_outlet.isEnabled = true
+            self.longPress1_outlet.isEnabled = true
+        } else if(self.numberOfBands == 5){
+            self.longPress6_outlet.isEnabled = true
+            self.longPress5_outlet.isEnabled = false
+            self.longPress4_outlet.isEnabled = true
+            self.longPress3_outlet.isEnabled = true
+            self.longPress2_outlet.isEnabled = true
+            self.longPress1_outlet.isEnabled = true
+        } else if(self.numberOfBands == 4){
+                self.longPress6_outlet.isEnabled = true
+                self.longPress5_outlet.isEnabled = false
+                self.longPress4_outlet.isEnabled = false
+                self.longPress3_outlet.isEnabled = true
+                self.longPress2_outlet.isEnabled = true
+                self.longPress1_outlet.isEnabled = true
+        } else if(self.numberOfBands == 3){
+            self.longPress6_outlet.isEnabled = true
+            self.longPress5_outlet.isEnabled = false
+            self.longPress4_outlet.isEnabled = false
+            self.longPress3_outlet.isEnabled = false
+            self.longPress2_outlet.isEnabled = true
+            self.longPress1_outlet.isEnabled = true
+        }
+        
+        
+        
+        
+        
+        if(self.numberOfBands! >= 3){
+        
+            print(self.numberOfBands)
+            
+        //stampo l'ultima banda
+        for i in stride(from: 0, to: self.standardColours_array.count, by: 1){
+            if(self.standardColours_array[i].name == coloursRGB_string[self.numberOfBands!-1]){
+                band6Color_RGB = self.standardColours_array[i].color
+            }
+        }
+            
+        
+        
+        filter.setValue(band6Color_RGB, forKey: "inputColor")
+        let uiCurrentBand6 = UIColor(ciColor: band6Color_RGB!)
+        let image_band6:UIImage = getImageWithColor(color: uiCurrentBand6, size: CGSize(width: CGFloat(15), height: CGFloat(79)), origin_x: 0, origin_y: 0)
+        self.band6_colorOutlet.image = image_band6
+        
+        
+        
+        //stampo prima banda
+        for i in stride(from: 0, to: self.standardColours_array.count, by: 1){
+            if(self.standardColours_array[i].name == coloursRGB_string[0]){
+                band1Color_RGB = self.standardColours_array[i].color
+            }
+        }
+        
+        filter.setValue(band1Color_RGB, forKey: "inputColor")
+        let uiCurrentBand1 = UIColor(ciColor: band1Color_RGB!)
+        let image_band1:UIImage = getImageWithColor(color: uiCurrentBand1, size: CGSize(width: CGFloat(15), height: CGFloat(79)), origin_x: 0, origin_y: 0)
+        self.band1_colorOutlet.image = image_band1
+        
+        
+        
+        
+        
+        //stampo seconda banda
+        for i in stride(from: 0, to: self.standardColours_array.count, by: 1){
+            if(self.standardColours_array[i].name == coloursRGB_string[1]){
+                band2Color_RGB = self.standardColours_array[i].color
+            }
+        }
+        
+        filter.setValue(band2Color_RGB, forKey: "inputColor")
+        let uiCurrentBand2 = UIColor(ciColor: band2Color_RGB!)
+        let image_band2:UIImage = getImageWithColor(color: uiCurrentBand2, size: CGSize(width: CGFloat(15), height: CGFloat(79)), origin_x: 0, origin_y: 0)
+        self.band2_colorOutlet.image = image_band2
+        
+        
+        
+        if(self.numberOfBands! >= 4){
+            //stampo terza banda
+            for i in stride(from: 0, to: self.standardColours_array.count, by: 1){
+                if(self.standardColours_array[i].name == coloursRGB_string[2]){
+                    band3Color_RGB = self.standardColours_array[i].color
+                }
+            }
+            
+            filter.setValue(band3Color_RGB, forKey: "inputColor")
+            let uiCurrentBand3 = UIColor(ciColor: band3Color_RGB!)
+            let image_band3:UIImage = getImageWithColor(color: uiCurrentBand3, size: CGSize(width: CGFloat(15), height: CGFloat(79)), origin_x: 0, origin_y: 0)
+            self.band3_colorOutlet.image = image_band3
+        }
+        
+        if(self.numberOfBands! >= 5){
+            //stampo quarta banda
+            for i in stride(from: 0, to: self.standardColours_array.count, by: 1){
+                if(self.standardColours_array[i].name == coloursRGB_string[3]){
+                    band4Color_RGB = self.standardColours_array[i].color
+                }
+            }
+            
+            filter.setValue(band4Color_RGB, forKey: "inputColor")
+            let uiCurrentBand4 = UIColor(ciColor: band4Color_RGB!)
+            let image_band4:UIImage = getImageWithColor(color: uiCurrentBand4, size: CGSize(width: CGFloat(15), height: CGFloat(79)), origin_x: 0, origin_y: 0)
+            self.band4_colorOutlet.image = image_band4
+        }
+        
+        if(self.numberOfBands! == 6){
+            //stampo quarta banda
+            for i in stride(from: 0, to: self.standardColours_array.count, by: 1){
+                if(self.standardColours_array[i].name == coloursRGB_string[4]){
+                    band5Color_RGB = self.standardColours_array[i].color
+                }
+            }
+            
+            filter.setValue(band5Color_RGB, forKey: "inputColor")
+            let uiCurrentBand5 = UIColor(ciColor: band5Color_RGB!)
+            let image_band5:UIImage = getImageWithColor(color: uiCurrentBand5, size: CGSize(width: CGFloat(15), height: CGFloat(79)), origin_x: 0, origin_y: 0)
+            self.band5_colorOutlet.image = image_band5
+        }
+            
+            let outputValue = OutputValue()
+            
+            self.resistor_result_label.text = outputValue.generateOutputValue(arrayBands: coloursRGB_string)
+        
+    }//if gigante number of bands >= 3
+        else{
+            
+            self.errorImage_label.isHidden = false
+            self.outletLoading.stopAnimating()
+            self.outletLoading.isHidden = true
+            self.rect.layer.borderColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
+            return
+        }
+        
+    
+        
+        
+    }//fine funzione print_bands
     
     
 
@@ -1278,7 +1567,11 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         UIGraphicsBeginImageContextWithOptions(size, true, 0)
         color.setFill()
         UIRectFill(rect)
-        let image: UIImage = (UIGraphicsGetImageFromCurrentImageContext())!
+        
+        //guard let image: UIImage = try (UIGraphicsGetImageFromCurrentImageContext()) else {return self.safe_image!}
+        
+       let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        
         
         UIGraphicsEndImageContext()
         
@@ -1294,9 +1587,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     
     
-    
-    
-    
+  
     
     
     
@@ -1318,25 +1609,17 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         
         let arrayDim = Int(self.blackArray.count)
         print(arrayDim)
+        
         for counter in 0..<arrayDim {
             let current_color = getPixelColor(image: image, pos: blackArray[counter])
             self.coloursArray.append(current_color)
+            
+            self.arrayColorAndPosition.append(colorAndPosition(r: Int(current_color.red*255), g: Int(current_color.green*255), b: Int(current_color.blue*255), x: CGFloat(blackArray[counter].x), y: CGFloat(CGFloat(blackArray[counter].y))))
         }
         
         
+        self.coloursArray = colorAverageBy_x(colorsAndPositionArray: self.arrayColorAndPosition)
     
-        self.coloursArray_8bit = self.convertArray_8bit(arrayRGB: self.coloursArray)//da RGB a 8 bit
-        self.coloursArray_24bit = array8To24(array8bit: self.coloursArray_8bit)
-        //print("prima del merge a 3, ora siamo in 24bit")
-        print("merge a 3")
-        self.coloursArray_24bit = colorAverageBy3(colorsArray: coloursArray_24bit)
-        //print("secondo merge")
-        //self.coloursArray_24bit = colorAverageBy2(colorsArray: coloursArray_24bit)
-        
-       
-
-        
-        //generateSolidColor(coloursArray: self.coloursArray_24bit)
         generateSolidColor(coloursArray: self.coloursArray)
         
         
@@ -1359,39 +1642,69 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         let stepper_x: Int = Int((effectiveRect?.width)!)
         let stepper_y: Int = Int((effectiveRect?.height)!)
         
-        let adaptiveStepper_x = Int((250/screenScale))
+        let adaptiveStepper_x = Int((500/screenScale))  //originale 420/screenScale
         
-        for point_x in stride(from: stepper_x/adaptiveStepper_x, to: Int((effectiveRect?.width)!), by: stepper_x/adaptiveStepper_x){
-            for point_y in stride(from: (stepper_y/2)-Int(screenScale), to: (stepper_y/2)+Int(screenScale), by: Int(screenScale)){
+        if(captureDevice.torchMode == .off){
+            for point_x in stride(from: stepper_x/adaptiveStepper_x, to: Int((effectiveRect?.width)!), by: stepper_x/adaptiveStepper_x){
+            for point_y in stride(from: (stepper_y/2)-Int(3*screenScale), to: (stepper_y/2)+Int(3*screenScale), by: Int(3*screenScale)){
             //scorre il rettangolo di interesse da sinistra verso destra, analizza colonna per colonna
             let pixel = CGPoint(x: CGFloat(point_x), y: CGFloat(point_y))
                 let curr_color = getPixelColor_threshold(image: ciBlackImage, pos: pixel)
-                if(curr_color == CIColor.black){
-                self.blackArray.append(pixel)
+                
+                    if(curr_color == CIColor.black){
+                        self.blackArray.append(pixel)
+                    }
+                
                 }
             }
+        } else {
+            for point_x in stride(from: stepper_x/adaptiveStepper_x, to: Int((effectiveRect?.width)!), by: stepper_x/adaptiveStepper_x){
+                
+                for point_y in stride(from: (6*stepper_y/12)-Int(4*stepper_y/12)-Int(screenScale), to: (6*stepper_y/12)-Int(5*stepper_y/12)-Int(screenScale), by: Int(stepper_y/12)){
+                    //scorre il rettangolo di interesse da sinistra verso destra, analizza colonna per colonna
+                    let pixel = CGPoint(x: CGFloat(point_x), y: CGFloat(point_y))
+                    let curr_color = getPixelColor_threshold(image: ciBlackImage, pos: pixel)
+                    
+                    if(curr_color == CIColor.black){
+                        self.blackArray.append(pixel)
+                    }
+                }
+                
+                
+                for point_y in stride(from: (6*stepper_y/12)+Int(7*stepper_y/12)+Int(screenScale), to: (6*stepper_y/12)+Int(8*stepper_y/12)+Int(screenScale), by: Int(stepper_y/12)){
+                    //scorre il rettangolo di interesse da sinistra verso destra, analizza colonna per colonna
+                    let pixel = CGPoint(x: CGFloat(point_x), y: CGFloat(point_y))
+                    let curr_color = getPixelColor_threshold(image: ciBlackImage, pos: pixel)
+                    
+                    if(curr_color == CIColor.black){
+                        self.blackArray.append(pixel)
+                    }
+                }
+                
+
+                
+                
+            }
+            
         }
         
         
-        let blackArrayDim = blackArray.count
         
         
-        if(blackArrayDim > 5 && blackArrayDim < 400){
-        //self.catchedResistorBackground = catchResistorBackground(firstPoint: blackArray[0], lastPoint: blackArray[blackArrayDim-1], image: image_coloured)
+        if(blackArray.count >= 420){
+            print("HO ACQUISITO")
+            print(blackArray.count)
+            repeat{
+                self.blackArray = arrayReduction_by10(passed_array: blackArray)
+                print("Sto riducendo")
+                
+            } while (blackArray.count >= 420)
+            print("Array ridotto")
+            print(blackArray.count)
+        }
         
-            /*
-            //stampa il colore del corpo della resistenza
-            let filter = CIFilter(name: "CIConstantColorGenerator")!
-            let current_color = catchedResistorBackground
-            filter.setValue(current_color, forKey: "inputColor")
-            
-            let uiCurrent_color = UIColor(ciColor: current_color!)
-            let image:UIImage = getImageWithColor(color: uiCurrent_color, size: CGSize(width: 5, height: 5), origin_x: 0, origin_y: 0)
-            let imageView: UIImageView = UIImageView(image: image)
-            imageView.frame = CGRect(x: 0, y: 0, width: 5, height: 5 )
-            self.outletBody.addSubview(imageView)
-            //fine stampa body*/
-            
+        if(blackArray.count > 30 && blackArray.count < 420){
+           
             self.printColors(image: image_coloured)//provare nella viewDidLoad
             } else {
             
@@ -1458,7 +1771,8 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         /*(((((((((((((((((((((((((((((((()))))))))))))))))))))))))))))))))))))*/
         
         //ciImage = exposureAdjustOnColors(image: image)!
-        //ciImage = colorAdjust(image: image)!
+        ciImage = colorAdjust(image: image)!
+       
         
         
         
@@ -1491,39 +1805,29 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     
     
-    func colorAverageBy3(colorsArray: [CIColor]) -> [CIColor]{
+    func colorAverageBy_x(colorsAndPositionArray: [colorAndPosition]) -> [CIColor]{
         
         var mergedColorsArray = [CIColor]()
         
-        let endOfArray = colorsArray.count
+        let endOfArray = colorsAndPositionArray.count
         
-        for counter in stride(from: 0, to: endOfArray-3, by: 3) {
+        
+        for counter in stride(from: 0, to: endOfArray-1, by: 1) {
+            
+            if(colorsAndPositionArray[counter+1].x == colorsAndPositionArray[counter].x){
+                let averageRed = (colorsAndPositionArray[counter+1].r+colorsAndPositionArray[counter].r)/2
+                let averageGreen = (colorsAndPositionArray[counter+1].g+colorsAndPositionArray[counter].g)/2
+                let averageBlue = (colorsAndPositionArray[counter+1].b+colorsAndPositionArray[counter].b)/2
+                
+                mergedColorsArray.append(CIColor(red: CGFloat(averageRed)/255, green: CGFloat(averageGreen)/255, blue: CGFloat(averageBlue)/255))
+                
+            }
             
             
-            let tempR1 = (colorsArray[counter].red*255)
-            let tempR2 = (colorsArray[counter+1].red*255)
-            let tempR3 = (colorsArray[counter+2].red*255)
-            
-            let tempG1 = (colorsArray[counter].green*255)
-            let tempG2 = (colorsArray[counter+1].green*255)
-            let tempG3 = (colorsArray[counter+2].green*255)
-            
-            let tempB1 = (colorsArray[counter].blue*255)
-            let tempB2 = (colorsArray[counter+1].blue*255)
-            let tempB3 = (colorsArray[counter+2].blue*255)
-            
-            let averageR = (tempR1+tempR2+tempR3)/3
-            let averageG = (tempG1+tempG2+tempG3)/3
-            let averageB = (tempB1+tempB2+tempB3)/3
-            
-            
-            mergedColorsArray.append(CIColor(red: averageR/255, green: averageG/255, blue: averageB/255))
-
-        }
+        }//for average_color
+        
         
         self.numberOfColors = Int(mergedColorsArray.count)
-        
-        print(mergedColorsArray.count)
         
         return mergedColorsArray
     }
@@ -1531,81 +1835,52 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     
     
-
     
     
-    func catchResistorBackground(firstPoint: CGPoint, lastPoint: CGPoint, image: CIImage) -> CIColor{
-        let first_x = firstPoint.x - 3*screenScale
-        let last_x = lastPoint.x + 3*screenScale
-        var color1: CIColor?
-        var color2: CIColor?
-        color1 = getPixelColor(image: image , pos: CGPoint(x: first_x, y: firstPoint.y))
-        color2 = getPixelColor(image: image , pos: CGPoint(x: last_x, y: lastPoint.y))
+    
+    
+    func arrayReduction_by10(passed_array: [CGPoint]) -> [CGPoint]{
+        var array = passed_array
+        let array_dim = array.count
+        var j: Int = 0
         
-        let catchedResistorBackground = CIColor(red: ((color1?.red)!+(color2?.red)!)/2, green: ((color1?.green)!+(color2?.green)!)/2, blue: ((color1?.blue)!+(color2?.blue)!)/2)
-   
-        
-        return catchedResistorBackground
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    func convertArray_8bit(arrayRGB: [CIColor]) -> [color8bit]{
-        
-        let arrayRGB_dim = arrayRGB.count
-        var array_8bit = [color8bit]()
-        
-        for i in stride(from: 0, to: arrayRGB_dim, by: 1){
-            let red_8bit: UInt8 = UInt8(roundf( Float((arrayRGB[i].red*7)) ))
-            let green_8bit: UInt8 = UInt8(roundf( Float((arrayRGB[i].green*7)) ))
-            let blue_8bit: UInt8 = UInt8(roundf( Float((arrayRGB[i].blue*3)) ))
+        for counter in stride(from: array_dim, to: 0, by: -1){
+            j += 1
             
-            array_8bit.append(color8bit(r: red_8bit, g: green_8bit, b: blue_8bit))
+            if (j >= 9){
+                array.remove(at: counter)
+                j = 0
+            }
             
-        }//chiusura for
-        
-        return array_8bit
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    func array8To24 (array8bit: [color8bit]) -> [CIColor]{
-        
-       
-        var array_24bit = [CIColor]()
-        
-        for i in stride(from: 0, to: array8bit.count, by: 1){
-            let temp_red = CGFloat(array8bit[i].r!)/7
-            
-            let temp_green = CGFloat(array8bit[i].g!)/7
-            
-            let temp_blue = CGFloat(array8bit[i].b!)/3
-            
-            
-            array_24bit.append(CIColor(red: CGFloat(temp_red), green: CGFloat(temp_green), blue: CGFloat(temp_blue)))
         }
         
-        self.array24_dim = array_24bit.count
-        return array_24bit
+        return array
+        
+        
     }
     
+    
+    
+    func reverseArray(array: [String]) -> [String]{
+        var curr_array = array
+        var second_array = [String]()
+        let array_dim = curr_array.count
+        
+        print("array prima del reverse")
+        print(curr_array)
+        
+        for i in stride(from: array_dim-1, to: -1, by: -1)
+        {
+            second_array.append(curr_array[i])
+            print("appendo")
+            print(curr_array[i])
+        }
+        
+        print("array dopo reverse")
+        print(second_array)
+        
+        return second_array
+    }
     
     
     
@@ -1634,18 +1909,14 @@ extension ViewController: AVCapturePhotoCaptureDelegate{
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let imageData = photo.fileDataRepresentation(){
-            //print(imageData)
             
             let uiImage = UIImage(data: imageData)//non me lo zoomma
             var ciImage = CIImage(image: uiImage!)
             
             ciImage = ciImage?.oriented(forExifOrientation: 6)//orientamento orizzontale
-            //print("Orientamento OK!")
             var cgImage = context.createCGImage(ciImage!, from: (ciImage?.extent)!)
-            //print("Cast a CGImage OK!")
             cgImage = cgImage?.cropping(to: effectiveRect!)
             image = UIImage(cgImage: cgImage!)
-            //print("Cast a UIImage OK!")
            
             //image = UIImage(data: imageData)
             
